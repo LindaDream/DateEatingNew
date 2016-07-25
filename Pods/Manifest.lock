@@ -17,7 +17,7 @@ PODS:
   - AVOSCloud (3.3.5)
   - BaiduMapKit (3.0.0)
   - HyphenateFullSDK (3.1.4)
-  - MJRefresh (3.1.10)
+  - MJRefresh (3.1.12)
   - SDCycleScrollView (1.65):
     - SDWebImage (~> 3.7)
   - SDWebImage (3.8.1):
@@ -51,7 +51,7 @@ SPEC CHECKSUMS:
   AVOSCloud: 1fe170768bee7e05bc3ea86e38d5bddb105cb957
   BaiduMapKit: de2a726d5296d6b2dc0e974b683af73153608dcd
   HyphenateFullSDK: 0640f9710da83da7a08928f074da718ed3368277
-  MJRefresh: bb72948c985914b0b5cecac573a2c69a8915fb02
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4

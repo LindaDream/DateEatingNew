@@ -1638,13 +1638,13 @@
 				CEBF8F701D459CA600406A61 /* skin.png */,
 				CEB827091D41B99000BB2E31 /* YFunnyViewController.h */,
 				CEB8270A1D41B99000BB2E31 /* YFunnyViewController.m */,
+				CEB826831D41B56700BB2E31 /* YFunnyViewController.xib */,
 				CEB8267D1D41B56700BB2E31 /* YEditViewController.h */,
 				CEB8267E1D41B56700BB2E31 /* YEditViewController.m */,
 				CEB8267F1D41B56700BB2E31 /* YEditViewController.xib */,
 				CEB826801D41B56700BB2E31 /* YFunnyDetailViewController.h */,
 				CEB826811D41B56700BB2E31 /* YFunnyDetailViewController.m */,
 				CEB826821D41B56700BB2E31 /* YFunnyDetailViewController.xib */,
-				CEB826831D41B56700BB2E31 /* YFunnyViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

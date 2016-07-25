@@ -298,6 +298,12 @@ static NSString *const contentCellId = @"contentCellId";
         
         appDelegate.window.userInteractionEnabled = NO;
         
+        // 获取当前系统时间
+        NSString* date;
+        NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"YYYY-MM-dd hh:mm:ss"];
+        date = [formatter stringFromDate:[NSDate date]];
+        
         NSString *fromName = [AVUser currentUser].username;
         NSString *ownerId = [NSString stringWithFormat:@"%@%@",_funny.publishName,_funny.publishTime];
         AVObject *contentObject = [[AVObject alloc] initWithClassName:@"ContentObject"];
@@ -305,7 +311,7 @@ static NSString *const contentCellId = @"contentCellId";
         [contentObject setObject:fromName forKey:@"fromName"];
         [contentObject setObject:_funny.publishName forKey:@"toName"];
         [contentObject setObject:self.contentTextField.text forKey:@"contents"];
-        
+        [contentObject setObject:date forKey:@"contentTime"];
         [contentObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             
             dispatch_async(dispatch_get_main_queue(), ^{

@@ -16,7 +16,7 @@
 
 @property (strong,nonatomic) NSString *toName;
 
-@property (strong,nonatomic) NSDictionary *createdAt;
+@property (strong,nonatomic) NSString *contentTime;
 
 @property (strong,nonatomic) NSString *contents;
 

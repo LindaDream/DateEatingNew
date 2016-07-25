@@ -66,6 +66,9 @@
 @property (strong,nonatomic) NSString *rows;
 
 @property(strong,nonatomic)NSMutableArray *msgArray;
+
+// 城市按钮
+@property (strong,nonatomic) UIButton *cityBtn;
 @end
 
 
@@ -99,13 +102,8 @@ static NSString *const cityCellId = @"cityCellId";
     self.automaticallyAdjustsScrollViewInsets = NO;
     // 设置view的背景色
     self.view.backgroundColor = YRGBbg;
-    // 设置导航栏左边的按钮
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"城市" style:(UIBarButtonItemStylePlain) target:self action:@selector(tagClick)];
     
-    // 设置导航栏右侧按钮
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithImage:@"MainTagSubIcon" heightImage:@"MainTagSubIconClick" target:self action:@selector(rightClick)];
-    
-    
+    [self addNavigationItems];
     
     // 初始化isSelected等
     self.isSelected = NO;
@@ -163,6 +161,25 @@ static NSString *const cityCellId = @"cityCellId";
     }];
     
 }
+
+- (void)addNavigationItems{
+    
+    // 设置导航栏左边的按钮
+    _cityBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    _cityBtn.frame = CGRectMake(10, 10, 40, 40);
+    //cityBtn.backgroundColor = [UIColor redColor];
+    //cityBtn.titleLabel.text = @"城市";
+    [_cityBtn setTitle:@"城市" forState:(UIControlStateNormal)];
+    [_cityBtn setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
+    [_cityBtn addTarget:self action:@selector(tagClick) forControlEvents:(UIControlEventTouchUpInside)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_cityBtn];
+    
+    // 设置导航栏右侧按钮
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithImage:@"MainTagSubIcon" heightImage:@"MainTagSubIconClick" target:self action:@selector(rightClick)];
+    
+}
+
+
 
 #pragma mark--夜间模式通知方法--
 - (void)change:(NSNotification *)notication{
@@ -430,17 +447,19 @@ static NSString *const cityCellId = @"cityCellId";
 
 #pragma mark -- scrollde 代理方法
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-
+    
     if (self.scroll == scrollView) {
         self.segment.selectedSegmentIndex = scrollView.contentOffset.x / kWidth;
         if (self.segment.selectedSegmentIndex == 0) {
             self.isMeal = @"美食";
-            
+            self.cityBtn.enabled = YES;
+            self.cityBtn.hidden = NO;
         }else{
             self.isMeal = @"玩乐";
-            
+            self.cityBtn.enabled = NO;
+            self.cityBtn.hidden = YES;
         }
-
+        
     }
     
 }
@@ -450,14 +469,15 @@ static NSString *const cityCellId = @"cityCellId";
     self.scroll.contentOffset = CGPointMake(kWidth * self.segment.selectedSegmentIndex, 0);
     if (self.segment.selectedSegmentIndex == 0) {
         self.isMeal = @"美食";
-        
+        self.cityBtn.enabled = YES;
+        self.cityBtn.hidden = NO;
     }else{
         self.isMeal = @"玩乐";
-        
+        self.cityBtn.enabled = NO;
+        self.cityBtn.hidden = YES;
     }
     
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

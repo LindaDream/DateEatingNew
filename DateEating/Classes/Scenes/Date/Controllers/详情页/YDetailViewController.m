@@ -279,10 +279,17 @@
                 }
                 
                 if (isHave) {
-                    YChatViewController *chatVC = [YChatViewController new];
-                    chatVC.title = cell.model.user.nick;
-                    chatVC.toName = cell.model.user.nick;
-                    [self.navigationController pushViewController:chatVC animated:YES];
+                    if ([cell.model.user.nick isEqualToString:[AVUser currentUser].username]) {
+                        
+                        [self showAlertViewWithMessage:@"不能和自己聊天"];
+                        
+                    }else{
+                        YChatViewController *chatVC = [YChatViewController new];
+                        chatVC.title = cell.model.user.nick;
+                        chatVC.toName = cell.model.user.nick;
+                        [self.navigationController pushViewController:chatVC animated:YES];
+                    }
+                    
                 }else {
                     EMError *error = [[EMClient sharedClient].contactManager addContact:eventName message:@"我想加您为好友"];
                     if (!error) {
@@ -290,11 +297,14 @@
                     }
                 }
                 
+            }else{
+                NSLog(@"%d",error1.code);
             }
         }
     } failurRequest:^(NSError *error) {
     }];
 }
+
 // 用户B申请加A为好友后，用户A会收到这个回调
 - (void)didReceiveFriendInvitationFromUsername:(NSString *)aUsername
                                        message:(NSString *)aMessage{

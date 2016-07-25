@@ -48,7 +48,7 @@
     
 #pragma mark--界面--
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = [UIColor yellowColor];
+    self.window.backgroundColor = [UIColor whiteColor];
     // 添加UITabBarC ontroller
     UITabBarController *tabBarController = [[YTabBarController alloc] init];
     if (nil == currentUser || nil == [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"]) {

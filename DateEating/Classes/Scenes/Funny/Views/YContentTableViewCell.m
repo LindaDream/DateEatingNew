@@ -42,7 +42,8 @@
 
 - (NSString *)calculateTime{
     
-    NSDictionary *createTime = [self analysisTimeWithTime:_content.createdAt[@"iso"]];
+    NSDictionary *createTime = [self analysisTimeWithTime:_content.contentTime];
+    NSLog(@"_content.contents = %@,_content.contentTime = %@",_content.contents,_content.contentTime);
     NSLog(@"%@",createTime);
     // 获取当前系统时间
     NSString* date;

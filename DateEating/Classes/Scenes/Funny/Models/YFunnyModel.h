@@ -15,16 +15,7 @@
 @property (strong,nonatomic) NSString *publishContent; // 发布的文字内容
 @property (strong,nonatomic) NSMutableArray *imgArr;   // 存放图片的数组
 
-// 以下是九张图片
-//@property (strong,nonatomic) UIImage *image0;
-//@property (strong,nonatomic) UIImage *image1;
-//@property (strong,nonatomic) UIImage *image2;
-//@property (strong,nonatomic) UIImage *image3;
-//@property (strong,nonatomic) UIImage *image4;
-//@property (strong,nonatomic) UIImage *image5;
-//@property (strong,nonatomic) UIImage *image6;
-//@property (strong,nonatomic) UIImage *image7;
-//@property (strong,nonatomic) UIImage *image8;
+
 
 // 以下是九张图片对应的AVFileUrl
 @property (strong,nonatomic) NSString *image0;
