@@ -201,9 +201,15 @@ static NSString *const listCellIdentifier = @"listCell";
         [self presentViewController:loginVC animated:YES completion:nil];
     }else{
         [AVUser logOut];
-        [[EMClient sharedClient].options setIsAutoLogin:NO];
-        [self.meTableView reloadData];
-        [self addHeadView];
+        EMError *error = [[EMClient sharedClient] logout:YES];
+        if (!error) {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userName"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"passWord"];
+            [self.meTableView reloadData];
+            [self addHeadView];
+        }else{
+            NSLog(@"%d",error.code);
+        }
     }
 }
 #pragma mark--完善资料--
@@ -494,9 +500,15 @@ static NSString *const listCellIdentifier = @"listCell";
 // 退出按钮
 - (void)exitAction{
     [AVUser logOut];
-    [[EMClient sharedClient].options setIsAutoLogin:NO];
-    YTabBarController *tabBarVC = [YTabBarController new];
-    [self presentViewController:tabBarVC animated:YES completion:nil];
+    EMError *error = [[EMClient sharedClient] logout:YES];
+    if (!error) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userName"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"passWord"];
+        YTabBarController *tabBarVC = [YTabBarController new];
+        [self presentViewController:tabBarVC animated:YES completion:nil];
+    }else{
+        NSLog(@"%d",error.code);
+    }
 }
 
 // 计算文件大小

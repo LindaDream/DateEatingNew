@@ -43,7 +43,8 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
     [self.funnyTableView registerNib:[UINib nibWithNibName:@"YFunnyTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:funnyCellId];
     [self.funnyTableView registerNib:[UINib nibWithNibName:@"YFunnyNoImgTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:funnyNoImgCellId];
     self.arr = [NSMutableArray array];
-//    [self getAllFunny];
+    
+    self.funnyTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
 }
 
