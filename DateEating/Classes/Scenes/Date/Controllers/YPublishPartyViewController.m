@@ -286,6 +286,18 @@ static NSString *const systemCellIdentifier = @"systemCell";
     self.pickerView.backgroundColor = [UIColor whiteColor];
     self.pickerView.delegate = self;
     self.pickerView.dataSource = self;
+    // 设置选中当天日期
+    NSString *date = nil;
+    NSInteger index = 0;
+    NSDateFormatter *fomatter = [NSDateFormatter new];
+    [fomatter setDateFormat:@"YYYY-MM-dd"];
+    date = [fomatter stringFromDate:[NSDate date]];
+    for (NSString *dateStr in [[YTimePiker sharedYTimePiker] dateArray]) {
+        if ([[dateStr substringToIndex:10] isEqualToString:date]) {
+            index = [[[YTimePiker sharedYTimePiker] dateArray] indexOfObject:dateStr];
+        }
+    }
+    [self.pickerView selectRow:index inComponent:0 animated:YES];
     [self.backView addSubview:self.pickerView];
 }
 #pragma mark--pickerView的dataSource协议中的方法，返回控件包含几列--
@@ -315,33 +327,33 @@ static NSString *const systemCellIdentifier = @"systemCell";
 #pragma mark--pickerView点击方法--
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     if (component == 0) {
-        self.dateStr = [self.dateStr stringByAppendingString:[[[YTimePiker sharedYTimePiker] dateArray] objectAtIndex:row]].mutableCopy;
+        //self.dateStr = [self.dateStr stringByAppendingString:[[[YTimePiker sharedYTimePiker] dateArray] objectAtIndex:row]].mutableCopy;
         self.dateTmpStr = [[[YTimePiker sharedYTimePiker] dateArray] objectAtIndex:row];
     }else if (component == 1){
-        self.dateStr = [self.dateStr stringByAppendingString:[NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row]]].mutableCopy;
+       // self.dateStr = [self.dateStr stringByAppendingString:[NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row]]].mutableCopy;
         self.hourTmpStr = [NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row]];
     }
     if (component == 2) {
-        self.dateStr = [self.dateStr stringByAppendingString:[NSString stringWithFormat:@": %@",[[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row]]].mutableCopy;
+        //self.dateStr = [self.dateStr stringByAppendingString:[NSString stringWithFormat:@": %@",[[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row]]].mutableCopy;
         self.minuteTmpStr = [[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row];
-        self.message = [NSString stringWithFormat:@"您选择的时间是%@",self.dateStr];
+       self.message = [NSString stringWithFormat:@"%@%@ : %@",self.dateTmpStr,self.hourTmpStr,self.minuteTmpStr];
         [self selectedTime:self.message];
     }
 }
 - (void)selectedTime:(NSString *)message{
-    NSMutableString *str = @"".mutableCopy;
-    str = [[[str stringByAppendingString:self.dateTmpStr].mutableCopy stringByAppendingString:self.hourTmpStr].mutableCopy stringByAppendingString:[NSString stringWithFormat:@": %@",self.minuteTmpStr].mutableCopy].mutableCopy;
-    if (![self.dateStr isEqualToString:str]) {
-        UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:@"请选择正确的时间,例如:2016-01-1周五 00 : 00。请依次选择日期和时间!" preferredStyle:(UIAlertControllerStyleAlert)];
-        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
-            self.dateStr = @"".mutableCopy;
-        }];
-        [alertView addAction:doneAction];
-        [self presentViewController:alertView animated:YES completion:nil];
-    }else{
-        UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:(UIAlertControllerStyleAlert)];
+//    NSMutableString *str = @"".mutableCopy;
+//    str = [[[str stringByAppendingString:self.dateTmpStr].mutableCopy stringByAppendingString:self.hourTmpStr].mutableCopy stringByAppendingString:[NSString stringWithFormat:@": %@",self.minuteTmpStr].mutableCopy].mutableCopy;
+//    if (![self.dateStr isEqualToString:str]) {
+//        UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:@"请选择正确的时间,例如:2016-01-1周五 00 : 00。请依次选择日期和时间!" preferredStyle:(UIAlertControllerStyleAlert)];
+//        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
+//            self.dateStr = @"".mutableCopy;
+//        }];
+//        [alertView addAction:doneAction];
+//        [self presentViewController:alertView animated:YES completion:nil];
+//    }else{
+        UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"您选择的时间是:%@",message] preferredStyle:(UIAlertControllerStyleAlert)];
         UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-            self.timeStr = self.dateStr;
+            self.timeStr = message;
             self.dateStr = @"".mutableCopy;
             [self.backView removeFromSuperview];
             [self.partyTableView reloadData];
@@ -352,7 +364,7 @@ static NSString *const systemCellIdentifier = @"systemCell";
         [alertView addAction:cancelAction];
         [alertView addAction:doneAction];
         [self presentViewController:alertView animated:YES completion:nil];
-    }
+//    }
 }
 #pragma mark--设置每列的宽度--
 -(CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component{
