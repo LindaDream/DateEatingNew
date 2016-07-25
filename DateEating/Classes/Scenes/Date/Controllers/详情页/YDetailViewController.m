@@ -91,8 +91,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange) name:UITextFieldTextDidChangeNotification object:nil];
     self.message.returnKeyType = UIReturnKeyDone;
     self.message.delegate = self;
-    [self.sendBtn setBackgroundColor:YRGBColor(220, 220, 220)];
     self.sendBtn.enabled = NO;
+    self.message.backgroundColor = [UIColor groupTableViewBackgroundColor];
     UITapGestureRecognizer *tableViewGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentTableViewTouchInSide)];
     tableViewGesture.numberOfTapsRequired = 1;
     tableViewGesture.cancelsTouchesInView = NO;
