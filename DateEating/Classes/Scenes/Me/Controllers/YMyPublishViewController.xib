@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YMyPublishViewController">
+            <connections>
+                <outlet property="backScrollView" destination="92d-sI-XLk" id="z58-JZ-LAG"/>
+                <outlet property="dateOrPartySegment" destination="ctx-9v-zqH" id="l8L-Fh-JBw"/>
+                <outlet property="dateTableView" destination="l4X-O1-1jP" id="wSO-bp-iec"/>
+                <outlet property="partyTableView" destination="LVW-Y2-png" id="gY8-FJ-6AA"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ctx-9v-zqH">
+                    <rect key="frame" x="0.0" y="64" width="414" height="29"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="414" id="R6t-Q2-tQG"/>
+                        <constraint firstAttribute="height" constant="28" id="qpX-ZN-Pf5"/>
+                    </constraints>
+                    <segments>
+                        <segment title="约会"/>
+                        <segment title="聚会"/>
+                    </segments>
+                    <color key="tintColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                </segmentedControl>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="92d-sI-XLk">
+                    <rect key="frame" x="0.0" y="94" width="414" height="642"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="l4X-O1-1jP">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="642"/>
+                            <animations/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="wJ9-GX-WXh"/>
+                                <outlet property="delegate" destination="-1" id="ZZU-xr-5AE"/>
+                            </connections>
+                        </tableView>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LVW-Y2-png">
+                            <rect key="frame" x="414" y="0.0" width="414" height="642"/>
+                            <animations/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="Jf6-xQ-Ify"/>
+                                <outlet property="delegate" destination="-1" id="e8A-g4-tCu"/>
+                            </connections>
+                        </tableView>
+                    </subviews>
+                    <animations/>
+                    <constraints>
+                        <constraint firstItem="l4X-O1-1jP" firstAttribute="leading" secondItem="92d-sI-XLk" secondAttribute="leading" id="28i-VS-v5E"/>
+                        <constraint firstAttribute="bottom" secondItem="LVW-Y2-png" secondAttribute="bottom" id="4J1-Me-uvh"/>
+                        <constraint firstItem="LVW-Y2-png" firstAttribute="width" secondItem="92d-sI-XLk" secondAttribute="width" id="7TP-fU-Y1S"/>
+                        <constraint firstItem="l4X-O1-1jP" firstAttribute="height" secondItem="92d-sI-XLk" secondAttribute="height" id="CBg-xY-dF5"/>
+                        <constraint firstAttribute="trailing" secondItem="LVW-Y2-png" secondAttribute="trailing" id="Jxm-oW-YoV"/>
+                        <constraint firstItem="LVW-Y2-png" firstAttribute="height" secondItem="92d-sI-XLk" secondAttribute="height" id="KId-n6-UDP"/>
+                        <constraint firstItem="l4X-O1-1jP" firstAttribute="width" secondItem="92d-sI-XLk" secondAttribute="width" id="LNJ-zn-dtZ"/>
+                        <constraint firstItem="l4X-O1-1jP" firstAttribute="top" secondItem="92d-sI-XLk" secondAttribute="top" id="Uap-cj-2PG"/>
+                        <constraint firstItem="LVW-Y2-png" firstAttribute="leading" secondItem="l4X-O1-1jP" secondAttribute="trailing" id="dcg-Ee-Po1"/>
+                        <constraint firstItem="LVW-Y2-png" firstAttribute="top" secondItem="92d-sI-XLk" secondAttribute="top" id="ehs-7z-PDb"/>
+                        <constraint firstAttribute="bottom" secondItem="l4X-O1-1jP" secondAttribute="bottom" id="gDW-Ee-66H"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="92d-sI-XLk" secondAttribute="trailing" id="2Pq-9G-9hu"/>
+                <constraint firstAttribute="bottom" secondItem="92d-sI-XLk" secondAttribute="bottom" id="7HK-55-wAc"/>
+                <constraint firstItem="92d-sI-XLk" firstAttribute="top" secondItem="ctx-9v-zqH" secondAttribute="bottom" constant="2" id="Bu6-qu-gbV"/>
+                <constraint firstItem="ctx-9v-zqH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="PfL-XP-lwC"/>
+                <constraint firstAttribute="trailing" secondItem="ctx-9v-zqH" secondAttribute="trailing" id="VQl-EA-tXQ"/>
+                <constraint firstItem="92d-sI-XLk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hf2-zs-gbw"/>
+                <constraint firstItem="ctx-9v-zqH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rIR-tU-YFn"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+            <point key="canvasLocation" x="541" y="369"/>
+        </view>
+    </objects>
+</document>

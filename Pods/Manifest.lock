@@ -1,0 +1,62 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - AVOSCloud (3.3.5)
+  - BaiduMapKit (3.0.0)
+  - HyphenateFullSDK (3.1.4)
+  - MJRefresh (3.1.10)
+  - SDCycleScrollView (1.65):
+    - SDWebImage (~> 3.7)
+  - SDWebImage (3.8.1):
+    - SDWebImage/Core (= 3.8.1)
+  - SDWebImage/Core (3.8.1)
+  - SVProgressHUD (2.0.3)
+  - UMengSocialCOM (5.2.1)
+
+DEPENDENCIES:
+  - AFNetworking (~> 3.1.0)
+  - AVOSCloud
+  - BaiduMapKit
+  - HyphenateFullSDK (from `https://github.com/easemob/hyphenate-full-cocoapods.git`)
+  - MJRefresh (~> 3.1.9)
+  - SDCycleScrollView (~> 1.65)
+  - SDWebImage (~> 3.8.1)
+  - SVProgressHUD (~> 2.0.3)
+  - UMengSocialCOM (~> 5.2.1)
+
+EXTERNAL SOURCES:
+  HyphenateFullSDK:
+    :git: https://github.com/easemob/hyphenate-full-cocoapods.git
+
+CHECKOUT OPTIONS:
+  HyphenateFullSDK:
+    :commit: c2c32b7451f9239cb0be8ced67b3836e6f4288e4
+    :git: https://github.com/easemob/hyphenate-full-cocoapods.git
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AVOSCloud: 1fe170768bee7e05bc3ea86e38d5bddb105cb957
+  BaiduMapKit: de2a726d5296d6b2dc0e974b683af73153608dcd
+  HyphenateFullSDK: 0640f9710da83da7a08928f074da718ed3368277
+  MJRefresh: bb72948c985914b0b5cecac573a2c69a8915fb02
+  SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
+  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
+  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
+  UMengSocialCOM: 074c135ce349aa4c8848d3fb8458757bcb6ffb67
+
+PODFILE CHECKSUM: d337c1dc25fc03c4fcd6bc584d35182d6e26f430
+
+COCOAPODS: 1.0.1
