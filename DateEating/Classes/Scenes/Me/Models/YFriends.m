@@ -15,15 +15,35 @@
     
     NSArray *conversationList = [[EMClient sharedClient].chatManager loadAllConversationsFromDB];;
     NSMutableArray *friendsArr = [NSMutableArray array];
-    
+    NSLog(@"%@",conversationList);
     for (EMConversation *conversation in conversationList) {
-        YFriends *friend = [YFriends new];
-        friend.friendName = conversation.conversationId;
-        NSString *lastChatMessage = [self getEveryFriendLastChatMessageWithConversation:conversation];
-        if (lastChatMessage != nil) {
-            friend.lastChatMessage = lastChatMessage;
+        if (friendsArr.count != 0) {
+            BOOL flag = NO;
+            for (YFriends *f in friendsArr) {
+                if (f.friendName == conversation.conversationId) {
+                    flag = YES;
+                    break;
+                }
+            }
+            if (flag == NO) {
+                YFriends *friend = [YFriends new];
+                friend.friendName = conversation.conversationId;
+                NSString *lastChatMessage = [self getEveryFriendLastChatMessageWithConversation:conversation];
+                if (lastChatMessage != nil) {
+                    friend.lastChatMessage = lastChatMessage;
+                }
+                [friendsArr addObject:friend];
+            }
+        }else{
+            YFriends *friend = [YFriends new];
+            friend.friendName = conversation.conversationId;
+            NSString *lastChatMessage = [self getEveryFriendLastChatMessageWithConversation:conversation];
+            if (lastChatMessage != nil) {
+                friend.lastChatMessage = lastChatMessage;
+            }
+            [friendsArr addObject:friend];
         }
-        [friendsArr addObject:friend];
+        
     }
 
     return friendsArr;
@@ -47,7 +67,11 @@
     return nil;
 }
 
+- (NSString *)description{
 
+    return [NSString stringWithFormat:@"%@",self.friendName];
+    
+}
 
 
 @end
