@@ -42,6 +42,7 @@
 @property(strong,nonatomic)UIVisualEffectView *visualView;
 @property(assign,nonatomic) int tempCount;
 @property(strong,nonatomic)EMConversation *conversation;
+@property(strong,nonatomic)NSMutableDictionary *dict;
 @end
 // 我的界面cell标识符
 static NSString *const clearCellIdentifier = @"clearCell";
@@ -73,8 +74,8 @@ static NSString *const listCellIdentifier = @"listCell";
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        self.unreadMessageCount = 0;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUnreadMessageCount:) name:@"unreadMessageCount" object:nil];
+        self.dict = [[NSMutableDictionary alloc] initWithCapacity:1000];
     }
     return self;
 }
@@ -95,17 +96,21 @@ static NSString *const listCellIdentifier = @"listCell";
 }
 #pragma mark--获取未读消息条数--
 - (void)getUnreadMessageCount:(NSNotification *)notification{
+    self.unreadMessageCount = 0;
     NSDictionary *userInfo = [notification userInfo];
-    self.userName = [userInfo objectForKey:@"userName"];
-    self.conversation = [[EMClient sharedClient].chatManager getConversation:self.userName type:(EMConversationTypeChat) createIfNotExist:YES];
-    self.tempCount = self.conversation.unreadMessagesCount;
-    self.unreadMessageCount = self.tempCount;
+    NSArray *message = [userInfo objectForKey:@"messageArray"];
+    for (EMMessage *msg in message) {
+        self.conversation = [[EMClient sharedClient].chatManager getConversation:msg.conversationId type:(EMConversationTypeChat) createIfNotExist:YES];
+        [self.dict setObject:[NSNumber numberWithInteger:self.conversation.unreadMessagesCount] forKey:msg.conversationId];
+        for (NSNumber *number in [self.dict allValues]) {
+            self.unreadMessageCount += number.integerValue;
+        }
+    }
     if (self.unreadMessageCount > 0) {
         self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%ld",self.unreadMessageCount];
     }else{
         self.tabBarItem.badgeValue = nil;
     }
-
 }
 #pragma mark--加号按钮通知方法--
 - (void)dateView:(NSNotification *)notification{
@@ -429,8 +434,9 @@ static NSString *const listCellIdentifier = @"listCell";
             if ([AVUser currentUser]) {
                 YFriendsViewController *friendsVC = [YFriendsViewController new];
                 self.tabBarItem.badgeValue = nil;
-                self.tempCount = 0;
                 [self.conversation markAllMessagesAsRead];
+                self.unreadMessageCount = 0;
+                friendsVC.conversationDict = self.dict;
                 [self.navigationController pushViewController:friendsVC animated:YES];
             }else{
                 YLoginViewController *loginVC = [YLoginViewController new];

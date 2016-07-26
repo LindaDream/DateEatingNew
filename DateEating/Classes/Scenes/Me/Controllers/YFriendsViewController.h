@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface YFriendsViewController : UIViewController
-
+@property(strong,nonatomic)NSDictionary *conversationDict;
 @end
