@@ -267,7 +267,7 @@
             if ([dict isEqualToString:@"该用户不存在"]) {
                 [self showAlertViewWithMessage:@"该用户还未开通聊天功能"];
             }else{
-            
+          
                 NSString *eventName = [cell.model.user.nick lowercaseString];
                 EMError *error1 = nil;
                 NSArray *userlist = [[EMClient sharedClient].contactManager getContactsFromServerWithError:&error1];

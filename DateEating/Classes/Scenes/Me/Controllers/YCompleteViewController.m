@@ -11,7 +11,8 @@
 @interface YCompleteViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 @property(assign,nonatomic)NSInteger gender;
 @property(strong,nonatomic)NSMutableArray *constellationArray;
-@property(assign,nonatomic)BOOL isSelected;
+@property(assign,nonatomic)BOOL isBoySelected;
+@property(assign,nonatomic)BOOL isGirlSelected;
 @end
 
 static NSString *const systemCellIdentifier = @"systemCell";
@@ -20,10 +21,12 @@ static NSString *const systemCellIdentifier = @"systemCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.isSelected = YES;
+    self.isBoySelected = YES;
+    self.isGirlSelected = YES;
     self.constellationArray = [NSMutableArray new];
     [self.constellationArray addObjectsFromArray:array1];
     [self.constellationArray removeObjectAtIndex:0];
+    self.ageTF.delegate = self;
     self.constellationTF.delegate = self;
     self.constellationTableView.hidden = YES;
     [self.constellationTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:systemCellIdentifier];
@@ -31,27 +34,40 @@ static NSString *const systemCellIdentifier = @"systemCell";
 #pragma mark--选择男性--
 - (IBAction)selectBoyAction:(id)sender {
     UIButton *btn = (UIButton *)sender;
-    if (self.isSelected) {
-        [btn setBackgroundImage:[UIImage imageNamed:@"select"] forState:(UIControlStateNormal)];
+    if (self.isBoySelected) {
+        [btn setBackgroundImage:[UIImage imageNamed:@"genderSelect"] forState:(UIControlStateNormal)];
         self.gender = 1;
         [self.girlBtn setBackgroundImage:[UIImage imageNamed:@"notSelect"] forState:(UIControlStateNormal)];
+        self.isBoySelected = NO;
+    }else{
+        [btn setBackgroundImage:[UIImage imageNamed:@"notSelect"] forState:(UIControlStateNormal)];
     }
 }
 #pragma mark--选择女性--
 - (IBAction)selectGirlAction:(id)sender {
     UIButton *btn = (UIButton *)sender;
-    if (self.isSelected) {
-        [btn setBackgroundImage:[UIImage imageNamed:@"select"] forState:(UIControlStateNormal)];
+    if (self.isGirlSelected) {
+        [btn setBackgroundImage:[UIImage imageNamed:@"genderSelect"] forState:(UIControlStateNormal)];
         self.gender = 0;
         [self.boyBtn setBackgroundImage:[UIImage imageNamed:@"notSelect"] forState:(UIControlStateNormal)];
+        self.isGirlSelected = NO;
+    }else{
+        [btn setBackgroundImage:[UIImage imageNamed:@"notSelect"] forState:(UIControlStateNormal)];
     }
 }
 #pragma mark--星座输入框代理方法--
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
-    textField.text = @"";
-    [UIView animateWithDuration:0.5 animations:^{
-        self.constellationTableView.hidden = NO;
-    }];
+    if (textField == self.constellationTF) {
+        textField.text = @"";
+        [UIView animateWithDuration:0.5 animations:^{
+            self.constellationTableView.hidden = NO;
+        }];
+    }
+}
+#pragma mark--键盘回收--
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
 }
 #pragma mark--完成--
 - (IBAction)doneAction:(id)sender {
