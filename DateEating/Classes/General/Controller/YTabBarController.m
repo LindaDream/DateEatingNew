@@ -14,7 +14,7 @@
 #import "YTabBar.h"
 #import "YNavigationController.h"
 
-@interface YTabBarController ()<EMChatManagerDelegate>
+@interface YTabBarController ()<EMContactManagerDelegate>
 
 @end
 
@@ -45,6 +45,7 @@
     [super viewDidLoad];
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
+    
     
 #pragma mark -- 添加子控制器
     [self setupChildVc:[[YEssenceViewController alloc] init] title:@"精华" image:@"tabBar_essence_icon" selectedImage:@"tabBar_essence_click_icon"];
