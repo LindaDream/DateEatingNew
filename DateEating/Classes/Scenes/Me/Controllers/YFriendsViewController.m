@@ -58,6 +58,18 @@ static NSString *const friendsListCellId = @"friendsListCellId";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     YFriendsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:friendsListCellId forIndexPath:indexPath];
+    YFriends *model = self.friendsArr[indexPath.row];
+    if (self.conversationDict.count == 0) {
+        [cell.unreadCountLabel removeFromSuperview];
+    }
+    for (NSString *key in [self.conversationDict allKeys]) {
+        if ([key isEqualToString:model.friendName]) {
+            cell.unreadCountLabel.text = [NSString stringWithFormat:@"%@",self.conversationDict[key]];
+        }else{
+            [cell.unreadCountLabel removeFromSuperview];
+        }
+    }
+
     cell.friends = self.friendsArr[indexPath.row];
     return cell;
     
@@ -73,6 +85,8 @@ static NSString *const friendsListCellId = @"friendsListCellId";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     YFriends *friend = self.friendsArr[indexPath.row];
     YChatViewController *chatVC = [YChatViewController new];
+    YFriendsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell.unreadCountLabel removeFromSuperview];
     chatVC.toName = friend.friendName;
     [self.navigationController pushViewController:chatVC animated:YES];
     

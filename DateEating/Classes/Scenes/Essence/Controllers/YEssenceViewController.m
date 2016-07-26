@@ -86,10 +86,11 @@ static NSString *const cityCellId = @"cityCellId";
 }
 #pragma mark--接收消息--
 -(void)didReceiveMessages:(NSArray *)aMessages{
-    for (EMMessage *message in aMessages) {
-        [self.msgArray addObject:message];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"unreadMessageCount" object:nil userInfo:@{@"userName":[NSString stringWithFormat:@"%@",message.conversationId],@"messageArray":self.msgArray}];
-    }
+//    for (EMMessage *message in aMessages) {
+//        [self.msgArray addObject:message];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"unreadMessageCount" object:nil userInfo:@{@"userName":[NSString stringWithFormat:@"%@",message.conversationId],@"messageArray":self.msgArray}];
+//    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"unreadMessageCount" object:nil userInfo:@{@"messageArray":aMessages}];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
