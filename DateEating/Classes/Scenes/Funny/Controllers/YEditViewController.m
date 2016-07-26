@@ -96,7 +96,7 @@ static NSString *const imageCellId = @"imageCellId";
 - (void)setRightBarButtonItem{
 
     UIButton *publishBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    publishBtn.frame = CGRectMake(0, 0, 20, 20);
+    publishBtn.frame = CGRectMake(0, 0, 30, 30);
     [publishBtn setImage:[UIImage imageNamed:@"发布"] forState:(UIControlStateNormal)];
     [publishBtn setImage:[UIImage imageNamed:@"发布-1"] forState:(UIControlStateHighlighted)];
     [publishBtn addTarget:self action:@selector(publishAction) forControlEvents:(UIControlEventTouchUpInside)];
@@ -104,13 +104,13 @@ static NSString *const imageCellId = @"imageCellId";
     
     
     UIButton *changeBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    changeBtn.frame = CGRectMake(0, 0, 20, 20);
+    changeBtn.frame = CGRectMake(0, 0, 25, 25);
     [changeBtn setImage:[UIImage imageNamed:@"skin"] forState:(UIControlStateNormal)];
     [changeBtn setImage:[UIImage imageNamed:@"skin-1"] forState:(UIControlStateHighlighted)];
     [changeBtn addTarget:self action:@selector(getPicture) forControlEvents:(UIControlEventTouchUpInside)];
     UIBarButtonItem *changeBackImage = [[UIBarButtonItem alloc] initWithCustomView:changeBtn];
     
-    self.navigationItem.rightBarButtonItems = @[changeBackImage,publish];
+    self.navigationItem.rightBarButtonItems = @[publish,changeBackImage];
     
 }
 #pragma mark--发表趣事--

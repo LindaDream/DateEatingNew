@@ -167,8 +167,6 @@ static NSString *const cityCellId = @"cityCellId";
     // 设置导航栏左边的按钮
     _cityBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     _cityBtn.frame = CGRectMake(10, 10, 40, 40);
-    //cityBtn.backgroundColor = [UIColor redColor];
-    //cityBtn.titleLabel.text = @"城市";
     [_cityBtn setTitle:@"城市" forState:(UIControlStateNormal)];
     [_cityBtn setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
     [_cityBtn addTarget:self action:@selector(tagClick) forControlEvents:(UIControlEventTouchUpInside)];
@@ -424,7 +422,7 @@ static NSString *const cityCellId = @"cityCellId";
     }else{
         
         [_popView removeFromSuperview];
-        
+        self.isSelected = NO;
         _popView.center = CGPointMake(kWidth, 0);
         
         
@@ -564,10 +562,9 @@ static NSString *const cityCellId = @"cityCellId";
         
     }else{
         NSInteger cityId = ((YCityModel *)self.cityArr[indexPath.row]).baseCityId;
-        self.navigationItem.leftBarButtonItem.title = ((YCityModel *)self.cityArr[indexPath.row]).name;
+        [self.cityBtn setTitle:((YCityModel *)self.cityArr[indexPath.row]).name forState:(UIControlStateNormal)];
         self.managerView.x = 0;
         [self requestMealWithCityId:cityId categoryId:self.categoryId page:@"1"];
-        //[self requestPlayWithCityId:cityId categoryId:self.categoryId page:@"1"];
     }
     
 }

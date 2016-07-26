@@ -110,7 +110,6 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
             
             [self.arr addObject:array[i]];
         }
-        NSLog(@"self.arr = %@", self.arr);
         dispatch_async(dispatch_get_main_queue(), ^{
                         //self.arr = array.mutableCopy;
             [self.funnyTableView reloadData];
