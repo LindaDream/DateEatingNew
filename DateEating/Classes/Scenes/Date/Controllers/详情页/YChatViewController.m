@@ -135,7 +135,7 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
     [UIView animateWithDuration:duration animations:^{
         //这里填入一些view的最终状态属性设置，即会自动产生过渡动画
         self.view.frame = rect;
-    }
+    }];
 }
 - (void)keyBoardHide:(NSNotification *)notification{
     NSDictionary *dict = [notification userInfo];

@@ -439,6 +439,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self.message resignFirstResponder];
     _isEmoji = NO;
+    self.message.inputView = nil;
 }
 
 #pragma mark -- 键盘通知触发的方法 --
