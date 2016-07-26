@@ -433,10 +433,18 @@ static NSString *const listCellIdentifier = @"listCell";
         }else if (indexPath.row == 3) {
             if ([AVUser currentUser]) {
                 YFriendsViewController *friendsVC = [YFriendsViewController new];
-                self.tabBarItem.badgeValue = nil;
-                [self.conversation markAllMessagesAsRead];
-                self.unreadMessageCount = 0;
                 friendsVC.conversationDict = self.dict;
+                friendsVC.unreadCount = self.unreadMessageCount;
+                friendsVC.passValueBlock = ^(NSNumber *count,NSMutableDictionary *dict){
+                    self.unreadMessageCount = count.integerValue;
+                    if (self.unreadMessageCount > 0) {
+                        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%ld",self.unreadMessageCount];
+                    }else{
+                        self.tabBarItem.badgeValue = nil;
+                    }
+                    self.dict = dict;
+                };
+
                 [self.navigationController pushViewController:friendsVC animated:YES];
             }else{
                 YLoginViewController *loginVC = [YLoginViewController new];

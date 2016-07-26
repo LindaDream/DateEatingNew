@@ -59,20 +59,18 @@ static NSString *const friendsListCellId = @"friendsListCellId";
 
     YFriendsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:friendsListCellId forIndexPath:indexPath];
     YFriends *model = self.friendsArr[indexPath.row];
-    if (self.conversationDict.count == 0) {
-        [cell.unreadCountLabel removeFromSuperview];
-    }
     for (NSString *key in [self.conversationDict allKeys]) {
         if ([key isEqualToString:model.friendName]) {
-            cell.unreadCountLabel.text = [NSString stringWithFormat:@"%@",self.conversationDict[key]];
-        }else{
-            [cell.unreadCountLabel removeFromSuperview];
+            if ([self.conversationDict[key] integerValue] > 0) {
+                cell.unreadCountLabel.backgroundColor = [UIColor redColor];
+                cell.unreadCountLabel.text = [NSString stringWithFormat:@"%@",self.conversationDict[key]];
+            }else{
+                cell.unreadCountLabel.backgroundColor = [UIColor whiteColor];
+            }
         }
     }
-
     cell.friends = self.friendsArr[indexPath.row];
     return cell;
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -86,10 +84,15 @@ static NSString *const friendsListCellId = @"friendsListCellId";
     YFriends *friend = self.friendsArr[indexPath.row];
     YChatViewController *chatVC = [YChatViewController new];
     YFriendsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    EMConversation *conversation = [[EMClient sharedClient].chatManager getConversation:friend.friendName type:(EMConversationTypeChat) createIfNotExist:YES];
+    [conversation markAllMessagesAsRead];
+    NSInteger count = self.unreadCount - cell.unreadCountLabel.text.integerValue;
+    [self.conversationDict setObject:[NSNumber numberWithInteger:0] forKey:friend.friendName];
+    self.passValueBlock([NSNumber numberWithInteger:count],self.conversationDict);
+    cell.unreadCountLabel.text = nil;
     [cell.unreadCountLabel removeFromSuperview];
     chatVC.toName = friend.friendName;
     [self.navigationController pushViewController:chatVC animated:YES];
-    
 }
 
 // 弹框

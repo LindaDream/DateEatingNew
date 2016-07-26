@@ -105,13 +105,10 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
     [self.arr removeAllObjects];
     [YFunnyModel parsesFunnyWithsuccessRequest:^(id dict) {
         NSArray *array = dict;
-        
         for (NSInteger i = array.count - 1; i >= 0; i--) {
-            
             [self.arr addObject:array[i]];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-                        //self.arr = array.mutableCopy;
             [self.funnyTableView reloadData];
         });
     } failurRequest:^(NSError *error) {
