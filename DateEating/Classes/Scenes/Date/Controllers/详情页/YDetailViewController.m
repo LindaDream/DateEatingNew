@@ -260,51 +260,50 @@
 #pragma mark--聊天按钮代理方法--
 - (void)chatBtnDidClicked:(YDetailHeaderTableViewCell *)cell{
     
-    
-    [YContent getContentAvatarWithUserName:cell.model.user.nick SuccessRequest:^(id dict) {
-        if ([dict isEqualToString:@"该用户不存在"]) {
-            [self showAlertViewWithMessage:@"该用户还未开通聊天功能"];
-        }else{
+    if ([cell.model.user.nick isEqualToString:[AVUser currentUser].username]) {
+        
+        [self showAlertViewWithMessage:@"不能和自己聊天"];
+        
+    }else{
+        [YContent getContentAvatarWithUserName:cell.model.user.nick SuccessRequest:^(id dict) {
+            if ([dict isEqualToString:@"该用户不存在"]) {
+                [self showAlertViewWithMessage:@"该用户还未开通聊天功能"];
+            }else{
+          
+                NSString *eventName = [cell.model.user.nick lowercaseString];
+                EMError *error1 = nil;
+                NSArray *userlist = [[EMClient sharedClient].contactManager getContactsFromServerWithError:&error1];
             
-            NSString *eventName = [cell.model.user.nick lowercaseString];
-            NSLog(@"%@",eventName);
-            EMError *error1 = nil;
-            NSArray *userlist = [[EMClient sharedClient].contactManager getContactsFromServerWithError:&error1];
-            
-            if (!error1) {
-                NSLog(@"获取成功 -- %@",userlist);
-                BOOL isHave = NO;
-                for (NSString *userName in userlist) {
-                    if ([userName isEqualToString:eventName]) {
-                        isHave = YES;
+                if (!error1) {
+                    NSLog(@"获取成功 -- %@",userlist);
+                    BOOL isHave = NO;
+                    for (NSString *userName in userlist) {
+                        if ([userName isEqualToString:eventName]) {
+                            isHave = YES;
+                        }
                     }
-                }
                 
-                if (isHave) {
-                    if ([cell.model.user.nick isEqualToString:[AVUser currentUser].username]) {
-                        
-                        [self showAlertViewWithMessage:@"不能和自己聊天"];
-                        
-                    }else{
+                    if (isHave) {
                         YChatViewController *chatVC = [YChatViewController new];
                         chatVC.title = cell.model.user.nick;
                         chatVC.toName = cell.model.user.nick;
                         [self.navigationController pushViewController:chatVC animated:YES];
-                    }
                     
-                }else {
-                    EMError *error = [[EMClient sharedClient].contactManager addContact:eventName message:@"我想加您为好友"];
-                    if (!error) {
+                    
+                    }else {
+                        EMError *error = [[EMClient sharedClient].contactManager addContact:eventName message:@"我想加您为好友"];
+                        if (!error) {
                         NSLog(@"添加成功");
+                        }
                     }
-                }
                 
-            }else{
-                NSLog(@"%d",error1.code);
+                }else{
+                    NSLog(@"%d",error1.code);
+                }
             }
-        }
-    } failurRequest:^(NSError *error) {
-    }];
+        } failurRequest:^(NSError *error) {
+        }];
+    }
 }
 
 // 用户B申请加A为好友后，用户A会收到这个回调

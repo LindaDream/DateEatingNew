@@ -46,6 +46,7 @@
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
     
+    
 #pragma mark -- 添加子控制器
     [self setupChildVc:[[YEssenceViewController alloc] init] title:@"精华" image:@"tabBar_essence_icon" selectedImage:@"tabBar_essence_click_icon"];
     [self setupChildVc:[[YFunnyViewController alloc] init] title:@"趣事" image:@"tabBar_new_icon" selectedImage:@"tabBar_new_click_icon"];
