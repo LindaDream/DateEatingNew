@@ -67,9 +67,11 @@ static NSString *const dateOrPartyCellIdentifier = @"dateOrPartyCell";
                 }else{
                     model.fee = 1;
                 }
+                YActionUserModel *user = [YActionUserModel new];
+                user.nick = [AVUser currentUser].username;
+                model.user = user;
                 model.caterBusinessId = [dict objectForKey:@"businessID"];
                 model.eventDescription = [dict objectForKey:@"description"];
-                model.user.nick = [AVUser currentUser].username;
                 model.user.gender = [[[AVUser currentUser] objectForKey:@"gender"] integerValue];
                 model.user.constellation = [[AVUser currentUser] objectForKey:@"constellation"];
                 AVFile *file = [[AVUser currentUser] objectForKey:@"avatar"];
