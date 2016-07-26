@@ -45,16 +45,23 @@
                 });
             } failurRequest:^(NSError *error) {
             }];
+            _message.text = model.content;
         } else {
             [_userImage sd_setImageWithURL:[NSURL URLWithString:model.user.userImageUrl] placeholderImage:[UIImage imageNamed:@"DefaultAvatar"]];
             [_userImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)]];
+            if (model.replyUser != nil) {
+                _message.text = [NSString stringWithFormat:@"回复%@:%@",model.replyUser.nick,model.content];
+            } else {
+                _message.text = model.content;
+            }
         }
-        _nick.text = model.user.nick;
         if (model.replyUser != nil) {
             _message.text = [NSString stringWithFormat:@"回复%@:%@",model.replyUser.nick,model.content];
         } else {
             _message.text = model.content;
         }
+        _nick.text = model.user.nick;
+        
         // 显示时间
         NSTimeInterval nowTime = [[NSDate date] timeIntervalSince1970]*1000;
         CGFloat totalTime = ((NSInteger)nowTime - model.createTime)/1000.0;

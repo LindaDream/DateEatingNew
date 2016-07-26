@@ -12,10 +12,11 @@
 #import "SVProgressHUD.h"
 #import "YContent.h"
 #import "YContentTableViewCell.h"
+#import "YFaceView.h"
 
 #define kContentLabelWith kWidth - 28
 
-@interface YFunnyDetailViewController ()<SDCycleScrollViewDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate,UIScrollViewDelegate>
+@interface YFunnyDetailViewController ()<SDCycleScrollViewDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate,UIScrollViewDelegate,YFaceViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *publishName;
 
@@ -41,13 +42,14 @@
 @property (weak, nonatomic) IBOutlet UIView *editContentView;
 
 
-
 @property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
 // 该页发布者的唯一标识
 @property (strong,nonatomic) NSString *ownerId;
 
 // 存放评论的数组
 @property (strong,nonatomic) NSArray *contentArr;
+// 标记表情键盘是否存在
+@property (assign,nonatomic) BOOL isEmoji;
 @end
 
 
@@ -101,8 +103,8 @@ static NSString *const contentCellId = @"contentCellId";
     CGFloat h = keyBoardSize.height;
     CGRect contentViewRect = self.contentView.frame;
     CGRect editContentViewRect = self.editContentView.frame;
-    contentViewRect.origin.y -= h;
-    editContentViewRect.origin.y -= h;
+    contentViewRect.origin.y = -h;
+    editContentViewRect.origin.y = self.view.height - 45 - h;
     //取出动画时长
     NSTimeInterval duration = [dict[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     //使用动画更改self.view.frame
@@ -127,7 +129,8 @@ static NSString *const contentCellId = @"contentCellId";
     CGFloat h = [[self class] textHeightFromModel:_funny];
     self.contentView.frame = CGRectMake(0, 0, kWidth, 643 + h);
     self.editContentView.frame = CGRectMake(0, self.contentScorllView.height, kWidth, 45);
-    
+    _isEmoji = NO;
+    self.contentTextField.inputView = nil;
     
 }
 
@@ -156,10 +159,14 @@ static NSString *const contentCellId = @"contentCellId";
     self.contentLabel.numberOfLines = 0;
     
     self.editContentView.frame = CGRectMake(0, self.contentScorllView.height, kWidth, 45);
-    self.contentTextField.frame = CGRectMake(8, 0, 334, 37);
+    self.contentTextField.frame = CGRectMake(50, 0, 292, 37);
     self.contentTextField.backgroundColor = [UIColor groupTableViewBackgroundColor];
     self.contentTextField.delegate = self;
     self.sendContentBtn.frame = CGRectMake(350, 0, 56, 34);
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(8, 0, 35, 35)];
+    [button setImage:[UIImage imageNamed:@"emoji"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(emojiBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.editContentView addSubview:button];
     
     
     if (_funny.imgArr.count == 0) {
@@ -182,6 +189,35 @@ static NSString *const contentCellId = @"contentCellId";
         
     }
     
+}
+
+#pragma mark -- 弹出表情键盘 --
+- (void)emojiBtnAction {
+    if (_isEmoji == NO) {
+        _isEmoji = YES;
+        [self.contentTextField becomeFirstResponder];
+        YFaceView *faceView = [[YFaceView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 200)];
+        faceView.delegate = self;
+        self.contentTextField.inputView = faceView;
+        [self.contentTextField reloadInputViews];
+    } else {
+        _isEmoji = NO;
+        self.contentTextField.inputView = nil;
+        [self.contentTextField reloadInputViews];
+    }
+}
+#pragma mark -- 表情键盘的回调 --
+- (void)changeKeyBoardBtnDidSelect {
+    _isEmoji = NO;
+    self.contentTextField.inputView=nil;
+    [self.contentTextField reloadInputViews];
+}
+- (void)collectionViewCellDidSelected:(NSString *)face {
+    self.contentTextField.text = [NSString stringWithFormat:@"%@%@",self.contentTextField.text,face];
+}
+- (void)deleteBtnDidSelected {
+    [self.contentTextField deleteBackward];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UITextFieldTextDidChangeNotification object:self.contentTextField];
 }
 
 // 设置view
@@ -323,7 +359,7 @@ static NSString *const contentCellId = @"contentCellId";
                 
                 if (succeeded) {
                     [self showAlertViewWithMessage:@"评论成功"];
-                    
+                    self.contentTextField.text = nil;
                     [self getAllContent];
                     
                 }else{

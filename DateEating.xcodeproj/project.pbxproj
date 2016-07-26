@@ -168,7 +168,6 @@
 		CEBF8FDD1D45B42900406A61 /* YChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEBF8FD91D45B42900406A61 /* YChatTableViewCell.xib */; };
 		CEBF8FDE1D45B42900406A61 /* YDetailHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEBF8FDB1D45B42900406A61 /* YDetailHeaderTableViewCell.xib */; };
 		CEBF8FE21D45B47600406A61 /* YDetailHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF8FDF1D45B47600406A61 /* YDetailHeaderTableViewCell.m */; };
-		CEBF8FE31D45B47600406A61 /* YEmojiView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF8FE11D45B47600406A61 /* YEmojiView.m */; };
 		CEBF8FE51D45B98600406A61 /* emoji.png in Resources */ = {isa = PBXBuildFile; fileRef = CEBF8FE41D45B98600406A61 /* emoji.png */; };
 		CED28D4F1D378A0300A468CF /* YCityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CED28D481D378A0300A468CF /* YCityModel.m */; };
 		CED28D501D378A0300A468CF /* YMealDetailsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CED28D4A1D378A0300A468CF /* YMealDetailsModel.m */; };
@@ -549,6 +548,13 @@
 		D6F20DA71D3E272E0082E398 /* NaviList@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6F20DA51D3E272E0082E398 /* NaviList@2x.png */; };
 		D6F20DAB1D3E2C910082E398 /* YCityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F20DA91D3E2C910082E398 /* YCityTableViewController.m */; };
 		D6F20DAC1D3E2C910082E398 /* YCityTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6F20DAA1D3E2C910082E398 /* YCityTableViewController.xib */; };
+		D6F579F51D462C16004C501A /* keyBoard.png in Resources */ = {isa = PBXBuildFile; fileRef = D6F579F41D462C16004C501A /* keyBoard.png */; };
+		D6F579F71D462C2D004C501A /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = D6F579F61D462C2D004C501A /* back.png */; };
+		D6F579FA1D462C3F004C501A /* keyBoard_h.png in Resources */ = {isa = PBXBuildFile; fileRef = D6F579F81D462C3F004C501A /* keyBoard_h.png */; };
+		D6F579FB1D462C3F004C501A /* back_h.png in Resources */ = {isa = PBXBuildFile; fileRef = D6F579F91D462C3F004C501A /* back_h.png */; };
+		D6F579FF1D462D38004C501A /* EmojisList.plist in Resources */ = {isa = PBXBuildFile; fileRef = D6F579FC1D462D38004C501A /* EmojisList.plist */; };
+		D6F57A001D462D38004C501A /* YFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F579FE1D462D38004C501A /* YFaceView.m */; };
+		D6F57A061D46368E004C501A /* emoji_.png in Resources */ = {isa = PBXBuildFile; fileRef = D6F57A051D46368E004C501A /* emoji_.png */; };
 		FE46A951A5D2154F93613B74 /* libPods-DateEating.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3E5E371EBA8BAE102B0DB4 /* libPods-DateEating.a */; };
 /* End PBXBuildFile section */
 
@@ -816,8 +822,6 @@
 		CEBF8FDA1D45B42900406A61 /* YDetailHeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDetailHeaderTableViewCell.h; sourceTree = "<group>"; };
 		CEBF8FDB1D45B42900406A61 /* YDetailHeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YDetailHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		CEBF8FDF1D45B47600406A61 /* YDetailHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDetailHeaderTableViewCell.m; sourceTree = "<group>"; };
-		CEBF8FE01D45B47600406A61 /* YEmojiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YEmojiView.h; sourceTree = "<group>"; };
-		CEBF8FE11D45B47600406A61 /* YEmojiView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YEmojiView.m; sourceTree = "<group>"; };
 		CEBF8FE41D45B98600406A61 /* emoji.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = emoji.png; path = ../emoji.png; sourceTree = "<group>"; };
 		CED28D471D378A0300A468CF /* YCityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCityModel.h; sourceTree = "<group>"; };
 		CED28D481D378A0300A468CF /* YCityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCityModel.m; sourceTree = "<group>"; };
@@ -1253,6 +1257,14 @@
 		D6F20DA81D3E2C910082E398 /* YCityTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCityTableViewController.h; sourceTree = "<group>"; };
 		D6F20DA91D3E2C910082E398 /* YCityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCityTableViewController.m; sourceTree = "<group>"; };
 		D6F20DAA1D3E2C910082E398 /* YCityTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YCityTableViewController.xib; sourceTree = "<group>"; };
+		D6F579F41D462C16004C501A /* keyBoard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = keyBoard.png; sourceTree = "<group>"; };
+		D6F579F61D462C2D004C501A /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
+		D6F579F81D462C3F004C501A /* keyBoard_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = keyBoard_h.png; sourceTree = "<group>"; };
+		D6F579F91D462C3F004C501A /* back_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_h.png; sourceTree = "<group>"; };
+		D6F579FC1D462D38004C501A /* EmojisList.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = EmojisList.plist; sourceTree = "<group>"; };
+		D6F579FD1D462D38004C501A /* YFaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YFaceView.h; sourceTree = "<group>"; };
+		D6F579FE1D462D38004C501A /* YFaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YFaceView.m; sourceTree = "<group>"; };
+		D6F57A051D46368E004C501A /* emoji_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emoji_.png; sourceTree = "<group>"; };
 		DDA8A0284974FF03CB93EF6B /* Pods-DateEating.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DateEating.release.xcconfig"; path = "Pods/Target Support Files/Pods-DateEating/Pods-DateEating.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1957,13 +1969,14 @@
 		CEBF8FD61D45B42900406A61 /* DetailView */ = {
 			isa = PBXGroup;
 			children = (
-				CEBF8FDF1D45B47600406A61 /* YDetailHeaderTableViewCell.m */,
-				CEBF8FE01D45B47600406A61 /* YEmojiView.h */,
-				CEBF8FE11D45B47600406A61 /* YEmojiView.m */,
+				D6F579FC1D462D38004C501A /* EmojisList.plist */,
+				D6F579FD1D462D38004C501A /* YFaceView.h */,
+				D6F579FE1D462D38004C501A /* YFaceView.m */,
 				CEBF8FD71D45B42900406A61 /* YChatTableViewCell.h */,
 				CEBF8FD81D45B42900406A61 /* YChatTableViewCell.m */,
 				CEBF8FD91D45B42900406A61 /* YChatTableViewCell.xib */,
 				CEBF8FDA1D45B42900406A61 /* YDetailHeaderTableViewCell.h */,
+				CEBF8FDF1D45B47600406A61 /* YDetailHeaderTableViewCell.m */,
 				CEBF8FDB1D45B42900406A61 /* YDetailHeaderTableViewCell.xib */,
 			);
 			path = DetailView;
@@ -1982,12 +1995,12 @@
 		D61D1AE51D38717B00C36F84 /* 详情页 */ = {
 			isa = PBXGroup;
 			children = (
-				CEB8270C1D41BB6500BB2E31 /* YChatViewController.h */,
-				CEB8270D1D41BB6500BB2E31 /* YChatViewController.m */,
-				CEB827111D41CC1200BB2E31 /* YChatViewController.xib */,
 				D61D1AE81D38717B00C36F84 /* YDetailViewController.h */,
 				D61D1AE91D38717B00C36F84 /* YDetailViewController.m */,
 				D61D1AEA1D38717B00C36F84 /* YDetailViewController.xib */,
+				CEB8270C1D41BB6500BB2E31 /* YChatViewController.h */,
+				CEB8270D1D41BB6500BB2E31 /* YChatViewController.m */,
+				CEB827111D41CC1200BB2E31 /* YChatViewController.xib */,
 				D61D1AEB1D38717B00C36F84 /* YSeekConditionViewController.h */,
 				D61D1AEC1D38717B00C36F84 /* YSeekConditionViewController.m */,
 				D61D1AED1D38717B00C36F84 /* YSeekConditionViewController.xib */,
@@ -2009,6 +2022,11 @@
 		D61D1B081D3871BC00C36F84 /* Date */ = {
 			isa = PBXGroup;
 			children = (
+				D6F57A051D46368E004C501A /* emoji_.png */,
+				D6F579F81D462C3F004C501A /* keyBoard_h.png */,
+				D6F579F91D462C3F004C501A /* back_h.png */,
+				D6F579F61D462C2D004C501A /* back.png */,
+				D6F579F41D462C16004C501A /* keyBoard.png */,
 				D6F20DA41D3E272E0082E398 /* NaviList_@2x.png */,
 				D6F20DA51D3E272E0082E398 /* NaviList@2x.png */,
 				D6F20D961D3DB6C10082E398 /* mine_hobby_hobby@2x.png */,
@@ -2612,12 +2630,14 @@
 				D66E5AF51D33DE84003DED51 /* pushguidetop@2x.png in Resources */,
 				D6F0F38B1D3B464400D1EF81 /* strategy_category_4.png in Resources */,
 				D6F0F35E1D3B464400D1EF81 /* city_img.png in Resources */,
+				D6F579FA1D462C3F004C501A /* keyBoard_h.png in Resources */,
 				CEE575721D3A7ACA008B2906 /* mine_restaurant@2x.png in Resources */,
 				D66E5A761D33DE84003DED51 /* mainCellCaiClick.png in Resources */,
 				D66E5AA91D33DE84003DED51 /* header_cry_icon.png in Resources */,
 				D66E5A7F1D33DE84003DED51 /* mainCellDingClick@2x.png in Resources */,
 				D66E5AB01D33DE84003DED51 /* friendsRecommentIcon@3x.png in Resources */,
 				D6F0F3821D3B464400D1EF81 /* return.png in Resources */,
+				D6F57A061D46368E004C501A /* emoji_.png in Resources */,
 				D6F0F3941D3B464400D1EF81 /* user_img.png in Resources */,
 				D6F0F3691D3B464400D1EF81 /* love.png in Resources */,
 				D6F0F3651D3B464400D1EF81 /* home_img.png in Resources */,
@@ -2693,6 +2713,7 @@
 				D66E5A601D33DE84003DED51 /* cell-content-line@2x.png in Resources */,
 				CE289D111D3CBC4F00FE8CB1 /* YAttentionListViewCell.xib in Resources */,
 				D66E5B011D33DE84003DED51 /* tabBar_friendTrends_click_icon@3x.png in Resources */,
+				D6F579FF1D462D38004C501A /* EmojisList.plist in Resources */,
 				D6B2A0FF1D3A56B4002BB383 /* locationCell@2x.png in Resources */,
 				CEB826E51D41B56700BB2E31 /* 时间.png in Resources */,
 				CEE5756F1D3A7ACA008B2906 /* locationCell@2x.png in Resources */,
@@ -2783,6 +2804,7 @@
 				D66E5A921D33DE84003DED51 /* post_placeholderImage@3x.png in Resources */,
 				D6BDCFF71D3C72A5000DC251 /* YUserDetailViewController.xib in Resources */,
 				D6F0F3631D3B464400D1EF81 /* fashion.png in Resources */,
+				D6F579F71D462C2D004C501A /* back.png in Resources */,
 				D61D1B371D3871BC00C36F84 /* rectangle_gray_bg@3x.png in Resources */,
 				CEB827271D42079D00BB2E31 /* ReceiverTextNodeBkgHL@2x.png in Resources */,
 				CEB827001D41B56700BB2E31 /* trash_btn_pic.png in Resources */,
@@ -2801,6 +2823,7 @@
 				CE69132A1D33C95D001FE50B /* LaunchScreen.storyboard in Resources */,
 				CEBF8FDD1D45B42900406A61 /* YChatTableViewCell.xib in Resources */,
 				CED28D741D37942B00A468CF /* event_single@2x.png in Resources */,
+				D6F579F51D462C16004C501A /* keyBoard.png in Resources */,
 				D66E5ACD1D33DE84003DED51 /* nav_coin_icon@3x.png in Resources */,
 				CE289D041D3CBBC300FE8CB1 /* ic_sex_girl@2x.png in Resources */,
 				CEB827301D42079D00BB2E31 /* SenderVoiceNodeBkgHL@2x.png in Resources */,
@@ -2953,6 +2976,7 @@
 				D6F0F3861D3B464400D1EF81 /* strategy_allCategory.png in Resources */,
 				CEE5756B1D3A7ACA008B2906 /* guarantee_bg@2x.png in Resources */,
 				D66E5AAE1D33DE84003DED51 /* friendsRecommentIcon.png in Resources */,
+				D6F579FB1D462C3F004C501A /* back_h.png in Resources */,
 				D61D1B2B1D3871BC00C36F84 /* favorite_@3x.png in Resources */,
 				CEB8272B1D42079D00BB2E31 /* ReceiverVoiceNodeDownloading@2x.png in Resources */,
 				D66E5ADB1D33DE84003DED51 /* publish-audio.png in Resources */,
@@ -3076,13 +3100,13 @@
 				D66E597A1D33DBA1003DED51 /* YEssenceViewController.m in Sources */,
 				CEB826DF1D41B56700BB2E31 /* YFunnyTableViewCell.m in Sources */,
 				CEB826D41D41B56700BB2E31 /* YEditViewController.m in Sources */,
+				D6F57A001D462D38004C501A /* YFaceView.m in Sources */,
 				CEB827671D42296800BB2E31 /* YLoginViewController.m in Sources */,
 				CE289D141D3CBD0200FE8CB1 /* YMapViewController.m in Sources */,
 				CEBF8FA01D45B00D00406A61 /* YCaterTableViewCell.m in Sources */,
 				CEBF8FD31D45B31F00406A61 /* YDistanceMangear.m in Sources */,
 				CEB826E11D41B56700BB2E31 /* YImageCollectionViewCell.m in Sources */,
 				CEB8276E1D42296800BB2E31 /* YRegisterViewController.m in Sources */,
-				CEBF8FE31D45B47600406A61 /* YEmojiView.m in Sources */,
 				CEBF8F851D45AADD00406A61 /* YChatSendViewCell.m in Sources */,
 				D66E599B1D33DD20003DED51 /* YTabBar.m in Sources */,
 				CEE575811D3A7C25008B2906 /* YRestaurantDetailModel.m in Sources */,

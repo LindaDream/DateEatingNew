@@ -12,13 +12,15 @@
 #import "YReceiveImgViewCell.h"
 #import "YSendImgTableViewCell.h"
 #import "YContent.h"
+#import "YFaceView.h"
 @interface YChatViewController ()<
     UITextViewDelegate,
     UITableViewDataSource,
     UITableViewDelegate,
     EMChatManagerDelegate,
     UIImagePickerControllerDelegate,
-    UINavigationControllerDelegate
+    UINavigationControllerDelegate,
+    YFaceViewDelegate
 >
 
 @property (weak, nonatomic) IBOutlet UITableView *chatTableView;
@@ -36,6 +38,9 @@
 @property (strong,nonatomic) UIImage *friendHeadImage;
 
 @property (strong,nonatomic) UIImage *myHeadImage;
+
+@property (assign, nonatomic) BOOL isEmoji;
+
 @end
 
 static NSString *const receiveCell = @"receiveCell";
@@ -122,7 +127,7 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
     CGSize keyBoardSize = [value CGRectValue].size;
     self.keyBoardHeight = keyBoardSize.height;
     CGRect rect = self.view.frame;
-    rect.origin.y -= self.keyBoardHeight;
+    rect.origin.y = -self.keyBoardHeight ;
     //取出动画时长
     NSTimeInterval duration = [dict[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     //使用动画更改self.view.frame
@@ -133,11 +138,12 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
 }
 - (void)keyBoardHide:(NSNotification *)notification{
     NSDictionary *dict = [notification userInfo];
-    NSValue *value = [dict objectForKey:UIKeyboardFrameEndUserInfoKey];
-    CGSize keyBoardSize = [value CGRectValue].size;
-    self.keyBoardHeight = keyBoardSize.height;
-    CGRect rect = self.view.frame;
-    rect.origin.y += self.keyBoardHeight;
+//    NSValue *value = [dict objectForKey:UIKeyboardFrameEndUserInfoKey];
+//    CGSize keyBoardSize = [value CGRectValue].size;
+//    self.keyBoardHeight = keyBoardSize.height;
+//    CGRect rect = self.view.frame;
+//    rect.origin.y += self.keyBoardHeight;
+    CGRect rect = CGRectMake(0, 0, self.view.width, self.view.height);
     //取出动画时长
     NSTimeInterval duration = [dict[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     //使用动画更改self.view.frame
@@ -255,9 +261,36 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
 
 #pragma mark--发送表情--
 - (IBAction)faceSendAction:(id)sender {
-    [self.chatTextView becomeFirstResponder];
-    [self.chatTextView setKeyboardAppearance:(UIKeyboardAppearanceDefault)];
+    YFaceView *faceView = [[YFaceView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 200)];
+    if (_isEmoji == NO) {
+        _isEmoji = YES;
+        //呼出表情
+        [self.chatTextView becomeFirstResponder];
+        faceView.delegate = self;
+        self.chatTextView.inputView = faceView;
+        [self.chatTextView reloadInputViews];
+    }else{
+        _isEmoji = NO;
+        self.chatTextView.inputView=nil;
+        [self.chatTextView reloadInputViews];
+    }
 }
+#pragma mark -- 表情回调 --
+- (void)changeKeyBoardBtnDidSelect {
+    _isEmoji = NO;
+    self.chatTextView.inputView=nil;
+    [self.chatTextView reloadInputViews];
+}
+- (void)collectionViewCellDidSelected:(NSString *)face {
+    self.chatTextView.text = [NSString stringWithFormat:@"%@%@",self.chatTextView.text,face];
+    [self upWithKeyBoard];
+}
+- (void)deleteBtnDidSelected {
+    [self.chatTextView deleteBackward];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UITextFieldTextDidChangeNotification object:self.chatTextView];
+}
+
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }

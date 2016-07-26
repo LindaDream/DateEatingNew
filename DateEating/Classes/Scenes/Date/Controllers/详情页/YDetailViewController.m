@@ -19,7 +19,7 @@
 #import <UMSocialControllerService.h>
 #import "UMSocial.h"
 #import "YCaterDetail.h"
-#import "YEmojiView.h"
+#import "YFaceView.h"
 #import "YChatViewController.h"
 #import "YContent.h"
 
@@ -32,7 +32,7 @@
     YChatTableViewCellDelegate,
     UMSocialUIDelegate,
     UITextFieldDelegate,
-    YEmojiViewDelegate,
+    YFaceViewDelegate,
     EMChatManagerDelegate
 >
 
@@ -50,16 +50,15 @@
 @property (assign,nonatomic) BOOL isSendMessage;
 
 @property (weak, nonatomic) IBOutlet UIView *lineView;
-@property (strong, nonatomic) YEmojiView *emojiView;
+@property (strong, nonatomic) YFaceView *faceView;
 @property (assign, nonatomic) BOOL isEmoji;
+
 
 @end
 
 @implementation YDetailViewController
 
-- (void)viewDidAppear:(BOOL)animated {
-    
-}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -81,6 +80,7 @@
     [self.tableview registerNib:[UINib nibWithNibName:@"YDetailHeaderTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:YDetailHeaderTableViewCell_Identify];
     [self.tableview registerNib:[UINib nibWithNibName:@"YChatTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:YChatTableViewCell_Indentify];
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+
     [self refushData];
     // 请求数据
     [self getOurSeverData];
@@ -92,11 +92,12 @@
     self.message.returnKeyType = UIReturnKeyDone;
     self.message.delegate = self;
     self.sendBtn.enabled = NO;
-    self.message.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    UITapGestureRecognizer *tableViewGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentTableViewTouchInSide)];
-    tableViewGesture.numberOfTapsRequired = 1;
-    tableViewGesture.cancelsTouchesInView = NO;
-    [self.tableview addGestureRecognizer:tableViewGesture];
+    [self.sendBtn setBackgroundColor:YRGBColor(180, 180, 180)];
+    
+    self.contentView.layer.shadowColor=[[UIColor grayColor] colorWithAlphaComponent:0.8].CGColor;
+    self.contentView.layer.shadowOffset=CGSizeMake(10,10);
+    self.contentView.layer.shadowOpacity=0.5;    
+    self.contentView.layer.shadowRadius=8;
 }
 
 // 懒加载
@@ -327,29 +328,40 @@
     [self.navigationController pushViewController:chatVC animated:YES];
     
 }
+
 #pragma mark -- 弹出表情框 --
 - (IBAction)addFaceBtnAction:(id)sender {
-    YEmojiView *emojiView = [[YEmojiView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 200)];
-//    if (![_publishContent isFirstResponder]) {
-//        return;
-//    }
+    YFaceView *faceView = [[YFaceView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 200)];
     if (_isEmoji == NO) {
         _isEmoji = YES;
         //呼出表情
         [self.message becomeFirstResponder];
-        emojiView.delegate = self;
-        self.message.inputView = emojiView;
+        //[self.faceBtn setImage:[UIImage imageNamed:@"emoji"] forState:UIControlStateNormal];
+        faceView.delegate = self;
+        self.message.inputView = faceView;
         [self.message reloadInputViews];
     }else{
         _isEmoji = NO;
+        //[self.faceBtn setImage:[UIImage imageNamed:@"emoji_"] forState:UIControlStateNormal];
         self.message.inputView=nil;
         [self.message reloadInputViews];
     }
 }
 
 #pragma mark -- 点击表情后的代理回调 --
-- (void)emojiFaceDidSelect:(NSString *)emoji {
-    self.message.text = [NSString stringWithFormat:@"%@%@",self.message.text,emoji];
+- (void)changeKeyBoardBtnDidSelect {
+    _isEmoji = NO;
+    self.message.inputView=nil;
+    //[self.faceBtn setImage:[UIImage imageNamed:@"emoji_"] forState:UIControlStateNormal];
+    [self.message reloadInputViews];
+}
+- (void)collectionViewCellDidSelected:(NSString *)face {
+    self.message.text = [NSString stringWithFormat:@"%@%@",self.message.text,face];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UITextFieldTextDidChangeNotification object:nil];
+}
+- (void)deleteBtnDidSelected {
+    [self.message deleteBackward];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UITextFieldTextDidChangeNotification object:nil];
 }
 
 #pragma mark -- 评论 --
@@ -394,6 +406,7 @@
                     _isSendMessage = YES;
                     [self getOurSeverData];
                     self.message.text = @"";
+                    [[NSNotificationCenter defaultCenter] postNotificationName:UITextFieldTextDidChangeNotification object:nil];
                 }else{
                     [self showAlertViewWithMessage:@"评论失败，请稍后重试"];
                     NSLog(@"%ld",error.code);
@@ -404,28 +417,31 @@
 }
 
 - (void)textFieldTextDidChange {
-    //NSString *temp = [self.message.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (self.message.text.length == 0 ) {
-        [self.sendBtn setBackgroundColor:YRGBColor(220, 220, 220)];
+        [self.sendBtn setBackgroundColor:YRGBColor(180, 180, 180)];
         self.sendBtn.enabled = NO;
     } else {
-        self.sendBtn.backgroundColor = YRGBColor(37, 207, 116);
+        self.sendBtn.backgroundColor = YRGBColor(234, 78, 56);
         self.sendBtn.enabled = YES;
     }
 }
+
+#pragma mark -- textField代理 --
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    self.lineView.backgroundColor = YRGBColor(37, 207, 116);
+    //self.lineView.backgroundColor = YRGBColor(234, 78, 56);
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    self.lineView.backgroundColor = YRGBColor(37, 207, 116);
+    //self.lineView.backgroundColor = YRGBColor(180, 180, 180);
     return YES;
 }
-- (void)commentTableViewTouchInSide {
+#pragma mark -- 滚动视图键盘消失 --
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self.message resignFirstResponder];
+    _isEmoji = NO;
 }
 
-// 键盘出现
+#pragma mark -- 键盘通知触发的方法 --
 - (void)keyboardWasShown:(NSNotification*)aNotification {
     CGRect keyboardBounds;
     [[aNotification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
@@ -469,6 +485,8 @@
     
     // commit animations
     [UIView commitAnimations];
+    //[self.faceBtn setImage:[UIImage imageNamed:@"emoji_"] forState:UIControlStateNormal];
+    //self.lineView.backgroundColor = YRGBColor(180, 180, 180);
 }
 
 // 弹框
@@ -498,15 +516,26 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         YDetailHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:YDetailHeaderTableViewCell_Identify forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
         cell.model = self.model;
         cell.userLocation = self.userLocation;
         return cell;
     } else {
         YChatTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:YChatTableViewCell_Indentify forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.model = self.layoutArray[indexPath.row];
         cell.delegate = self;
         return cell;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 1) {
+        [self.message becomeFirstResponder];
+        
+        YChatMessageModel * model= self.layoutArray[indexPath.row];
+        self.message.text = [NSString stringWithFormat:@"回复%@:",model.user.nick];
     }
 }
 
