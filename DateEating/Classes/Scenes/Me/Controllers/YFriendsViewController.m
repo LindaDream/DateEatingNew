@@ -36,6 +36,7 @@ static NSString *const friendsListCellId = @"friendsListCellId";
 - (void)getAllFriends{
 
     self.friendsArr = [YFriends getFriend].mutableCopy;
+    NSLog(@"%@",self.friendsArr);
     if (self.friendsArr.count > 0) {
         [self.frientsListTableView reloadData];
     }else{

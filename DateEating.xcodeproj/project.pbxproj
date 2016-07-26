@@ -465,6 +465,7 @@
 		D6BDD0071D3C83D5000DC251 /* YTravel.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BDD0061D3C83D5000DC251 /* YTravel.m */; };
 		D6BDD00A1D3C8700000DC251 /* YVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BDD0091D3C8700000DC251 /* YVideo.m */; };
 		D6BDD0221D3CD87C000DC251 /* user_header_bg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D6BDD0211D3CD87C000DC251 /* user_header_bg@2x.jpg */; };
+		D6E4E5EA1D4750620040E1D5 /* YRequestOurData.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E4E5E91D4750620040E1D5 /* YRequestOurData.m */; };
 		D6F0F3581D3B464400D1EF81 /* art.png in Resources */ = {isa = PBXBuildFile; fileRef = D6F0F31A1D3B464400D1EF81 /* art.png */; };
 		D6F0F3591D3B464400D1EF81 /* bantouming.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D6F0F31B1D3B464400D1EF81 /* bantouming.jpg */; };
 		D6F0F35A1D3B464400D1EF81 /* bantouming02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D6F0F31C1D3B464400D1EF81 /* bantouming02.jpg */; };
@@ -1162,6 +1163,8 @@
 		D6BDD0081D3C8700000DC251 /* YVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YVideo.h; sourceTree = "<group>"; };
 		D6BDD0091D3C8700000DC251 /* YVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YVideo.m; sourceTree = "<group>"; };
 		D6BDD0211D3CD87C000DC251 /* user_header_bg@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "user_header_bg@2x.jpg"; sourceTree = "<group>"; };
+		D6E4E5E81D4750620040E1D5 /* YRequestOurData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRequestOurData.h; sourceTree = "<group>"; };
+		D6E4E5E91D4750620040E1D5 /* YRequestOurData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRequestOurData.m; sourceTree = "<group>"; };
 		D6F0F31A1D3B464400D1EF81 /* art.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = art.png; sourceTree = "<group>"; };
 		D6F0F31B1D3B464400D1EF81 /* bantouming.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bantouming.jpg; sourceTree = "<group>"; };
 		D6F0F31C1D3B464400D1EF81 /* bantouming02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bantouming02.jpg; sourceTree = "<group>"; };
@@ -2021,6 +2024,8 @@
 				CEBF8FD21D45B31F00406A61 /* YDistanceMangear.m */,
 				D61D1AF41D38718C00C36F84 /* YNSUserDefaultHandel.h */,
 				D61D1AF51D38718C00C36F84 /* YNSUserDefaultHandel.m */,
+				D6E4E5E81D4750620040E1D5 /* YRequestOurData.h */,
+				D6E4E5E91D4750620040E1D5 /* YRequestOurData.m */,
 			);
 			path = "操作类";
 			sourceTree = "<group>";
@@ -3214,6 +3219,7 @@
 				D6BDD0041D3C828D000DC251 /* YRestaurant.m in Sources */,
 				CED28D501D378A0300A468CF /* YMealDetailsModel.m in Sources */,
 				D6F0F3D51D3B49BE00D1EF81 /* ContentView.m in Sources */,
+				D6E4E5EA1D4750620040E1D5 /* YRequestOurData.m in Sources */,
 				D6F0F3A01D3B491100D1EF81 /* YPlayDetailModel.m in Sources */,
 				CEE0818D1D3658760052A1D4 /* UIViewController+YCategory.m in Sources */,
 				D61D1B431D388E2900C36F84 /* YChatMessageModel.m in Sources */,
