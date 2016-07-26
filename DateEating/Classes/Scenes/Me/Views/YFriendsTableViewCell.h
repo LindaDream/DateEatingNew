@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *friendName;
 
 @property (weak, nonatomic) IBOutlet UILabel *lastChatMessage;
+@property (weak, nonatomic) IBOutlet UILabel *unreadCountLabel;
 
 @property (strong,nonatomic) YFriends *friends;
 @end

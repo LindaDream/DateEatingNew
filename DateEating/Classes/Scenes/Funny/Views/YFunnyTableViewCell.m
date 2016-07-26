@@ -107,7 +107,7 @@
 // 计算文本高度
 + (CGFloat)textHeightFromModel:(YFunnyModel *)funny{
     
-    CGRect rect = [funny.publishContent boundingRectWithSize:CGSizeMake(kContentLabelWith, 100) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0]} context:nil];
+    CGRect rect = [funny.publishContent boundingRectWithSize:CGSizeMake(kContentLabelWith, 200) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0]} context:nil];
     
     return rect.size.height;
     

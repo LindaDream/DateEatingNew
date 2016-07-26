@@ -58,9 +58,19 @@ static NSString *const friendsListCellId = @"friendsListCellId";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     YFriendsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:friendsListCellId forIndexPath:indexPath];
+    YFriends *model = self.friendsArr[indexPath.row];
+    for (NSString *key in [self.conversationDict allKeys]) {
+        if ([key isEqualToString:model.friendName]) {
+            if ([self.conversationDict[key] integerValue] > 0) {
+                cell.unreadCountLabel.backgroundColor = [UIColor redColor];
+                cell.unreadCountLabel.text = [NSString stringWithFormat:@"%@",self.conversationDict[key]];
+            }else{
+                cell.unreadCountLabel.backgroundColor = [UIColor whiteColor];
+            }
+        }
+    }
     cell.friends = self.friendsArr[indexPath.row];
     return cell;
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -73,9 +83,16 @@ static NSString *const friendsListCellId = @"friendsListCellId";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     YFriends *friend = self.friendsArr[indexPath.row];
     YChatViewController *chatVC = [YChatViewController new];
+    YFriendsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    EMConversation *conversation = [[EMClient sharedClient].chatManager getConversation:friend.friendName type:(EMConversationTypeChat) createIfNotExist:YES];
+    [conversation markAllMessagesAsRead];
+    NSInteger count = self.unreadCount - cell.unreadCountLabel.text.integerValue;
+    [self.conversationDict setObject:[NSNumber numberWithInteger:0] forKey:friend.friendName];
+    self.passValueBlock([NSNumber numberWithInteger:count],self.conversationDict);
+    cell.unreadCountLabel.text = nil;
+    [cell.unreadCountLabel removeFromSuperview];
     chatVC.toName = friend.friendName;
     [self.navigationController pushViewController:chatVC animated:YES];
-    
 }
 
 // 弹框

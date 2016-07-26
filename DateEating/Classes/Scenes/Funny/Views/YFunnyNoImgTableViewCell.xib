@@ -24,7 +24,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JCT-Md-Ph8">
-                        <rect key="frame" x="14" y="49" width="386" height="61"/>
+                        <rect key="frame" x="14" y="49" width="386" height="60"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -59,15 +59,26 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wo1-xp-AcR">
+                        <rect key="frame" x="0.0" y="109" width="414" height="1"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="ojO-4Y-WZY"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="JCT-Md-Ph8" secondAttribute="bottom" id="A5q-0E-QNC"/>
+                    <constraint firstAttribute="bottom" secondItem="wo1-xp-AcR" secondAttribute="bottom" id="Lkd-c4-Ct4"/>
+                    <constraint firstAttribute="trailing" secondItem="wo1-xp-AcR" secondAttribute="trailing" id="N2r-oE-NCT"/>
+                    <constraint firstItem="wo1-xp-AcR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="RUb-of-kuu"/>
                     <constraint firstItem="2vv-Rh-mJe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="Ssg-IZ-zXa"/>
                     <constraint firstAttribute="trailing" secondItem="JCT-Md-Ph8" secondAttribute="trailing" constant="14" id="UQr-GF-L4c"/>
                     <constraint firstItem="JCT-Md-Ph8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="VYb-t4-BIg"/>
                     <constraint firstItem="K1p-t9-RCv" firstAttribute="centerY" secondItem="2vv-Rh-mJe" secondAttribute="centerY" id="VgA-PE-vJk"/>
                     <constraint firstItem="K1p-t9-RCv" firstAttribute="leading" secondItem="2vv-Rh-mJe" secondAttribute="trailing" constant="14" id="W70-eC-w1V"/>
                     <constraint firstItem="qXa-Li-zbj" firstAttribute="leading" secondItem="Occ-fP-V6n" secondAttribute="trailing" constant="13" id="a9g-Eu-8i3"/>
+                    <constraint firstItem="wo1-xp-AcR" firstAttribute="top" secondItem="JCT-Md-Ph8" secondAttribute="bottom" id="aR5-N0-hfM"/>
                     <constraint firstItem="qXa-Li-zbj" firstAttribute="centerY" secondItem="Occ-fP-V6n" secondAttribute="centerY" id="eMs-xE-24B"/>
                     <constraint firstItem="qXa-Li-zbj" firstAttribute="leading" secondItem="Occ-fP-V6n" secondAttribute="trailing" constant="8" id="ejB-Ch-W3W"/>
                     <constraint firstAttribute="trailing" secondItem="qXa-Li-zbj" secondAttribute="trailing" constant="8" id="kSQ-G0-22y"/>
@@ -77,6 +88,7 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="A5q-0E-QNC"/>
                         <exclude reference="a9g-Eu-8i3"/>
                     </mask>
                 </variation>

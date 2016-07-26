@@ -77,6 +77,7 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
     EMConversation *conversation = [[EMClient sharedClient].chatManager getConversation:self.toName type:EMConversationTypeChat createIfNotExist:YES];
     // 获取聊天消息
     self.msgArray = [conversation loadMoreMessagesContain:nil before:-1 limit:20 from:nil direction:(EMMessageSearchDirectionUp)].mutableCopy;
+    NSLog(@"++++++++++%@",((EMMessage *)self.msgArray.lastObject).body);
     [self.chatTableView reloadData];
     [self scrollToBottom];
 }
@@ -134,7 +135,7 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
     [UIView animateWithDuration:duration animations:^{
         //这里填入一些view的最终状态属性设置，即会自动产生过渡动画
         self.view.frame = rect;
-    }];
+    }
 }
 - (void)keyBoardHide:(NSNotification *)notification{
     NSDictionary *dict = [notification userInfo];
@@ -171,6 +172,9 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
         [[EMClient sharedClient].chatManager asyncSendMessage:meaasge progress:nil completion:^(EMMessage *message, EMError *error) {
             if (!error) {
                 NSLog(@"发送成功");
+                
+                
+                
                 [weakSelf.msgArray addObject:meaasge];
                 // 主线程刷新view
                 dispatch_async(dispatch_get_main_queue(), ^{

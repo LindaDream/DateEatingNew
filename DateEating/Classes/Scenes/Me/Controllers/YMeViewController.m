@@ -42,6 +42,7 @@
 @property(strong,nonatomic)UIVisualEffectView *visualView;
 @property(assign,nonatomic) int tempCount;
 @property(strong,nonatomic)EMConversation *conversation;
+@property(strong,nonatomic)NSMutableDictionary *dict;
 @end
 // 我的界面cell标识符
 static NSString *const clearCellIdentifier = @"clearCell";
@@ -73,8 +74,8 @@ static NSString *const listCellIdentifier = @"listCell";
 }
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        self.unreadMessageCount = 0;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUnreadMessageCount:) name:@"unreadMessageCount" object:nil];
+        self.dict = [[NSMutableDictionary alloc] initWithCapacity:1000];
     }
     return self;
 }
@@ -95,17 +96,21 @@ static NSString *const listCellIdentifier = @"listCell";
 }
 #pragma mark--获取未读消息条数--
 - (void)getUnreadMessageCount:(NSNotification *)notification{
+    self.unreadMessageCount = 0;
     NSDictionary *userInfo = [notification userInfo];
-    self.userName = [userInfo objectForKey:@"userName"];
-    self.conversation = [[EMClient sharedClient].chatManager getConversation:self.userName type:(EMConversationTypeChat) createIfNotExist:YES];
-    self.tempCount = self.conversation.unreadMessagesCount;
-    self.unreadMessageCount = self.tempCount;
+    NSArray *message = [userInfo objectForKey:@"messageArray"];
+    for (EMMessage *msg in message) {
+        self.conversation = [[EMClient sharedClient].chatManager getConversation:msg.conversationId type:(EMConversationTypeChat) createIfNotExist:YES];
+        [self.dict setObject:[NSNumber numberWithInteger:self.conversation.unreadMessagesCount] forKey:msg.conversationId];
+        for (NSNumber *number in [self.dict allValues]) {
+            self.unreadMessageCount += number.integerValue;
+        }
+    }
     if (self.unreadMessageCount > 0) {
         self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%ld",self.unreadMessageCount];
     }else{
         self.tabBarItem.badgeValue = nil;
     }
-
 }
 #pragma mark--加号按钮通知方法--
 - (void)dateView:(NSNotification *)notification{
@@ -201,9 +206,15 @@ static NSString *const listCellIdentifier = @"listCell";
         [self presentViewController:loginVC animated:YES completion:nil];
     }else{
         [AVUser logOut];
-        [[EMClient sharedClient].options setIsAutoLogin:NO];
-        [self.meTableView reloadData];
-        [self addHeadView];
+        EMError *error = [[EMClient sharedClient] logout:YES];
+        if (!error) {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userName"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"passWord"];
+            [self.meTableView reloadData];
+            [self addHeadView];
+        }else{
+            NSLog(@"%d",error.code);
+        }
     }
 }
 #pragma mark--完善资料--
@@ -422,9 +433,18 @@ static NSString *const listCellIdentifier = @"listCell";
         }else if (indexPath.row == 3) {
             if ([AVUser currentUser]) {
                 YFriendsViewController *friendsVC = [YFriendsViewController new];
-                self.tabBarItem.badgeValue = nil;
-                self.tempCount = 0;
-                [self.conversation markAllMessagesAsRead];
+                friendsVC.conversationDict = self.dict;
+                friendsVC.unreadCount = self.unreadMessageCount;
+                friendsVC.passValueBlock = ^(NSNumber *count,NSMutableDictionary *dict){
+                    self.unreadMessageCount = count.integerValue;
+                    if (self.unreadMessageCount > 0) {
+                        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%ld",self.unreadMessageCount];
+                    }else{
+                        self.tabBarItem.badgeValue = nil;
+                    }
+                    self.dict = dict;
+                };
+
                 [self.navigationController pushViewController:friendsVC animated:YES];
             }else{
                 YLoginViewController *loginVC = [YLoginViewController new];
@@ -494,9 +514,15 @@ static NSString *const listCellIdentifier = @"listCell";
 // 退出按钮
 - (void)exitAction{
     [AVUser logOut];
-    [[EMClient sharedClient].options setIsAutoLogin:NO];
-    YTabBarController *tabBarVC = [YTabBarController new];
-    [self presentViewController:tabBarVC animated:YES completion:nil];
+    EMError *error = [[EMClient sharedClient] logout:YES];
+    if (!error) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userName"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"passWord"];
+        YTabBarController *tabBarVC = [YTabBarController new];
+        [self presentViewController:tabBarVC animated:YES completion:nil];
+    }else{
+        NSLog(@"%d",error.code);
+    }
 }
 
 // 计算文件大小

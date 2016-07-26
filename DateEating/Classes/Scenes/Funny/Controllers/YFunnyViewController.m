@@ -43,7 +43,8 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
     [self.funnyTableView registerNib:[UINib nibWithNibName:@"YFunnyTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:funnyCellId];
     [self.funnyTableView registerNib:[UINib nibWithNibName:@"YFunnyNoImgTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:funnyNoImgCellId];
     self.arr = [NSMutableArray array];
-//    [self getAllFunny];
+    
+    self.funnyTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
 }
 
@@ -104,14 +105,10 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
     [self.arr removeAllObjects];
     [YFunnyModel parsesFunnyWithsuccessRequest:^(id dict) {
         NSArray *array = dict;
-        
         for (NSInteger i = array.count - 1; i >= 0; i--) {
-            
             [self.arr addObject:array[i]];
         }
-        NSLog(@"self.arr = %@", self.arr);
         dispatch_async(dispatch_get_main_queue(), ^{
-                        //self.arr = array.mutableCopy;
             [self.funnyTableView reloadData];
         });
     } failurRequest:^(NSError *error) {
