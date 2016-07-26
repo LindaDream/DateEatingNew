@@ -18,7 +18,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="jLF-cc-koq">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="jLF-cc-koq">
                     <rect key="frame" x="23" y="278" width="368" height="437"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cu9-1N-yVX">
@@ -32,7 +32,7 @@
                         <outlet property="delegate" destination="-1" id="Mtt-gl-DLb"/>
                     </connections>
                 </collectionView>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleToFill" text="分享生活，留住感动" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NKc-bq-JEM">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="分享生活，留住感动" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NKc-bq-JEM">
                     <rect key="frame" x="23" y="75" width="368" height="182"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -41,8 +41,8 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="editBack.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="BzB-Lj-Npd">
-                    <rect key="frame" x="-44" y="8" width="414" height="736"/>
+                <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="editBack.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="BzB-Lj-Npd">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
