@@ -66,7 +66,6 @@ static NSString *const attentionListCellIdentifier = @"attentionListCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     YAttentionListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:attentionListCellIdentifier forIndexPath:indexPath];
-    NSLog(@"%@",self.attentionArray);
     YAttentionListModel *model = self.attentionArray[indexPath.row];
     cell.delegate = self;
     cell.model = model;

@@ -49,11 +49,8 @@
     CGRect frame = self.contentLabel.frame;
     CGFloat h = [[self class] textHeightFromModel:funny];
     frame.size.height = h;
-    
     self.contentLabel.frame = frame;
-    //NSLog(@"%lf",h);
     self.publishTimeLabel.text = funny.publishTime;
-    
     [YContent getContentAvatarWithUserName:funny.publishName SuccessRequest:^(id dict) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.headImageView sd_setImageWithURL:[NSURL URLWithString:dict]];

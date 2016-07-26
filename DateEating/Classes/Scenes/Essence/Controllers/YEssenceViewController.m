@@ -206,7 +206,6 @@ static NSString *const cityCellId = @"cityCellId";
 
 // 请求美食界面的数据
 - (void)requestMealWithCityId:(NSInteger)cityId categoryId:(NSString *)categoryId page:(NSString *)page{
-    NSLog(@"%ld",cityId);
     // 拼接路径
     NSString *mealStr = kMealUrl(cityId,categoryId,page);
     // 为两个数组赋值
@@ -226,7 +225,9 @@ static NSString *const cityCellId = @"cityCellId";
                 if (self.mealPage.intValue == self.mealNextPage.intValue) {// 只有一页
                     [self.mealArr addObjectsFromArray:dict];
                     [self.mealTableView reloadData];
-                    [self showAlertViewWithMessage:@"只有一页"];
+                    if (self.mealArr.count == 0) {
+                        [self showAlertViewWithMessage:@"抱歉，暂时没有相关数据"];
+                    }
                 }else if(!self.mealPage){
                     [self.mealArr addObjectsFromArray:dict];
                     [self.mealTableView reloadData];
@@ -243,13 +244,13 @@ static NSString *const cityCellId = @"cityCellId";
                 if (self.mealPage.intValue == self.mealNextPage.intValue) {// 只有一页
                     [self.mealArr addObjectsFromArray:dict];
                     [self.mealTableView reloadData];
-                    [self showAlertViewWithMessage:@"只有一页"];
+                    if (self.mealArr.count == 0) {
+                        [self showAlertViewWithMessage:@"抱歉，暂时没有相关数据"];
+                    }
                 }else{
                     [self.mealArr addObjectsFromArray:dict];
                     [self.mealTableView reloadData];
                 }
-                
-                
             }else{// 普通加载
                 if(self.cityId != cityId){// 换城市
                     self.cityId = cityId;
@@ -261,7 +262,7 @@ static NSString *const cityCellId = @"cityCellId";
                         [self.mealArr addObjectsFromArray:dict];
                         [self.mealTableView reloadData];
                     }else {
-                        [self showAlertViewWithMessage:@"已经加载到最后一页"];
+                        [self showAlertViewWithMessage:@"数据已全部加载"];
                     }
                 }
             }
@@ -289,7 +290,6 @@ static NSString *const cityCellId = @"cityCellId";
         dispatch_async(dispatch_get_main_queue(), ^{
             self.playNextPage = ((YPlayModel *)((NSArray *)dict).lastObject).nextPage;
             self.playPage = ((YPlayModel *)((NSArray *)dict).lastObject).page;
-            NSLog(@"%@ %@",self.playPage,dict);
             NSInteger ID = ((YPlayModel *)((NSArray *)dict).lastObject).ID;
 
             if (self.isSelected) {// 如果用类型搜索
@@ -299,7 +299,9 @@ static NSString *const cityCellId = @"cityCellId";
                 if (self.playPage.intValue == self.playNextPage.intValue) {// 只有一页
                     [self.playArr addObjectsFromArray:dict];
                     [self.playTableView reloadData];
-                    [self showAlertViewWithMessage:@"只有一页"];
+                    if (self.playArr.count == 0) {
+                        [self showAlertViewWithMessage:@"抱歉，暂时没有相关数据"];
+                    }
                 }else if(!self.playPage){
                     [self.playArr addObjectsFromArray:dict];
                     [self.playTableView reloadData];
@@ -312,17 +314,16 @@ static NSString *const cityCellId = @"cityCellId";
             }else if ([self.howRefresh isEqualToString:@"下拉加载"]) {// 如果下拉刷新
                 // 清空数组
                 [self.playArr removeAllObjects];
-                
                 if (self.playPage.intValue == self.playNextPage.intValue) {// 只有一页
                     [self.playArr addObjectsFromArray:dict];
                     [self.playTableView reloadData];
-                    [self showAlertViewWithMessage:@"只有一页"];
+                    if (self.playArr.count == 0) {
+                        [self showAlertViewWithMessage:@"抱歉，暂时没有相关数据"];
+                    }
                 }else{
                     [self.playArr addObjectsFromArray:dict];
                     [self.playTableView reloadData];
                 }
-
-            
             }else{// 普通加载
                 if(self.cityId != cityId){// 换城市
                     self.cityId = cityId;
@@ -334,7 +335,7 @@ static NSString *const cityCellId = @"cityCellId";
                         [self.playArr addObjectsFromArray:dict];
                         [self.playTableView reloadData];
                     }else {
-                        [self showAlertViewWithMessage:@"已经加载到最后一页"];
+                        [self showAlertViewWithMessage:@"数据已全部加载"];
                     }
                 }
                 
@@ -354,7 +355,6 @@ static NSString *const cityCellId = @"cityCellId";
     // 为两个数组赋值
     [YCityModel parsesWithUrl:kCityIDUrl successRequest:^(id dict) {
         self.cityArr = dict;
-        NSLog(@"=============%@",self.cityArr);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.cityTableView reloadData];
         });
@@ -373,8 +373,6 @@ static NSString *const cityCellId = @"cityCellId";
     }else{
         self.managerView.x = 0;
     }
-    
-    
 }
 
 // 导航栏右侧按钮触发的方法
@@ -398,45 +396,32 @@ static NSString *const cityCellId = @"cityCellId";
 
         [self.popView addGestureRecognizer:self.tap];
         self.isSelected = YES;
-        
         // 点击btn触发的事件
         __weak typeof(self) __weakSelf = self;
         self.popView.ba = ^(NSInteger tag){
-            NSLog(@"点击了btn的tag = %ld",tag);
             __weakSelf.categoryId = [NSString stringWithFormat:@"%ld",tag];
             if (tag == 0) {
                 __weakSelf.categoryId = @"";
             }
-
             if ([__weakSelf.isMeal isEqualToString:@"美食"]) {
                 [__weakSelf requestMealWithCityId:__weakSelf.cityId categoryId:__weakSelf.categoryId page:@"1"];
-                
             }else{
                 [__weakSelf requestPlayWithCityId:__weakSelf.cityId categoryId:__weakSelf.categoryId page:@"1"];
-            
             }
             [__weakSelf.popView removeFromSuperview];
-            
             __weakSelf.popView.center = CGPointMake(kWidth, 0);
         };
-        
     }else{
-        
         [_popView removeFromSuperview];
         self.isSelected = NO;
         _popView.center = CGPointMake(kWidth, 0);
-        
-        
     }
-    
-    
 }
 
 // 点击手势触发的方法
 - (void)tapAction{
 
     if (self.isSelected) {
-        
         [self.popView removeFromSuperview];
         _popView.center = CGPointMake(kWidth, 0);
         self.isSelected = NO;
@@ -489,7 +474,6 @@ static NSString *const cityCellId = @"cityCellId";
     if (tableView == self.mealTableView) {
         return self.mealArr.count;
     }else if (tableView == self.playTableView) {
-        NSLog(@"%ld",self.playArr.count);
         return self.playArr.count;
     }else {
         return self.cityArr.count;

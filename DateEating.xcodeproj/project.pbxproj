@@ -28,6 +28,8 @@
 		CE49795C1D3515170087FAF6 /* YActionUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4979571D3515170087FAF6 /* YActionUserModel.m */; };
 		CE49795D1D3515170087FAF6 /* YDateContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4979591D3515170087FAF6 /* YDateContentModel.m */; };
 		CE49795E1D3515170087FAF6 /* YFeeTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE49795B1D3515170087FAF6 /* YFeeTypeModel.m */; };
+		CE5976471D4740E200524D9A /* genderSelect.png in Resources */ = {isa = PBXBuildFile; fileRef = CE5976461D4740E200524D9A /* genderSelect.png */; };
+		CE59764B1D47636E00524D9A /* areaCodeList.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE59764A1D47636E00524D9A /* areaCodeList.plist */; };
 		CE69131C1D33C95D001FE50B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE69131B1D33C95D001FE50B /* main.m */; };
 		CE6913251D33C95D001FE50B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE6913231D33C95D001FE50B /* Main.storyboard */; };
 		CE6913271D33C95D001FE50B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE6913261D33C95D001FE50B /* Assets.xcassets */; };
@@ -611,6 +613,8 @@
 		CE4979591D3515170087FAF6 /* YDateContentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDateContentModel.m; sourceTree = "<group>"; };
 		CE49795A1D3515170087FAF6 /* YFeeTypeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YFeeTypeModel.h; sourceTree = "<group>"; };
 		CE49795B1D3515170087FAF6 /* YFeeTypeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YFeeTypeModel.m; sourceTree = "<group>"; };
+		CE5976461D4740E200524D9A /* genderSelect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = genderSelect.png; sourceTree = "<group>"; };
+		CE59764A1D47636E00524D9A /* areaCodeList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = areaCodeList.plist; sourceTree = "<group>"; };
 		CE6913171D33C95D001FE50B /* DateEating.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DateEating.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE69131B1D33C95D001FE50B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CE6913241D33C95D001FE50B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -1427,6 +1431,7 @@
 		CE6913511D33CFDB001FE50B /* Macros */ = {
 			isa = PBXGroup;
 			children = (
+				CE59764A1D47636E00524D9A /* areaCodeList.plist */,
 				D66E599C1D33DD28003DED51 /* PrefixHeader.pch */,
 			);
 			path = Macros;
@@ -1447,6 +1452,7 @@
 		CE6913531D33CFDB001FE50B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CE5976461D4740E200524D9A /* genderSelect.png */,
 				CEBF8FE41D45B98600406A61 /* emoji.png */,
 				CE0043AF1D4353B2004398E7 /* message.png */,
 				CEB827181D42079C00BB2E31 /* 微信气泡 */,
@@ -2666,6 +2672,7 @@
 				D66E5A6C1D33DE84003DED51 /* defaultUserIcon.png in Resources */,
 				D6F0F38E1D3B464400D1EF81 /* strategy_category_7.png in Resources */,
 				D6F0F3731D3B464400D1EF81 /* mine_wish_school.png in Resources */,
+				CE59764B1D47636E00524D9A /* areaCodeList.plist in Resources */,
 				D66E5B0B1D33DE84003DED51 /* tabBar_new_click_icon.png in Resources */,
 				D66E5AD91D33DE84003DED51 /* app_slogan@2x.png in Resources */,
 				D6F0F35B1D3B464400D1EF81 /* bantouming_01.jpg in Resources */,
@@ -2700,6 +2707,7 @@
 				D61D1B4A1D38C3E500C36F84 /* guarantee_red_bg@2x.png in Resources */,
 				D66E5AF01D33DE84003DED51 /* pushguidebot@3x.png in Resources */,
 				D66E5A9C1D33DE84003DED51 /* tagicon@2x.png in Resources */,
+				CE5976471D4740E200524D9A /* genderSelect.png in Resources */,
 				CEBF8FC21D45B24900406A61 /* YTimeOrAddressTableViewCell.xib in Resources */,
 				D66E5AD01D33DE84003DED51 /* nav_coin_icon_click@3x.png in Resources */,
 				D66E5B0E1D33DE84003DED51 /* tabBar_new_icon.png in Resources */,

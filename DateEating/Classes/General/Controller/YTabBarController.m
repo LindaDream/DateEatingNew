@@ -70,20 +70,12 @@
     vc.tabBarItem.image = [UIImage imageNamed:image];
     vc.tabBarItem.selectedImage = [UIImage imageNamed:selectedImage];
     YNavigationController *navc = [[YNavigationController alloc] initWithRootViewController:vc];
-    
     [self addChildViewController:navc];
-    
-    // 设置图片不需要蓝色渲染，保持原有颜色 代码繁琐
-    //    UIImage *image = [UIImage imageNamed:@"tabBar_essence_click_icon"];
-    //    image = [image imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)];
-
 }
 
 // 用户B申请加A为好友后，用户A会收到这个回调
 - (void)didReceiveFriendInvitationFromUsername:(NSString *)aUsername
                                        message:(NSString *)aMessage{
-    NSLog(@"%@添加我为好友",aUsername);
-    
     EMError *error = [[EMClient sharedClient].contactManager acceptInvitationForUsername:aUsername];
     if (!error) {
         NSLog(@"发送同意成功");

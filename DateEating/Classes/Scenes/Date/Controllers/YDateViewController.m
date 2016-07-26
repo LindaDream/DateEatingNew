@@ -51,8 +51,12 @@
 
 @property (strong, nonatomic) BMKLocationService *locService;
 @property (strong, nonatomic) BMKUserLocation *userLocation;
+
 @property (strong, nonatomic) YRequestOurData *requestOurData;
 @property (strong, nonatomic) NSMutableArray *layoutArray;
+
+@property(strong,nonatomic)NSMutableDictionary *cityDict;
+
 
 @end
 
@@ -86,6 +90,9 @@
     _locService.delegate = self;
     //启动LocationService
     [_locService startUserLocationService];
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"areaCodeList.plist" ofType:nil];
+    self.cityDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = YRGBbg;
@@ -161,6 +168,7 @@
     }
     return _ourServerData;
 }
+
 - (NSMutableArray *)layoutArray {
     if (!_layoutArray) {
         _layoutArray = [NSMutableArray array];
@@ -173,8 +181,10 @@
 #pragma mark -- 数据查询 --
 - (void)requestHotDataWithDic:(NSDictionary *)dic start:(NSInteger)start {
     __weak YDateViewController *dateVC = self;
-    //NSNumber *city = dic[@"city"];
-    [YNetWorkRequestManager getRequestWithUrl:HotRequest_Url(@"010",[_handle multi], [_handle gender], [_handle time], [_handle age], [_handle constellation], [_handle occupation], start) successRequest:^(id dict) {
+    NSDictionary *city = [[NSUserDefaults standardUserDefaults] objectForKey:@"city"];
+    NSString *cityName = [city allKeys].firstObject;
+    NSNumber *cityID = self.cityDict[cityName];
+    [YNetWorkRequestManager getRequestWithUrl:HotRequest_Url(cityID,[_handle multi], [_handle gender], [_handle time], [_handle age], [_handle constellation], [_handle occupation], start) successRequest:^(id dict) {
         NSNumber *count = dict[@"data"][@"total"];
         dateVC.hotCount = count.integerValue;
         if (dateVC.isHotDown) {

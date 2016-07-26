@@ -120,12 +120,11 @@
 //处理方向变更信息
 - (void)didUpdateUserHeading:(BMKUserLocation *)userLocation
 {
-    NSLog(@"heading is %@",userLocation.heading);
+    
 }
 //处理位置坐标更新
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
 {
-    NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
     self.userLat = userLocation.location.coordinate.latitude;
     self.userLog = userLocation.location.coordinate.longitude;
 }

@@ -166,8 +166,6 @@
                 model.eventId = eventId.integerValue;
                 model.content = [dict objectForKey:@"content"];
                 model.createTime = [[dict objectForKey:@"createTime"] integerValue];
-                NSLog(@"%ld",model.createTime);
-                
                 [weakSelf.ourMessageArray addObject:model];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -259,7 +257,6 @@
 }
 #pragma mark--聊天按钮代理方法--
 - (void)chatBtnDidClicked:(YDetailHeaderTableViewCell *)cell{
-    
     if ([cell.model.user.nick isEqualToString:[AVUser currentUser].username]) {
         
         [self showAlertViewWithMessage:@"不能和自己聊天"];
@@ -336,13 +333,11 @@
         _isEmoji = YES;
         //呼出表情
         [self.message becomeFirstResponder];
-        //[self.faceBtn setImage:[UIImage imageNamed:@"emoji"] forState:UIControlStateNormal];
         faceView.delegate = self;
         self.message.inputView = faceView;
         [self.message reloadInputViews];
     }else{
         _isEmoji = NO;
-        //[self.faceBtn setImage:[UIImage imageNamed:@"emoji_"] forState:UIControlStateNormal];
         self.message.inputView=nil;
         [self.message reloadInputViews];
     }
@@ -352,7 +347,6 @@
 - (void)changeKeyBoardBtnDidSelect {
     _isEmoji = NO;
     self.message.inputView=nil;
-    //[self.faceBtn setImage:[UIImage imageNamed:@"emoji_"] forState:UIControlStateNormal];
     [self.message reloadInputViews];
 }
 - (void)collectionViewCellDidSelected:(NSString *)face {
@@ -371,13 +365,6 @@
         NSLog(@"不能为空");
     }else{
         
-        // 显示菊花
-        //[SVProgressHUD showWithMaskType:(SVProgressHUDMaskTypeClear)];
-        
-        //AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-        
-        //appDelegate.window.userInteractionEnabled = NO;
-        
         NSString *userName = [AVUser currentUser].username;
         NSString *eventId;
         if (self.model.ourSeverMark) {
@@ -395,12 +382,6 @@
         [contentObject setObject:createTime forKey:@"createTime"];
         [contentObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                // 隐藏菊花
-                //[SVProgressHUD dismiss];
-                
-                //AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-                //appDelegate.window.userInteractionEnabled = YES;
-                
                 if (succeeded) {
                     [self showAlertViewWithMessage:@"评论成功"];
                     _isSendMessage = YES;
@@ -428,11 +409,9 @@
 
 #pragma mark -- textField代理 --
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    //self.lineView.backgroundColor = YRGBColor(234, 78, 56);
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    //self.lineView.backgroundColor = YRGBColor(180, 180, 180);
     return YES;
 }
 #pragma mark -- 滚动视图键盘消失 --
@@ -448,10 +427,7 @@
     [[aNotification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
     NSNumber *duration = [aNotification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSNumber *curve = [aNotification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
-    // Need to translate the bounds to account for rotation.
     keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
-    
-    // get a rect for the textView frame
     CGRect btnFrame = self.contentView.frame;
     btnFrame.origin.y = self.view.bounds.size.height - (keyboardBounds.size.height + btnFrame.size.height);
     // animations settings

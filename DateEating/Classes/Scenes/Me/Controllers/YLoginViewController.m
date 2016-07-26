@@ -8,6 +8,7 @@
 
 #import "YLoginViewController.h"
 #import "YTabBarController.h"
+#import "YRegisterViewController.h"
 @interface YLoginViewController ()<UITextFieldDelegate>
 
 @end
@@ -45,10 +46,12 @@
 - (IBAction)cancelAction:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-#pragma mark--找回密码--
-- (IBAction)resetPasswordAction:(id)sender {
-    
+#pragma mark--去注册--
+- (IBAction)goToRegisterAction:(id)sender {
+    YRegisterViewController *registerVC = [YRegisterViewController new];
+    [self presentViewController:registerVC animated:YES completion:nil];
 }
+
 #pragma mark--键盘回收--
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     if (textField == self.userNameTF) {

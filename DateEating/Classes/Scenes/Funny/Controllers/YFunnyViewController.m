@@ -101,7 +101,9 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
 
 - (void)getAllFunny{
 
+    
     [YFunnyModel parsesFunnyWithsuccessRequest:^(id dict) {
+        [self.arr removeAllObjects];
         NSArray *array = dict;
         [self.arr removeAllObjects];
         for (NSInteger i = array.count - 1; i >= 0; i--) {

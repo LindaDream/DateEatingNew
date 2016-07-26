@@ -70,7 +70,6 @@
         _eventDescription.text = model.eventDescription;
         
         CGFloat distance = [[YDistanceMangear sharedYDistanceMangear]getDistanceByUserLocation:self.userLocation Latitude:model.eventLatitude longitude:model.eventLongitude];
-        NSLog(@"%lf",self.userLocation.location.coordinate.latitude);
         _distance.text = [NSString stringWithFormat:@"%.2lfkm",distance/1000.0];
         _nick.text = model.user.nick;
         _constellation.text = model.user.constellation;

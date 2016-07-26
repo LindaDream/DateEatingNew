@@ -27,17 +27,12 @@
 
 
 + (void)parsesWithUrl:(NSString *)url successRequest:(successRequest)success failurRequest:(failureRequest)failure{
-    
-    //NSMutableArray *mArr = [NSMutableArray array];
     [YNetWorkRequestManager getRequestWithUrl:url successRequest:^(NSDictionary *dict) {
-        //NSLog(@"+++++++++++++%@",dict);
         if(dict){
             YPlayDetailModel *play = [[YPlayDetailModel alloc] init];
             [play setValuesForKeysWithDictionary:dict[@"data"]];
-            //[mArr addObject:play];
             success(play);
         }
-        
     } failurRequest:^(NSError *error) {
         NSLog(@"%@",error);
     }];

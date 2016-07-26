@@ -21,7 +21,6 @@
 + (void)parsesWithUrl:(NSString *)url successRequest:(successRequest)success failurRequest:(failureRequest)failure{
     NSMutableArray *mArr = [NSMutableArray array];
     [YNetWorkRequestManager getRequestWithUrl:url successRequest:^(NSDictionary *dict) {
-        //NSLog(@"+++++++++++++%@",dict);
         if(dict){
             for (NSDictionary *dic in dict[@"result"]) {
                 YCityTypeModel *model = [[YCityTypeModel alloc] init];
@@ -32,7 +31,6 @@
                     [cityModel setValuesForKeysWithDictionary:tempDic];
                     [tmpArr addObject:cityModel];
                 }
-                NSLog(@"%@",tmpArr);
                 [model setValue:tmpArr forKey:@"city_list"];
                 [mArr addObject:model];
             }
