@@ -60,7 +60,6 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getMessage:) name:@"unreadMessageCount" object:nil];
     
     self.chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self getHeadImage];
     self.title = self.toName;
     // 注册输入框通知中心
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(upWithKeyBoard) name:UITextViewTextDidChangeNotification object:self.chatTextView];
@@ -77,7 +76,6 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
     EMConversation *conversation = [[EMClient sharedClient].chatManager getConversation:self.toName type:EMConversationTypeChat createIfNotExist:YES];
     // 获取聊天消息
     self.msgArray = [conversation loadMoreMessagesContain:nil before:-1 limit:20 from:nil direction:(EMMessageSearchDirectionUp)].mutableCopy;
-    NSLog(@"++++++++++%@",((EMMessage *)self.msgArray.lastObject).body);
     [self.chatTableView reloadData];
     [self scrollToBottom];
 }
@@ -88,30 +86,7 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
     [self.chatTableView reloadData];
     [self scrollToBottom];
 }
-- (void)getHeadImage{
-    
-    [YContent getContentAvatarWithUserName:self.toName SuccessRequest:^(id dict) {
-        UIImageView *imgView1 = [[UIImageView alloc] init];
-        [imgView1 sd_setImageWithURL:[NSURL URLWithString:dict]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.friendHeadImage = imgView1.image;
-            [self.chatTableView reloadData];
-        });
-    } failurRequest:^(NSError *error) {
-        NSLog(@"获取friendHeadImage失败");
-    }];
-    AVUser *user = [AVUser currentUser];
-    [YContent getContentAvatarWithUserName:user.username SuccessRequest:^(id dict) {
-        UIImageView *imgView2 = [[UIImageView alloc] init];
-        [imgView2 sd_setImageWithURL:[NSURL URLWithString:dict]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.myHeadImage = imgView2.image;
-            [self.chatTableView reloadData];
-        });
-    } failurRequest:^(NSError *error) {
-        NSLog(@"获取friendHeadImage失败");
-    }];
-}
+
 #pragma mark--点击输入框通知方法--
 - (void)upWithKeyBoard{
     if (self.chatTextView.text.length > 0) {
@@ -172,9 +147,6 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
         [[EMClient sharedClient].chatManager asyncSendMessage:meaasge progress:nil completion:^(EMMessage *message, EMError *error) {
             if (!error) {
                 NSLog(@"发送成功");
-                
-                
-                
                 [weakSelf.msgArray addObject:meaasge];
                 // 主线程刷新view
                 dispatch_async(dispatch_get_main_queue(), ^{

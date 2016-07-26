@@ -28,8 +28,6 @@
         self.publishButton.layer.masksToBounds = YES;
         self.publishButton.layer.cornerRadius = self.publishButton.width / 2;
         self.publishButton.size = CGSizeMake(self.publishButton.currentBackgroundImage.size.width + 30, self.publishButton.currentBackgroundImage.size.height + 30);
-        NSLog(@"%f",self.publishButton.center.x);
-        NSLog(@"%f",self.publishButton.center.y);
         [self.publishButton addTarget:self action:@selector(dateAction:) forControlEvents:(UIControlEventTouchUpInside)];
         [self addSubview:self.publishButton];
         

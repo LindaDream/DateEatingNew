@@ -57,9 +57,7 @@
     if (self.myTask) {
         [self.myTask cancel];
         self.myTask = nil;
-        NSLog(@"yes");
     } else {
-        NSLog(@"no");
     }
 }
 
@@ -70,8 +68,6 @@
     self.menuArray = [NSMutableArray array];
     [self addSubView];
     [self setUpData];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkStateChange) name:kReachabilityChangedNotification object:nil];
-    //self.navigationController.navigationBar.translucent = NO;
     [self setNavigationStyle];
     self.isCollection = YES;
     self.isOnce = NO;
@@ -89,7 +85,6 @@
     dispatch_async(myQueue, ^{
         
         NSString *urlString = [[kMealDetailsUrlOne stringByAppendingString:self.ID] stringByAppendingString:kMealDetailsUrlTwo];
-        NSLog(@"%@",urlString);
         NSURL *newUrl = [NSURL URLWithString:urlString];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:newUrl cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30];
         [request setHTTPMethod:@"GET"];
@@ -290,7 +285,6 @@
     NSDictionary *dic = [self.model.recommendAutomatic[number] valueForKey:@"data"];
     YMealModel *model = [[YMealModel alloc] init];
     [model setValuesForKeysWithDictionary:dic];
-    //    NSLog(@"%ld", number);
     MealDetailsViewController *mealVC = [[MealDetailsViewController alloc] init];
     mealVC.ID = [NSString stringWithFormat:@"%ld", model.ID];
     [self.navigationController pushViewController:mealVC animated:YES];
@@ -324,22 +318,6 @@
     }
 }
 
-//- (void)networkStateChange
-//{
-//    Reachability *conn = [Reachability reachabilityForInternetConnection];
-//    if ([conn currentReachabilityStatus] != NotReachable) {
-//        
-//            if (self.isBuild == YES) {
-//                
-//            } else {
-//                [self setUpData];
-//            }
-//        
-//     
-//    } else {
-//        
-//    }
-//}
 
 - (void)actionCollection:(UIBarButtonItem *)button
 {
@@ -376,7 +354,6 @@
         // 删除收藏的数据
         // 执行 CQL 语句实现删除一个 MyAttention 对象
         self.objId = [[NSUserDefaults standardUserDefaults] objectForKey:self.ID];
-        NSLog(@"%@",self.objId);
         [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"delete from MyMealCollection where objectId='%@'",self.objId] callback:^(AVCloudQueryResult *result, NSError *error) {
             [self showAlertViewWithMessage:(@"取消收藏成功")];
         }];
@@ -399,45 +376,6 @@
 
 - (void)actionUserLogin:(NSNotification *)notification
 {
-
-    
-//    Reachability *conn = [Reachability reachabilityForInternetConnection];
-//    if ([conn currentReachabilityStatus] != NotReachable) {
-//        //        NSLog(@攻略:有网络");
-//        AVUser *currentUser = [AVUser currentUser];
-//        if (currentUser != nil) {
-//            if ([self isHave]) {
-//                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"您已经收藏过了" preferredStyle:UIAlertControllerStyleAlert];
-//                [self presentViewController:alertController animated:YES completion:nil];
-//                [self performSelector:@selector(dismiss:) withObject:alertController afterDelay:0.5];
-//            } else {
-//                NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:self.model.ID, @"ID", self.model.title, @"title", nil];
-//                [currentUser addObject:dic forKey:@"meal"];
-//                [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//                    NSLog(@"%@", [currentUser objectForKey:@"meal"]);
-//                    [currentUser saveInBackground];
-//                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"收藏成功" preferredStyle:UIAlertControllerStyleAlert];
-//                    [self presentViewController:alertController animated:YES completion:nil];
-//                    [self performSelector:@selector(dismiss:) withObject:alertController afterDelay:5];
-//                }];
-//            }
-//        } else {
-//            UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"LoginAndRegister" bundle:nil];
-//            UIViewController *loginVC = [storyBoard instantiateInitialViewController];
-//            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionUserLogin:) name:@"USERISLOGIN" object:nil];
-//            [self presentViewController:loginVC animated:YES completion:nil];
-//        }
-//        
-//    } else {
-//        //        NSLog(@"没有网络");
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"收藏失败 请您检查是否为网络原因" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *say = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-//        [alertController addAction:say];
-//        [self presentViewController:alertController animated:YES completion:nil];
-//        //        [self performSelector:@selector(dismiss:) withObject:alertController afterDelay:0.5];
-//        
-//    }
-
 }
 
 - (void)dismiss:(UIAlertController *)alert
@@ -563,7 +501,6 @@
     
     self.muenLabel.text = [self removeChar];
     self.muenLabel.font = [UIFont systemFontOfSize:16];
-    NSLog(@"%@", self.model.menu);
     self.muenLabel.textColor = [UIColor blackColor];
     self.muenLabel.textAlignment = NSTextAlignmentCenter;
     CGRect newMuenFrame = self.muenLabel.frame;

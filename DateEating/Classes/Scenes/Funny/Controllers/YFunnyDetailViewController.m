@@ -173,20 +173,13 @@ static NSString *const contentCellId = @"contentCellId";
         
         self.scrollView.hidden = YES;
         self.scrollView.height = 0;
-        
         self.pinglunLabel.frame = CGRectMake(14 ,CGRectGetMaxY(self.contentLabel.frame) + 10, self.pinglunLabel.width, self.pinglunLabel.height);
-        NSLog(@"%@",NSStringFromCGRect(self.pinglunLabel.frame));
         self.contentTableView.frame = CGRectMake(0 ,CGRectGetMaxY(self.pinglunLabel.frame) + 10, self.contentTableView.width, self.contentTableView.height);
-        NSLog(@"%@",NSStringFromCGRect(self.contentTableView.frame));
     }else {
         
         self.scrollView.frame = CGRectMake(14 ,CGRectGetMaxY(self.contentLabel.frame) + 10, self.scrollView.width, self.scrollView.height);
-        NSLog(@"%@",NSStringFromCGRect(self.scrollView.frame));
         self.pinglunLabel.frame = CGRectMake(14 ,CGRectGetMaxY(self.scrollView.frame) + 10, self.pinglunLabel.width, self.pinglunLabel.height);
-        NSLog(@"%@",NSStringFromCGRect(self.pinglunLabel.frame));
         self.contentTableView.frame = CGRectMake(0 ,CGRectGetMaxY(self.pinglunLabel.frame) + 10, self.contentTableView.width, self.contentTableView.height);
-        NSLog(@"%@",NSStringFromCGRect(self.contentTableView.frame));
-        
     }
     
 }
@@ -274,7 +267,6 @@ static NSString *const contentCellId = @"contentCellId";
     
     [YContent getContentAvatarWithUserName:self.publishName.text SuccessRequest:^(id dict) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"%@",dict);
             [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:dict]];
         });
     } failurRequest:^(NSError *error) {

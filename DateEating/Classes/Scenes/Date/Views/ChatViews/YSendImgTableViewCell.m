@@ -40,7 +40,6 @@
         _sendImg = sendImg;
     }
     _messsageImgView.image = sendImg;
-    NSLog(@"sendImg = %@",sendImg);
     [self.contentView insertSubview:self.backImgView belowSubview:self.messsageImgView];
 }
 -(UIImageView *)messsageImgView{

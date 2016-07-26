@@ -33,7 +33,6 @@
 - (void)setMeal:(YMealModel *)meal{
 
     _meal = meal;
-    NSLog(@"图片的url = %@",_meal.picUrl);
     [self.backImageView sd_setImageWithURL:[NSURL URLWithString:meal.picUrl]];
     self.titleLabel.text = _meal.title;
     self.addressOrDurationLabel.text = _meal.address;
@@ -44,7 +43,6 @@
 - (void)setPlay:(YPlayModel *)play{
 
     _play = play;
-    NSLog(@"图片的url = %@",_meal.picUrl);
     [self.backImageView sd_setImageWithURL:[NSURL URLWithString:_play.picUrl]];
     self.titleLabel.text = _play.title;
     self.addressOrDurationLabel.text = _play.duration;

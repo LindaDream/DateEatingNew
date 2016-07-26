@@ -129,7 +129,6 @@ static NSString *const imageCellId = @"imageCellId";
     NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"YYYY-MM-dd hh:mm:ss"];
     date = [formatter stringFromDate:[NSDate date]];
-    //NSLog(@"%@",date);
     // 生成趣事对象
     YFunnyModel *funny = [YFunnyModel new];
     funny.publishName = [AVUser currentUser].username;
@@ -147,7 +146,6 @@ static NSString *const imageCellId = @"imageCellId";
             NSData *data = UIImageJPEGRepresentation(self.photoArray[i], 1.0);
             AVFile *file = [AVFile fileWithName:@"img.png" data:data];
             [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                NSLog(@"%@",file.url);//返回一个唯一的 Url 地址
                 [funnyObject setObject:file.url forKey:[NSString stringWithFormat:@"image%d",i]];
                 
                 if (i == self.photoArray.count - 1) {
@@ -306,7 +304,6 @@ static NSString *const imageCellId = @"imageCellId";
         [photoController showIn:self result:^(id responseObject){
             
             NSArray *array = (NSArray *)responseObject;
-            NSLog(@"%@",responseObject);
             
             [self.photoArray addObjectsFromArray:array];
             

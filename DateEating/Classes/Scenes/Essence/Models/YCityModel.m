@@ -19,7 +19,6 @@
     
     NSMutableArray *mArr = [NSMutableArray array];
     [YNetWorkRequestManager getRequestWithUrl:url successRequest:^(NSDictionary *dict) {
-        //NSLog(@"+++++++++++++%@",dict);
         if(dict){
             for (NSDictionary *dic in dict[@"data"][@"allCity"]) {
                 
