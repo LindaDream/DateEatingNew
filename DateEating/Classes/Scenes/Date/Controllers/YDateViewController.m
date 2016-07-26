@@ -20,6 +20,7 @@
 #import "YCityTableViewController.h"
 #import "YContent.h"
 #import <BaiduMapAPI_Base/BMKBaseComponent.h>
+#import "YRequestOurData.h"
 
 @interface YDateViewController ()
 <
@@ -28,7 +29,8 @@
     UIScrollViewDelegate,
     YSeekConditionViewControllerDelegate,
     YDateListTableViewCellDelegate,
-    YCityTableViewControllerDelegate
+    YCityTableViewControllerDelegate,
+    YRequestOurDataDelegate
 >
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -49,7 +51,12 @@
 
 @property (strong, nonatomic) BMKLocationService *locService;
 @property (strong, nonatomic) BMKUserLocation *userLocation;
+
+@property (strong, nonatomic) YRequestOurData *requestOurData;
+@property (strong, nonatomic) NSMutableArray *layoutArray;
+
 @property(strong,nonatomic)NSMutableDictionary *cityDict;
+
 
 @end
 
@@ -102,11 +109,13 @@
     // 注册cell
     [self.hotTableView registerNib:[UINib nibWithNibName:@"YDateListTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:YDateListTableViewCell_Identify];
     [self.nearbyTableView registerNib:[UINib nibWithNibName:@"YDateListTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:YDateListTableViewCell_Identify];
+    self.requestOurData = [YRequestOurData sharedYRequestOurData];
+    self.requestOurData.delegate = self;
     // 数据请求
-    [self getData:@"MyDate"];
-    [self getData:@"MyParty"];
+    [_requestOurData getOurDataWithDateType:[_handle multi] gender:[_handle gender] time:[_handle time] age:[_handle age] constellation:[_handle constellation]];
     [self requestHotDataWithDic:[_handle city] start:0];
     [self requestNearByDataWithUrl:0];
+    
 }
 
 #pragma mark -- 处理位置坐标更新代理 --
@@ -160,64 +169,13 @@
     return _ourServerData;
 }
 
-#pragma mark -- 从自己的服务器获取数据 --
-- (void)getData:(NSString *)className {
-    __weak YDateViewController *dateVC = self;
-    AVQuery *query = [AVQuery queryWithClassName:className];
-    [query whereKey:@"Our" equalTo:@"Our"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (dateVC.isHotDown) {
-            [dateVC.ourServerData removeAllObjects];
-            dateVC.isHotDown = NO;
-        }
-        if (objects.count != 0) {
-            for (AVObject *object in objects) {
-                NSDictionary *dict = [object dictionaryForObject];
-                YDateContentModel *model = [YDateContentModel new];
-                model.eventName = [dict objectForKey:@"theme"];
-                model.eventLocation = [dict objectForKey:@"address"];
-                model.dateTime = [dict objectForKey:@"time"];
-                model.ourSeverMark = @"Our";
-                model.eventDescription = [dict objectForKey:@"description"];
-                model.caterBusinessId = [dict objectForKey:@"businessID"];
-                
-                if ([className isEqualToString:@"MyDate"]) {
-                    model.eventObject = [dict objectForKey:@"dateObject"];
-                } else {
-                    model.eventObject = [NSString stringWithFormat:@"邀请%@",[dict objectForKey:@"partyCount"]];
-                }
-                if ([[dict objectForKey:@"concrete"] isEqualToString:@"我请客"]) {
-                    model.fee = 0;
-                }else{
-                    model.fee = 1;
-                }
-                model.user = [[YActionUserModel alloc]init];
-                model.user.nick = [dict objectForKey:@"userName"];
-                // 查询用户信息
-                AVQuery *query = [AVQuery queryWithClassName:@"_User"];
-                [query whereKey:@"username" equalTo:model.user.nick];
-                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    if (objects.count != 0) {
-                        NSDictionary *userDic = [objects.firstObject dictionaryForObject];
-                        NSString *gender = [userDic objectForKey:@"gender"];
-                        model.user.gender = gender.integerValue;
-                        gender = [userDic objectForKey:@"age"];
-                        model.user.age = gender.integerValue;
-                        model.user.constellation = [userDic objectForKey:@"constellation"];
-                        [YContent getContentAvatarWithUserName:model.user.nick SuccessRequest:^(id dict) {
-                            model.user.userImageUrl = dict;
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                [self.ourServerData addObject:model];
-                                [self.hotTableView reloadData];
-                            });
-                        } failurRequest:^(NSError *error) {
-                        }];
-                    }
-                }];
-            }
-        }
-    }];
+- (NSMutableArray *)layoutArray {
+    if (!_layoutArray) {
+        _layoutArray = [NSMutableArray array];
+    }
+    return _layoutArray;
 }
+#pragma mark -- 从自己的服务器获取数据 --
 
 
 #pragma mark -- 数据查询 --
@@ -261,8 +219,21 @@
 
 #pragma mark -- 刷新数据 --
 - (void)reloadAllData {
+    [self.layoutArray removeAllObjects];
+    [self.layoutArray addObjectsFromArray:self.ourServerData];
+    [self.layoutArray addObjectsFromArray:self.hotArray];
     [self.hotTableView reloadData];
     [self.nearbyTableView reloadData];
+}
+
+#pragma mark -- 回调刷新数据 -- 
+- (void)getOurDataByCondition:(NSMutableArray *)array {
+    
+    self.ourServerData = array;
+    [self.layoutArray removeAllObjects];
+    [self.layoutArray addObjectsFromArray:self.ourServerData];
+    [self.layoutArray addObjectsFromArray:self.hotArray];
+    [self.hotTableView reloadData];
 }
 
 #pragma mark -- 上拉加载 --
@@ -287,8 +258,7 @@
     __weak typeof(self) weakSelf = self;
     MJRefreshNormalHeader *headerHot = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         weakSelf.isHotDown = YES;
-        [self getData:@"MyDate"];
-        [self getData:@"MyParty"];
+        [self.requestOurData getOurDataWithDateType:[_handle multi] gender:[_handle gender] time:[_handle time] age:[_handle age] constellation:[_handle constellation]];
         [weakSelf requestHotDataWithDic:[weakSelf.handle city] start:0];
         [weakSelf.hotTableView.mj_header endRefreshing];
     }];
@@ -380,6 +350,7 @@
 
 #pragma mark -- 选择查询条件后的代理回调 --
 - (void)passSeekCondition {
+    
     if ([self.handle haveSeekCondition]) {
         [self.barButton setImage:[UIImage imageNamed:@"NaviFiltered"]];
     } else {
@@ -387,6 +358,7 @@
     }
     self.isHotDown = YES;
     self.isNearByDown = YES;
+    [self.requestOurData getOurDataWithDateType:[_handle multi] gender:[_handle gender] time:[_handle time] age:[_handle age] constellation:[_handle constellation]];
     [self requestHotDataWithDic:[self.handle city] start:0];
     [self requestNearByDataWithUrl:0];
 }
@@ -423,7 +395,7 @@
 #pragma mark -- tableview实现的代理方法 --
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (tableView == self.hotTableView) {
-        return self.hotArray.count + self.ourServerData.count;
+        return self.layoutArray.count;
     }else {
         return self.nearByArray.count;
     }
@@ -436,11 +408,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     YDateListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:YDateListTableViewCell_Identify forIndexPath:indexPath];
     if (tableView == self.hotTableView) {
-        if(indexPath.section < self.ourServerData.count) {
-            cell.model = self.ourServerData[indexPath.section];
-        } else {
-            cell.model = self.hotArray[indexPath.section - self.ourServerData.count];
-        }
+        cell.model = self.layoutArray[indexPath.section];
     }else {
         cell.model = self.nearByArray[indexPath.section];
     }
@@ -457,11 +425,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     YDetailViewController *detailVC = [[YDetailViewController alloc]init];
     if (tableView == self.hotTableView) {
-        if(indexPath.section < self.ourServerData.count) {
-            detailVC.model = self.ourServerData[indexPath.section];
-        } else {
-            detailVC.model = self.hotArray[indexPath.section - self.ourServerData.count];
-        }
+        detailVC.model = self.layoutArray[indexPath.section];
     } else {
         detailVC.model = self.nearByArray[indexPath.section];
     }

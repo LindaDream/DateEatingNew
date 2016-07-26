@@ -82,8 +82,8 @@ static NSString *const friendsListCellId = @"friendsListCellId";
 
 #pragma mark--UITableViewDataSource--
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    YFriends *friend = self.friendsArr[indexPath.row];
     YChatViewController *chatVC = [YChatViewController new];
+    YFriends *friend = self.friendsArr[indexPath.row];
     YFriendsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     EMConversation *conversation = [[EMClient sharedClient].chatManager getConversation:friend.friendName type:(EMConversationTypeChat) createIfNotExist:YES];
     [conversation markAllMessagesAsRead];

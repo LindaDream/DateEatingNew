@@ -82,7 +82,12 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
 #pragma mark--收到的消息--
 - (void)getMessage:(NSNotification *)notification{
     NSDictionary *userInfo = [notification userInfo];
-    [self.msgArray addObjectsFromArray:[userInfo objectForKey:@"messageArray"]];
+    NSArray *msgArr = [userInfo objectForKey:@"messageArray"];
+    for (EMMessage *msg in msgArr) {
+        if ([msg.conversationId isEqualToString:self.toName]) {
+            [self.msgArray addObject:msg];
+        }
+    }
     [self.chatTableView reloadData];
     [self scrollToBottom];
 }
