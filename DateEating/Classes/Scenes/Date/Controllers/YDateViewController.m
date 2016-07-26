@@ -194,7 +194,6 @@
                 AVQuery *query = [AVQuery queryWithClassName:@"_User"];
                 [query whereKey:@"username" equalTo:model.user.nick];
                 [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    NSLog(@"%@",objects);
                     if (objects.count != 0) {
                         NSDictionary *userDic = [objects.firstObject dictionaryForObject];
                         NSString *gender = [userDic objectForKey:@"gender"];
@@ -221,7 +220,6 @@
 #pragma mark -- 数据查询 --
 - (void)requestHotDataWithDic:(NSDictionary *)dic start:(NSInteger)start {
     __weak YDateViewController *dateVC = self;
-    //NSNumber *city = dic[@"city"];
     [YNetWorkRequestManager getRequestWithUrl:HotRequest_Url(@"010",[_handle multi], [_handle gender], [_handle time], [_handle age], [_handle constellation], [_handle occupation], start) successRequest:^(id dict) {
         NSNumber *count = dict[@"data"][@"total"];
         dateVC.hotCount = count.integerValue;

@@ -231,7 +231,6 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
 }
 #pragma mark--联系卖家--
 - (void)telAction:(UIButton *)telBtn{
-    //NSLog(@"%@",self.model.telephone);
     // 调用系统电话
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",self.model.telephone]]];
 }
@@ -246,25 +245,18 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
         [object setObject:[AVUser currentUser].username forKey:@"userName"];
         // 保存餐厅名称
         [object setObject:self.nameLabel.text forKey:@"name"];
-        
         // 保存人均价格
         [object setObject:self.priceLabel.text forKey:@"avgPrice"];
-        
         // 保存地址
         [object setObject:self.addressStr forKey:@"address"];
-        
         // 保存类型
         [object setObject:self.typeLabel.text forKey:@"type"];
-        
         // 保存businessId
         [object setObject:self.model.businessId forKey:@"businessId"];
-        
         // 保存关注人数(NSInteger转换成NSNumber类型)
         [object setObject:[NSNumber numberWithInteger:self.count] forKey:@"count"];
-        
         // 保存餐厅图片链接
         [object setObject:self.model.sPhotoUrl forKey:@"headImg"];
-        
         // AND查询
         AVQuery *nameQuery = [AVQuery queryWithClassName:@"MyAttention"];
         [nameQuery whereKey:@"name" equalTo:self.nameStr];
@@ -291,7 +283,6 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
         // 删除关注的数据
         // 执行 CQL 语句实现删除一个 MyAttention 对象
         self.object = [[NSUserDefaults standardUserDefaults] objectForKey:self.nameStr];
-        NSLog(@"%@",self.object);
         [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"delete from MyAttention where objectId='%@'",self.object] callback:^(AVCloudQueryResult *result, NSError *error) {
             NSLog(@"删除成功");
         }];

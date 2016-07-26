@@ -164,7 +164,6 @@
     NSData *data = UIImageJPEGRepresentation(self.avatarImgView.image, 1);
     AVFile *file =  [AVFile fileWithName:@"avatar.png" data:data];
     [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        NSLog(@"%@",file.url);//返回一个唯一的 Url 地址
     }];
     [user setObject:file forKey:@"avatar"];
     dispatch_async(dispatch_get_main_queue(), ^{

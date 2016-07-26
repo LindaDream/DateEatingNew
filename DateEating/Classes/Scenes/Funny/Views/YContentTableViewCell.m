@@ -43,17 +43,12 @@
 - (NSString *)calculateTime{
     
     NSDictionary *createTime = [self analysisTimeWithTime:_content.contentTime];
-    NSLog(@"_content.contents = %@,_content.contentTime = %@",_content.contents,_content.contentTime);
-    NSLog(@"%@",createTime);
     // 获取当前系统时间
     NSString* date;
     NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"YYYY-MM-dd hh:mm:ss"];
     date = [formatter stringFromDate:[NSDate date]];
-    NSLog(@"date = %@",date);
     NSDictionary *nowTime = [self analysisTimeWithTime:date];
-    NSLog(@"%@",nowTime);
-    
     if (((NSString *)nowTime[@"year"]).integerValue > ((NSString *)createTime[@"year"]).integerValue) {
         
         NSInteger year = ((NSString *)nowTime[@"year"]).integerValue - ((NSString *)createTime[@"year"]).integerValue;

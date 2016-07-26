@@ -101,7 +101,6 @@ static NSString *const attentionCellIdentifier = @"attentionCell";
         // 删除关注的数据
         // 执行 CQL 语句实现删除一个 MyAttention 对象
         NSString *object = [[NSUserDefaults standardUserDefaults] objectForKey:model.name];
-        NSLog(@"%@",object);
         [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"delete from MyAttention where objectId='%@'",object] callback:^(AVCloudQueryResult *result, NSError *error) {
             NSLog(@"删除成功");
         }];

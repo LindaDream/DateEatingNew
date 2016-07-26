@@ -56,7 +56,6 @@ static NSString *const systemCellIdentifier = @"systemCell";
     if (self.dataArray.count > 0) {
         YCityTypeModel *typeModel = self.dataArray[indexPath.section];
         YCityListModel *cityModel = typeModel.city_list[indexPath.row];
-        //NSLog(@"%@",cityModel.city_name);
         cell.textLabel.text = cityModel.city_name;
     }
     return cell;

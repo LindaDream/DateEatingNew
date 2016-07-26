@@ -18,7 +18,6 @@
 - (void)drawView{
     [self.contentView addSubview:self.headImgView];
     [self.contentView addSubview:self.messageLabel];
-    NSLog(@"frame = %@",NSStringFromCGRect(self.messageLabel.frame));
 }
 -(void)setHeadImg:(UIImage *)headImg{
     if (_headImg != headImg) {
@@ -45,7 +44,6 @@
     CGFloat height = [[self class] heightForMessage:_message];
     rect.size.height = height;
     _messageLabel.frame = rect;
-    NSLog(@"frame = %@",NSStringFromCGRect(_messageLabel.frame));
     [self.contentView insertSubview:self.backImgView belowSubview:self.messageLabel];
 }
 -(UILabel *)messageLabel{
