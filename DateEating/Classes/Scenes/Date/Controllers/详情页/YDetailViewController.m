@@ -257,7 +257,6 @@
 }
 #pragma mark--聊天按钮代理方法--
 - (void)chatBtnDidClicked:(YDetailHeaderTableViewCell *)cell{
-    
     if ([cell.model.user.nick isEqualToString:[AVUser currentUser].username]) {
         
         [self showAlertViewWithMessage:@"不能和自己聊天"];
