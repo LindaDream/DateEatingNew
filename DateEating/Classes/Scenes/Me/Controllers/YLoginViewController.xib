@@ -48,12 +48,12 @@
                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ks-aH-5L4">
-                    <rect key="frame" x="275" y="363" width="96" height="30"/>
+                    <rect key="frame" x="275" y="361" width="96" height="33"/>
                     <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <state key="normal" title="忘记密码?"/>
+                    <state key="normal" title="&lt;去注册"/>
                     <connections>
-                        <action selector="resetPasswordAction:" destination="-1" eventType="touchUpInside" id="LcW-jI-Gbl"/>
+                        <action selector="goToRegisterAction:" destination="-1" eventType="touchUpInside" id="5ya-t5-KrE"/>
                     </connections>
                 </button>
                 <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nix-yG-SKd">
@@ -82,6 +82,12 @@
                     <state key="normal" title="取消">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="cancelAction:" destination="-1" eventType="touchUpInside" id="f6i-aV-c2p"/>
                     </connections>

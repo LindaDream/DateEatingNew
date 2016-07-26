@@ -63,17 +63,6 @@
                     <color key="textColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tZo-QI-PLM">
-                    <rect key="frame" x="159" y="256" width="17" height="16"/>
-                    <animations/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="17" id="Q1e-cK-Mnu"/>
-                    </constraints>
-                    <connections>
-                        <action selector="selectBoyAction:" destination="-1" eventType="touchUpInside" id="VO4-dh-ILA"/>
-                    </connections>
-                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="男" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvC-v0-BdC">
                     <rect key="frame" x="179" y="254" width="21" height="21"/>
                     <animations/>
@@ -85,12 +74,18 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8S-FD-7km">
-                    <rect key="frame" x="229" y="256" width="17" height="16"/>
+                    <rect key="frame" x="229" y="256" width="16" height="16"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="17" id="egl-rW-AvK"/>
+                        <constraint firstAttribute="width" constant="16" id="egl-rW-AvK"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="selectGirlAction:" destination="-1" eventType="touchUpInside" id="bVo-Q9-BnA"/>
                     </connections>
@@ -168,13 +163,30 @@
                         <action selector="cancelAction:" destination="-1" eventType="touchUpInside" id="5ET-hy-zbQ"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tZo-QI-PLM">
+                    <rect key="frame" x="159" y="256" width="16" height="16"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="16" id="Q1e-cK-Mnu"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="selectBoyAction:" destination="-1" eventType="touchUpInside" id="VO4-dh-ILA"/>
+                    </connections>
+                </button>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="tZo-QI-PLM" firstAttribute="bottom" secondItem="R8S-FD-7km" secondAttribute="bottom" id="33K-h8-GTm"/>
                 <constraint firstItem="9te-B0-BM8" firstAttribute="leading" secondItem="zZb-ag-m9W" secondAttribute="trailing" constant="78" id="3I7-Ls-fAx"/>
-                <constraint firstItem="zxb-rn-vrQ" firstAttribute="leading" secondItem="R8S-FD-7km" secondAttribute="trailing" constant="2" id="57W-gq-zfj"/>
+                <constraint firstItem="zxb-rn-vrQ" firstAttribute="leading" secondItem="R8S-FD-7km" secondAttribute="trailing" constant="3" id="57W-gq-zfj"/>
                 <constraint firstItem="tZo-QI-PLM" firstAttribute="leading" secondItem="z6G-dj-Pwj" secondAttribute="leading" id="5WL-DN-4wc"/>
                 <constraint firstItem="f3H-xZ-DV8" firstAttribute="centerX" secondItem="O3h-Pf-Q7i" secondAttribute="centerX" id="8Eg-MS-Lal"/>
                 <constraint firstItem="LXy-Dq-rtl" firstAttribute="leading" secondItem="aRU-gX-Xr1" secondAttribute="leading" id="8gw-KK-IRy"/>
@@ -208,7 +220,7 @@
                 <constraint firstItem="7vz-v7-458" firstAttribute="top" secondItem="O3h-Pf-Q7i" secondAttribute="bottom" id="kEL-po-zfe"/>
                 <constraint firstItem="O3h-Pf-Q7i" firstAttribute="centerX" secondItem="Bf1-OQ-baq" secondAttribute="centerX" id="l07-zp-eEb"/>
                 <constraint firstItem="zxb-rn-vrQ" firstAttribute="leading" secondItem="9te-B0-BM8" secondAttribute="leading" id="m8h-7g-n9R"/>
-                <constraint firstItem="gvC-v0-BdC" firstAttribute="leading" secondItem="tZo-QI-PLM" secondAttribute="trailing" constant="3" id="oZg-jr-9MI"/>
+                <constraint firstItem="gvC-v0-BdC" firstAttribute="leading" secondItem="tZo-QI-PLM" secondAttribute="trailing" constant="4" id="oZg-jr-9MI"/>
                 <constraint firstItem="zxb-rn-vrQ" firstAttribute="centerY" secondItem="R8S-FD-7km" secondAttribute="centerY" id="pNr-YP-YEd"/>
                 <constraint firstItem="gvC-v0-BdC" firstAttribute="top" secondItem="z6G-dj-Pwj" secondAttribute="bottom" constant="37" id="vsT-dM-al5"/>
                 <constraint firstAttribute="bottom" secondItem="Bf1-OQ-baq" secondAttribute="bottom" id="wyf-qU-zdz"/>
