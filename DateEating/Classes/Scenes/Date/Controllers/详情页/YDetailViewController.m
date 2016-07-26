@@ -267,6 +267,7 @@
         }else{
             
             NSString *eventName = [cell.model.user.nick lowercaseString];
+            NSLog(@"%@",eventName);
             EMError *error1 = nil;
             NSArray *userlist = [[EMClient sharedClient].contactManager getContactsFromServerWithError:&error1];
             

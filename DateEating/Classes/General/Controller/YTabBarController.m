@@ -14,7 +14,7 @@
 #import "YTabBar.h"
 #import "YNavigationController.h"
 
-@interface YTabBarController ()<EMChatManagerDelegate>
+@interface YTabBarController ()<EMContactManagerDelegate>
 
 @end
 
