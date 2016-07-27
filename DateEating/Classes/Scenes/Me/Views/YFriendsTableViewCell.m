@@ -31,14 +31,38 @@
     self.lastChatMessage.text = friends.lastChatMessage;
     
     // 设置头像
-    [YContent getContentAvatarWithHxuserName:friends.friendName SuccessRequest:^(id dict) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"%@",dict);
-            [self.headImgView sd_setImageWithURL:[NSURL URLWithString:dict]];
-            NSLog(@"%@",self.headImgView.image);
-        });
-    } failurRequest:^(NSError *error) {
-        NSLog(@"%ld",error.code);
+    AVQuery *query = [AVQuery queryWithClassName:@"_User"];
+    [query whereKey:@"hxUserName" equalTo:friends.friendName];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (objects.count != 0) {
+            [YContent getContentAvatarWithHxuserName:friends.friendName SuccessRequest:^(id dict) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSLog(@"%@",dict);
+                    [self.headImgView sd_setImageWithURL:[NSURL URLWithString:dict]];
+                    NSLog(@"%@",self.headImgView.image);
+                });
+            } failurRequest:^(NSError *error) {
+                NSLog(@"--------%ld",error.code);
+            }];
+        }else if(error != nil){
+            NSLog(@"%ld",error.code);
+        }else if(objects.count == 0){
+            AVQuery *query1 = [AVQuery queryWithClassName:@"ChatFriendsList"];
+            [query1 whereKey:@"friendName" equalTo:friends.friendName];
+            [query1 findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                if (objects.count != 0) {
+                    AVObject *obj = objects.firstObject;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.headImgView sd_setImageWithURL:[NSURL URLWithString:[obj objectForKey:@"avatarUrl"]]];
+                        NSLog(@"%@",self.headImgView.image);
+                    });
+                }else if(error != nil){
+                    NSLog(@"======%ld",error.code);
+                }else if (objects.count == 0){
+                    NSLog(@"没有头像");
+                }
+            }];
+        }
     }];
     
 }

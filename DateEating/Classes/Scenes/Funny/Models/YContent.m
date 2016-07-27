@@ -47,10 +47,29 @@
     
 }
 
-// 通过leanclude账号获取头像
+// 获取头像
 + (void)getContentAvatarWithUserName:(NSString *)userName SuccessRequest:(successRequest)success failurRequest:(failureRequest)failure{
     AVQuery *query = [AVQuery queryWithClassName:@"_User"];
     [query whereKey:@"username" equalTo:userName];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (error != nil) {
+            NSLog(@"%ld",error.code);
+        }else if (objects.count != 0){
+            AVObject *user = objects[0];
+            AVFile *file = [user objectForKey:@"avatar"];
+            success(file.url);
+        }else{
+            success(@"该用户不存在");
+        }
+        
+    }];
+    
+}
+
+// 通过leanclude账号获取头像
++ (void)getContentAvatarWithUserName:(NSString *)userName key:(NSString *)key SuccessRequest:(successRequest)success failurRequest:(failureRequest)failure{
+    AVQuery *query = [AVQuery queryWithClassName:@"_User"];
+    [query whereKey:key equalTo:userName];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (error != nil) {
             NSLog(@"%ld",error.code);
@@ -76,7 +95,7 @@
         if (result != nil) {
             AVObject *user = result.results.firstObject;
             NSString *userName = [user objectForKey:@"username"];
-            [self getContentAvatarWithUserName:userName SuccessRequest:^(id dict) {
+            [self getContentAvatarWithUserName:userName key:@"username" SuccessRequest:^(id dict) {
                 success(dict);
             } failurRequest:^(NSError *error) {
                 failure(error);

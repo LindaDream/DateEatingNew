@@ -25,6 +25,7 @@ static NSString *const friendsListCellId = @"friendsListCellId";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.friendsArr = [NSMutableArray new];
+    self.navigationItem.title = @"消息";
     // 注册cell
     [self.frientsListTableView registerNib:[UINib nibWithNibName:@"YFriendsTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:friendsListCellId];
 }
@@ -93,6 +94,7 @@ static NSString *const friendsListCellId = @"friendsListCellId";
     cell.unreadCountLabel.text = nil;
     [cell.unreadCountLabel removeFromSuperview];
     chatVC.toName = friend.friendName;
+    chatVC.key = @"hxUserName";
     [self.navigationController pushViewController:chatVC animated:YES];
 }
 

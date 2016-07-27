@@ -260,51 +260,45 @@
 #pragma mark--聊天按钮代理方法--
 - (void)chatBtnDidClicked:(YDetailHeaderTableViewCell *)cell{
     if ([cell.model.user.nick isEqualToString:[AVUser currentUser].username]) {
-        
         [self showAlertViewWithMessage:@"不能和自己聊天"];
-        
     }else{
-        [YContent getContentAvatarWithUserName:cell.model.user.nick SuccessRequest:^(id dict) {
-            if ([dict isEqualToString:@"该用户不存在"]) {
-                [self showAlertViewWithMessage:@"该用户还未开通聊天功能"];
-            }else{
-          
-                NSString *eventName = [cell.model.user.nick lowercaseString];
-                EMError *error1 = nil;
-                NSArray *userlist = [[EMClient sharedClient].contactManager getContactsFromServerWithError:&error1];
-            
-                if (!error1) {
-                    NSLog(@"获取成功 -- %@",userlist);
-                    BOOL isHave = NO;
-                    for (NSString *userName in userlist) {
-                        if ([userName isEqualToString:eventName]) {
-                            isHave = YES;
-                        }
-                    }
-                
-                    if (isHave) {
-                        YChatViewController *chatVC = [YChatViewController new];
-                        chatVC.title = cell.model.user.nick;
-                        chatVC.toName = cell.model.user.nick;
-                        [self.navigationController pushViewController:chatVC animated:YES];
-                    
-                    
-                    }else {
-                        EMError *error = [[EMClient sharedClient].contactManager addContact:eventName message:@"我想加您为好友"];
-                        if (!error) {
-                        NSLog(@"添加成功");
-                        }
-                    }
-                
-                }else{
-                    NSLog(@"%d",error1.code);
-                }
-            }
-        } failurRequest:^(NSError *error) {
-        }];
+        [self saveChatFriendsWithName:cell.model.user.nick avatarUrl:cell.model.user.userImageUrl];
+        YChatViewController *chatVC = [YChatViewController new];
+        chatVC.title = cell.model.user.nick;
+        chatVC.toName = cell.model.user.nick;
+        chatVC.key = @"username";
+        [self.navigationController pushViewController:chatVC animated:YES];
     }
 }
-
+- (void)saveChatFriendsWithName:(NSString *)name avatarUrl:(NSString *)avatarUrl{
+    
+    [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"select * from _User where username = '%@'",name] callback:^(AVCloudQueryResult *result, NSError *error) {
+        if (result.results.count != 0) {
+            NSLog(@"已经存在");
+        }else if(error != nil){
+            NSLog(@"%ld",error.code);
+        }else if(result.results.count == 0){
+            [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"select * from ChatFriendsList where friendName = '%@'",name] callback:^(AVCloudQueryResult *result, NSError *error) {
+                if (result.results.count != 0) {
+                    NSLog(@"已经存在");
+                }else if(error != nil){
+                    NSLog(@"%ld",error.code);
+                }else if (result.results.count == 0) {
+                    AVObject *object = [[AVObject alloc ]initWithClassName:@"ChatFriendsList"];
+                    [object setObject:name forKey:@"friendName"];
+                    [object setObject:avatarUrl forKey:@"avatarUrl"];
+                    [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        if (succeeded) {
+                            NSLog(@"======保存成功");
+                        }
+                    }];
+                }
+            }];
+        }
+    }];
+    
+    
+}
 // 用户B申请加A为好友后，用户A会收到这个回调
 - (void)didReceiveFriendInvitationFromUsername:(NSString *)aUsername
                                        message:(NSString *)aMessage{

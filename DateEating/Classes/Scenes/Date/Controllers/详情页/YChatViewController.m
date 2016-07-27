@@ -20,7 +20,8 @@
     EMChatManagerDelegate,
     UIImagePickerControllerDelegate,
     UINavigationControllerDelegate,
-    YFaceViewDelegate
+    YFaceViewDelegate,
+    EMContactManagerDelegate
 >
 
 @property (weak, nonatomic) IBOutlet UITableView *chatTableView;
@@ -56,6 +57,8 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.chatTextView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    //注册好友回调
+    [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
     // 消息通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getMessage:) name:@"unreadMessageCount" object:nil];
     [self getHeadImage];
@@ -72,12 +75,59 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
     [self.chatTableView registerClass:[YChatRecieveViewCell class] forCellReuseIdentifier:receiveCell];
     [self.chatTableView registerClass:[YSendImgTableViewCell class] forCellReuseIdentifier:sendImgCell];
     [self.chatTableView registerClass:[YReceiveImgViewCell class] forCellReuseIdentifier:receiveImgCell];
+    [self becomeFriends];
     // 创建会话
     EMConversation *conversation = [[EMClient sharedClient].chatManager getConversation:self.toName type:EMConversationTypeChat createIfNotExist:YES];
     // 获取聊天消息
     self.msgArray = [conversation loadMoreMessagesContain:nil before:-1 limit:20 from:nil direction:(EMMessageSearchDirectionUp)].mutableCopy;
     [self.chatTableView reloadData];
     [self scrollToBottom];
+}
+- (void)becomeFriends{
+    
+    [YContent getContentAvatarWithUserName:self.toName key:self.key  SuccessRequest:^(id dict) {
+        if ([dict isEqualToString:@"该用户不存在"]) {
+            [self showAlertViewWithMessage:@"该用户不在线"];
+        }else{
+            
+            NSString *eventName = [self.toName lowercaseString];
+            EMError *error1 = nil;
+            NSArray *userlist = [[EMClient sharedClient].contactManager getContactsFromServerWithError:&error1];
+            
+            if (!error1) {
+                NSLog(@"获取成功 -- %@",userlist);
+                BOOL isHave = NO;
+                for (NSString *userName in userlist) {
+                    if ([userName isEqualToString:eventName]) {
+                        isHave = YES;
+                    }
+                }
+                
+                if (!isHave) {
+                    EMError *error = [[EMClient sharedClient].contactManager addContact:eventName message:@"我想加您为好友"];
+                    if (!error) {
+                        NSLog(@"添加成功");
+                    }else if (error.code == 201){
+                        [self showAlertViewWithMessage:@"用户未登录"];
+                    }else if (error.code == 300){
+                        [self showAlertViewWithMessage:@"服务器未连接"];
+                    }else if (error.code == 301){
+                        [self showAlertViewWithMessage:@"连接服务器超时"];
+                    }else if (error.code == 302){
+                        [self showAlertViewWithMessage:@"服务器忙碌"];
+                    }
+                }
+            }else{
+                NSLog(@"%d",error1.code);
+            }
+        }
+    } failurRequest:^(NSError *error) {
+    }];
+    
+    
+}
+- (void)didReceiveAgreedFromUsername:(NSString *)aUsername{
+    NSLog(@"%@同意了我的好友申请",aUsername);
 }
 #pragma mark--收到的消息--
 - (void)getMessage:(NSNotification *)notification{
@@ -369,6 +419,27 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
         return 200;
     }
     return 0;
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    //移除好友回调
+    [[EMClient sharedClient].contactManager removeDelegate:self];
+    
+}
+
+// 弹框
+- (void)showAlertViewWithMessage:(NSString *)message
+{
+    UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    // 1秒后回收
+    [self performSelector:@selector(dismissAlertView:) withObject:alertView afterDelay:1.5];
+    [self presentViewController:alertView animated:YES completion:nil];
+}
+- (void)dismissAlertView:(UIAlertController *)alertView
+{
+    [alertView dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

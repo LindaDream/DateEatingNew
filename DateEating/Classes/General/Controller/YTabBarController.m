@@ -82,7 +82,20 @@
     }
     
 }
-
+/*!
+ @method
+ @brief 接收到好友请求时的通知
+ @discussion
+ @param username 发起好友请求的用户username
+ @param message  收到好友请求时的say hello消息
+ */
+- (void)didReceiveBuddyRequest:(NSString *)username
+                       message:(NSString *)message{
+    EMError *error = [[EMClient sharedClient].contactManager acceptInvitationForUsername:username];
+    if (!error) {
+        NSLog(@"发送同意成功");
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

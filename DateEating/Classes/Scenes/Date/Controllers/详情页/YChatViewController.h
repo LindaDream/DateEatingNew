@@ -11,4 +11,5 @@
 @interface YChatViewController : UIViewController
 @property(strong,nonatomic)NSString *toName;
 @property (strong,nonatomic) YFriends *friends;
+@property (strong,nonatomic) NSString *key;
 @end
