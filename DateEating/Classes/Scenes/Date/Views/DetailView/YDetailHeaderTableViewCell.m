@@ -142,8 +142,12 @@
     CGSize size2 = CGSizeMake([UIScreen mainScreen].bounds.size.width -36, 100000);
     NSDictionary *descDic = @{NSFontAttributeName:[UIFont systemFontOfSize:12.0f]};
     CGRect descLabel = [activity.eventDescription boundingRectWithSize:size2 options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingUsesDeviceMetrics|NSStringDrawingTruncatesLastVisibleLine attributes:descDic context:nil];
-    
-    return 217 + nameLabel.size.height + descLabel.size.height;
+    CGFloat height = 217 + nameLabel.size.height + descLabel.size.height;
+    if (height >= 245) {
+        return height;
+    } else {
+        return 245;
+    }
 }
 
 
