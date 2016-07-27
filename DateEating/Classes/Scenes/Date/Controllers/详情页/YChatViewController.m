@@ -58,7 +58,7 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
     self.chatTextView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     // 消息通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getMessage:) name:@"unreadMessageCount" object:nil];
-    
+    [self getHeadImage];
     self.chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.title = self.toName;
     // 注册输入框通知中心
@@ -82,9 +82,38 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
 #pragma mark--收到的消息--
 - (void)getMessage:(NSNotification *)notification{
     NSDictionary *userInfo = [notification userInfo];
-    [self.msgArray addObjectsFromArray:[userInfo objectForKey:@"messageArray"]];
+    NSArray *msgArr = [userInfo objectForKey:@"messageArray"];
+    for (EMMessage *msg in msgArr) {
+        if ([msg.conversationId isEqualToString:self.toName]) {
+            [self.msgArray addObject:msg];
+        }
+    }
     [self.chatTableView reloadData];
     [self scrollToBottom];
+}
+- (void)getHeadImage{
+    
+    [YContent getContentAvatarWithUserName:self.toName SuccessRequest:^(id dict) {
+        UIImageView *imgView1 = [[UIImageView alloc] init];
+        [imgView1 sd_setImageWithURL:[NSURL URLWithString:dict]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.friendHeadImage = imgView1.image;
+            [self.chatTableView reloadData];
+        });
+    } failurRequest:^(NSError *error) {
+        NSLog(@"获取friendHeadImage失败");
+    }];
+    AVUser *user = [AVUser currentUser];
+    [YContent getContentAvatarWithUserName:user.username SuccessRequest:^(id dict) {
+        UIImageView *imgView2 = [[UIImageView alloc] init];
+        [imgView2 sd_setImageWithURL:[NSURL URLWithString:dict]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.myHeadImage = imgView2.image;
+            [self.chatTableView reloadData];
+        });
+    } failurRequest:^(NSError *error) {
+        NSLog(@"获取friendHeadImage失败");
+    }];
 }
 
 #pragma mark--点击输入框通知方法--
