@@ -54,7 +54,7 @@
             
     // 用网络图片实现
     NSArray *imageURLString = funny.imgArr; // 解析数据时得到的轮播图数组
-        
+    [_cycleScrollView removeFromSuperview];
     // 创建代标题的轮播图
     _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.scrollView.width, self.scrollView.height) imageURLStringsGroup:nil];
     // 设置代理
