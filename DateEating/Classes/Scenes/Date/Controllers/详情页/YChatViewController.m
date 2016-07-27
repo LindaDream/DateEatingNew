@@ -159,7 +159,9 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
 }
 // 滑动tableView实现键盘回收
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    [self.sendView endEditing:YES];
+    if (scrollView == self.chatTableView) {
+        [self.sendView endEditing:YES];
+    }
 }
 #pragma mark--发送文字、图片--
 - (IBAction)sendAction:(id)sender {
