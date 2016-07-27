@@ -31,12 +31,14 @@
     self.lastChatMessage.text = friends.lastChatMessage;
     
     // 设置头像
-    [YContent getContentAvatarWithUserName:friends.friendName SuccessRequest:^(id dict) {
+    [YContent getContentAvatarWithHxuserName:friends.friendName SuccessRequest:^(id dict) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"%@",dict);
             [self.headImgView sd_setImageWithURL:[NSURL URLWithString:dict]];
+            NSLog(@"%@",self.headImgView.image);
         });
     } failurRequest:^(NSError *error) {
-        
+        NSLog(@"%ld",error.code);
     }];
     
 }

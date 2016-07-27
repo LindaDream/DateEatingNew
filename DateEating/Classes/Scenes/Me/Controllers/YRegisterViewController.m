@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *confirmYesImgView;
 @property (weak, nonatomic) IBOutlet UIImageView *emailYesImgView;
 @property(strong,nonatomic) UIImagePickerController *imgPicker;
+@property(strong,nonatomic)EMError *hxError;
 @end
 
 @implementation YRegisterViewController
@@ -156,46 +157,50 @@
 }
 #pragma mark--注册按钮--
 - (IBAction)registerAction:(id)sender {
-#pragma mark--注册LeanCloud--
-    AVUser *user = [AVUser user];
-    user.username = self.userNameTF.text;
-    user.password = self.passwordTF.text;
-    user.email = self.emailTF.text;
-    NSData *data = UIImageJPEGRepresentation(self.avatarImgView.image, 1);
-    AVFile *file =  [AVFile fileWithName:@"avatar.png" data:data];
-    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-    }];
-    [user setObject:file forKey:@"avatar"];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:@"注册成功!" preferredStyle:(UIAlertControllerStyleAlert)];
-                UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-#pragma mark--注册环信--
-                EMError *error = [[EMClient sharedClient] registerWithUsername:self.userNameTF.text password:self.passwordTF.text];
-                if (error==nil) {
-                    
-                }else{
-                        NSLog(@"%@",error);
-                    }
-                    YLoginViewController *loginVC = [YLoginViewController new];
-                    [self presentViewController:loginVC animated:YES completion:nil];
-                }];
-                [alertView addAction:doneAction];
-                [self presentViewController:alertView animated:YES completion:nil];
-            }else{
-                if (error.code == 202) {
-                    [self.userNameYesImgView setHidden:YES];
-                    self.userNameDefaultLabel.text = @"用户名已存在，请重新填写!";
-                    self.userNameDefaultLabel.textColor = [UIColor redColor];
-                }else if (error.code == 203){
-                    [self.emailYesImgView setHidden:YES];
-                    self.emailDefaultLabel.text = @"该邮箱已被占用,请更换邮箱!";
-                    self.emailDefaultLabel.textColor = [UIColor redColor];
-                }
-            }
+#pragma mark--注册LeanCloud和环信--
+    // 注册环信
+    self.hxError = [[EMClient sharedClient] registerWithUsername:self.userNameTF.text password:self.passwordTF.text];
+    if (self.hxError == nil) {
+        AVUser *user = [AVUser user];
+        NSData *data = UIImageJPEGRepresentation(self.avatarImgView.image, 1);
+        AVFile *file =  [AVFile fileWithName:@"avatar.png" data:data];
+        [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         }];
-    });
+        NSString *name = [self.userNameTF.text lowercaseString];
+        [user setObject:name forKey:@"hxUserName"];
+        user.username = self.userNameTF.text;
+        user.password = self.passwordTF.text;
+        user.email = self.emailTF.text;
+        [user setObject:file forKey:@"avatar"];
+        // 注册leancloud
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:@"注册成功!" preferredStyle:(UIAlertControllerStyleAlert)];
+                    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+                        YLoginViewController *loginVC = [YLoginViewController new];
+                        [self presentViewController:loginVC animated:YES completion:nil];
+                    }];
+                    [alertView addAction:doneAction];
+                    [self presentViewController:alertView animated:YES completion:nil];
+                }else{
+                    if (error.code == 202) {
+                        [self.userNameYesImgView setHidden:YES];
+                        self.userNameDefaultLabel.text = @"用户名已存在，请重新填写!";
+                        self.userNameDefaultLabel.textColor = [UIColor redColor];
+                    }else if (error.code == 203){
+                        [self.emailYesImgView setHidden:YES];
+                        self.emailDefaultLabel.text = @"该邮箱已被占用,请更换邮箱!";
+                        self.emailDefaultLabel.textColor = [UIColor redColor];
+                    }
+                }
+            }];
+        });
+    }else if (self.hxError.code == 203){
+        [self.userNameYesImgView setHidden:YES];
+        self.userNameDefaultLabel.text = @"用户名已存在，请重新填写!";
+        self.userNameDefaultLabel.textColor = [UIColor redColor];
+    }
 }
 #pragma mark--取消按钮--
 - (IBAction)cancelAction:(id)sender {

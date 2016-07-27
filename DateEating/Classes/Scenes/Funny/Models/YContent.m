@@ -23,7 +23,7 @@
     
     NSMutableArray *mArr = [NSMutableArray array];
     [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"select * from ContentObject where ownerId = '%@'",ownerId] callback:^(AVCloudQueryResult *result, NSError *error) {
-        if (result != nil) {
+        if (result.count != 0) {
             for (AVObject *obj in result.results) {
                 
                 NSDictionary *dic = [obj dictionaryForObject];
@@ -47,9 +47,8 @@
     
 }
 
-
+// 通过leanclude账号获取头像
 + (void)getContentAvatarWithUserName:(NSString *)userName SuccessRequest:(successRequest)success failurRequest:(failureRequest)failure{
-    
     AVQuery *query = [AVQuery queryWithClassName:@"_User"];
     [query whereKey:@"username" equalTo:userName];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -66,6 +65,37 @@
     }];
     
 }
+
+
+
+
+// 通过环信号获取头像
++ (void)getContentAvatarWithHxuserName:(NSString *)hxuserName SuccessRequest:(successRequest)success failurRequest:(failureRequest)failure{
+    
+    [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"select * from _User where hxUserName = '%@'",hxuserName] callback:^(AVCloudQueryResult *result, NSError *error) {
+        if (result != nil) {
+            AVObject *user = result.results.firstObject;
+            NSString *userName = [user objectForKey:@"username"];
+            [self getContentAvatarWithUserName:userName SuccessRequest:^(id dict) {
+                success(dict);
+            } failurRequest:^(NSError *error) {
+                failure(error);
+            }];
+        }else if(error != nil){
+            
+            failure(error);
+            
+        }else{
+            
+            NSLog(@"没有数据");
+            
+        }
+        
+    }];
+        
+        
+}
+
 
 
 

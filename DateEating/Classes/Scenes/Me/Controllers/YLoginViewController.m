@@ -26,10 +26,14 @@
 - (IBAction)loginAction:(id)sender {
     [AVUser logInWithUsernameInBackground:self.userNameTF.text password:self.passwordTF.text block:^(AVUser *user, NSError *error) {
         if (nil != user) {
-            [[EMClient sharedClient] loginWithUsername:self.userNameTF.text password:self.passwordTF.text];
-            [[EMClient sharedClient].options setIsAutoLogin:YES];
-            [[NSUserDefaults standardUserDefaults] setObject:self.userNameTF.text forKey:@"userName"];
-            [[NSUserDefaults standardUserDefaults] setObject:self.passwordTF.text forKey:@"passWord"];
+            EMError *error = [[EMClient sharedClient] loginWithUsername:self.userNameTF.text password:self.passwordTF.text];
+            if (error == nil) {
+                [[EMClient sharedClient].options setIsAutoLogin:YES];
+                AVFile *file = [[AVUser currentUser] objectForKey:@"avatar"];
+                [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"avatarData"];
+                }];
+            }
             YTabBarController *tabBarVC = [YTabBarController new];
             [self presentViewController:tabBarVC animated:YES completion:nil];
         } else if(error.code == 210){
