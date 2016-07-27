@@ -51,10 +51,11 @@
     self.window.backgroundColor = [UIColor whiteColor];
     // 添加UITabBarC ontroller
     UITabBarController *tabBarController = [[YTabBarController alloc] init];
-    if (nil == currentUser || nil == [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"]) {
+    BOOL isAutoLogin = [EMClient sharedClient].options.isAutoLogin;
+    if (nil == currentUser || !isAutoLogin) {
         YOpenViewController *openVC = [YOpenViewController new];
         self.window.rootViewController = openVC;
-    }else if(currentUser && nil != [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"]){
+    }else if(currentUser && isAutoLogin){
         self.window.rootViewController = tabBarController;
     }
     [self.window makeKeyAndVisible];
