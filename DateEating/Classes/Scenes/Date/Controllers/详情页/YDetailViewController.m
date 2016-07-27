@@ -72,9 +72,8 @@
     self.title = @"详情";
     self.automaticallyAdjustsScrollViewInsets = NO;
     // 设置收藏分享按钮
-    UIBarButtonItem *saveBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"favorite"] style:UIBarButtonItemStyleDone target:self action:@selector(saveBtnAction:)];
     UIBarButtonItem *shareBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStyleDone target:self action:@selector(shareBtnAction:)];
-    self.navigationItem.rightBarButtonItems = @[shareBtn,saveBtn];
+    self.navigationItem.rightBarButtonItem = shareBtn;
     
     // 注册
     [self.tableview registerNib:[UINib nibWithNibName:@"YDetailHeaderTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:YDetailHeaderTableViewCell_Identify];
