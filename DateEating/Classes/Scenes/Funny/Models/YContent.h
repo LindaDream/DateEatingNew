@@ -25,4 +25,6 @@
 // 获取头像
 + (void)getContentAvatarWithUserName:(NSString *)userName SuccessRequest:(successRequest)success failurRequest:(failureRequest)failure;
 
+// 通过环信号获取头像
++ (void)getContentAvatarWithHxuserName:(NSString *)hxuserName SuccessRequest:(successRequest)success failurRequest:(failureRequest)failure;
 @end
