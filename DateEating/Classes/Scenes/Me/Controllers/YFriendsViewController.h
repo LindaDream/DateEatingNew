@@ -13,4 +13,5 @@ typedef void(^passUnreadCount)(NSNumber *count,NSMutableDictionary *dict);
 @property(strong,nonatomic)NSMutableDictionary *conversationDict;
 @property(copy,nonatomic)passUnreadCount passValueBlock;
 @property(assign,nonatomic)NSInteger unreadCount;
+
 @end
