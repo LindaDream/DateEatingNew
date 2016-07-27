@@ -180,6 +180,7 @@
     [self.layoutArray addObjectsFromArray:self.ourMessageArray];
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"createTime" ascending:NO];
     [self.layoutArray sortUsingDescriptors:@[sort]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"count" object:nil userInfo:@{@"count":[NSString stringWithFormat:@"%ld",self.layoutArray.count]}];
     [self.tableview reloadData];
 }
 

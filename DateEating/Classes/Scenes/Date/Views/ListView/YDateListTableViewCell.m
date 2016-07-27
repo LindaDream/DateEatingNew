@@ -23,7 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *constellation;
 @property (weak, nonatomic) IBOutlet UILabel *age;
 @property (weak, nonatomic) IBOutlet UILabel *showCount;
-@property (weak, nonatomic) IBOutlet UILabel *candidateCount;
 @property (weak, nonatomic) IBOutlet UILabel *commentCount;
 @property (weak, nonatomic) IBOutlet UILabel *credit;
 @property (weak, nonatomic) IBOutlet UIImageView *genderImage;
@@ -75,7 +74,6 @@
         _constellation.text = model.user.constellation;
         _age.text = [NSString stringWithFormat:@"     %ld ",model.user.age];
         _showCount.text = [NSString stringWithFormat:@"%ld",model.showCount];
-        _candidateCount.text = [NSString stringWithFormat:@"%ld",model.candidateCount];
         _commentCount.text = [NSString stringWithFormat:@"%ld",model.commentCount];
         
         [_userImage sd_setImageWithURL:[NSURL URLWithString:model.user.userImageUrl] placeholderImage:[UIImage imageNamed:@"DefaultAvatar"]];
@@ -88,9 +86,15 @@
         
         [_userImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)]];
         _userImage.userInteractionEnabled = YES;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentCountChange:) name:@"count" object:nil];
     }
 }
 
+// 评论数变化触发的通知中心方法
+- (void)commentCountChange:(NSNotification *)notifice {
+    NSDictionary *dic = notifice.userInfo;
+    self.commentCount.text = dic[@"count"];
+}
 - (void)tapAction:(id)sender {
     if (_delegate && [_delegate respondsToSelector:@selector(clickedUserImage:)]) {
         [_delegate clickedUserImage:self.model];

@@ -84,7 +84,6 @@
         _constellation.text = model.user.constellation;
         _age.text = [NSString stringWithFormat:@"   %ld",model.user.age];
         _showCount.text = [NSString stringWithFormat:@"%ld",model.showCount];
-        _commentCount.text = [NSString stringWithFormat:@"%ld",model.commentCount];
         _credit.text = [NSString stringWithFormat:@"%ld",model.credit];
     
         if (model.user.gender == 0) {
@@ -96,8 +95,17 @@
         [_userImage sd_setImageWithURL:[NSURL URLWithString:model.user.userImageUrl] placeholderImage:[UIImage imageNamed:@"DefaultAvatar"]];
         [_userImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)]];
         
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentCountChange:) name:@"count" object:nil];
     }
 }
+
+// 评论数变化触发的通知中心方法
+- (void)commentCountChange:(NSNotification *)notifice {
+    NSDictionary *dic = notifice.userInfo;
+    self.commentCount.text = dic[@"count"];
+}
+
 
 #pragma mark -- 按钮事件 --
 // 点击图片

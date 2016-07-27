@@ -118,21 +118,6 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="报名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FKI-k1-RYe">
-                        <rect key="frame" x="220" y="344" width="24" height="15"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aMD-Ai-V6U">
-                        <rect key="frame" x="247" y="341" width="8" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="vIC-IK-Sfv"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6AQ-jq-84F">
                         <rect key="frame" x="302" y="341" width="8" height="21"/>
                         <constraints>
@@ -294,7 +279,6 @@
                     <constraint firstAttribute="trailing" secondItem="6AQ-jq-84F" secondAttribute="trailing" constant="10" id="Hr7-fB-aHX"/>
                     <constraint firstItem="UPA-ZS-oU4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="IYR-Lc-znw"/>
                     <constraint firstItem="xRQ-Tw-UBN" firstAttribute="leading" secondItem="kv8-0J-Oip" secondAttribute="leading" id="ItU-QV-K2g"/>
-                    <constraint firstItem="Ks7-Fb-UJa" firstAttribute="leading" secondItem="aMD-Ai-V6U" secondAttribute="trailing" constant="20" id="JMs-Ph-4kV"/>
                     <constraint firstItem="RYB-6P-ItF" firstAttribute="leading" secondItem="UPA-ZS-oU4" secondAttribute="trailing" constant="10" id="JQ7-gs-sH8"/>
                     <constraint firstItem="XEN-6s-tXw" firstAttribute="centerY" secondItem="RfH-to-Jb0" secondAttribute="centerY" id="M7S-8f-fGb"/>
                     <constraint firstItem="Ks7-Fb-UJa" firstAttribute="centerY" secondItem="RfH-to-Jb0" secondAttribute="centerY" id="Nt4-DB-bCP"/>
@@ -307,7 +291,6 @@
                     <constraint firstItem="613-Gy-qhP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="TcE-IM-alw"/>
                     <constraint firstAttribute="bottom" secondItem="RfH-to-Jb0" secondAttribute="bottom" constant="8" id="Ujz-dr-u8X"/>
                     <constraint firstItem="bMz-4a-TP4" firstAttribute="top" secondItem="8Hq-pf-1rE" secondAttribute="top" id="VOA-8R-oSd"/>
-                    <constraint firstItem="aMD-Ai-V6U" firstAttribute="centerY" secondItem="RfH-to-Jb0" secondAttribute="centerY" id="VXp-b5-eNU"/>
                     <constraint firstItem="kv8-0J-Oip" firstAttribute="top" secondItem="RYB-6P-ItF" secondAttribute="bottom" constant="25" id="YY2-VS-PMO"/>
                     <constraint firstAttribute="bottom" secondItem="613-Gy-qhP" secondAttribute="bottom" constant="36" id="Zlb-Xp-LL4"/>
                     <constraint firstItem="08c-Da-mk4" firstAttribute="centerY" secondItem="LmU-oa-R6k" secondAttribute="centerY" id="anT-8M-m4j"/>
@@ -318,10 +301,8 @@
                     <constraint firstItem="LmU-oa-R6k" firstAttribute="leading" secondItem="kv8-0J-Oip" secondAttribute="trailing" constant="5" id="f0d-m9-Ob2"/>
                     <constraint firstItem="Fyo-8d-csH" firstAttribute="leading" secondItem="Va9-eW-lGO" secondAttribute="trailing" constant="5" id="fQY-6D-fDS"/>
                     <constraint firstItem="Va9-eW-lGO" firstAttribute="leading" secondItem="kv8-0J-Oip" secondAttribute="leading" id="fWb-nb-fls"/>
-                    <constraint firstItem="aMD-Ai-V6U" firstAttribute="leading" secondItem="FKI-k1-RYe" secondAttribute="trailing" constant="3" id="gYP-m5-le7"/>
                     <constraint firstItem="RfH-to-Jb0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="h0b-ux-6im"/>
                     <constraint firstItem="XEN-6s-tXw" firstAttribute="leading" secondItem="RfH-to-Jb0" secondAttribute="trailing" constant="3" id="h5I-ds-0VP"/>
-                    <constraint firstItem="FKI-k1-RYe" firstAttribute="centerY" secondItem="RfH-to-Jb0" secondAttribute="centerY" id="hKx-is-Px5"/>
                     <constraint firstAttribute="trailing" secondItem="613-Gy-qhP" secondAttribute="trailing" constant="10" id="hnr-yh-ZZb"/>
                     <constraint firstItem="RYB-6P-ItF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="iOy-Jy-acK"/>
                     <constraint firstItem="42L-88-rZ6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="moC-aZ-cTJ"/>
@@ -336,7 +317,6 @@
             <gestureRecognizers/>
             <connections>
                 <outlet property="age" destination="8Hq-pf-1rE" id="GDK-3H-F8A"/>
-                <outlet property="candidateCount" destination="aMD-Ai-V6U" id="PVU-z7-gpF"/>
                 <outlet property="cellIndex" destination="42L-88-rZ6" id="kgw-UO-wj2"/>
                 <outlet property="commentCount" destination="6AQ-jq-84F" id="YNH-iw-9l1"/>
                 <outlet property="constellation" destination="Dal-Ua-ogH" id="Ni5-ge-R0c"/>
