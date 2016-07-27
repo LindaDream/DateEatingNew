@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "YDateContentModel.h"
 
+typedef void(^PassNewCount)(NSInteger);
 @interface YDetailViewController : UIViewController
 
 @property (strong,nonatomic) YDateContentModel *model;
 @property (strong,nonatomic) BMKUserLocation *userLocation;
+@property (copy, nonatomic) PassNewCount passNewCount;
 
 @end

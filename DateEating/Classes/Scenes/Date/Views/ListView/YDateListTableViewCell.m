@@ -23,7 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *constellation;
 @property (weak, nonatomic) IBOutlet UILabel *age;
 @property (weak, nonatomic) IBOutlet UILabel *showCount;
-@property (weak, nonatomic) IBOutlet UILabel *commentCount;
 @property (weak, nonatomic) IBOutlet UILabel *credit;
 @property (weak, nonatomic) IBOutlet UIImageView *genderImage;
 
@@ -86,15 +85,9 @@
         
         [_userImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)]];
         _userImage.userInteractionEnabled = YES;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentCountChange:) name:@"count" object:nil];
     }
 }
 
-// 评论数变化触发的通知中心方法
-- (void)commentCountChange:(NSNotification *)notifice {
-    NSDictionary *dic = notifice.userInfo;
-    self.commentCount.text = dic[@"count"];
-}
 - (void)tapAction:(id)sender {
     if (_delegate && [_delegate respondsToSelector:@selector(clickedUserImage:)]) {
         [_delegate clickedUserImage:self.model];

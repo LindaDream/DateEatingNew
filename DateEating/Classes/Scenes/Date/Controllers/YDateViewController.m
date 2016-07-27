@@ -426,6 +426,10 @@
     YDetailViewController *detailVC = [[YDetailViewController alloc]init];
     if (tableView == self.hotTableView) {
         detailVC.model = self.layoutArray[indexPath.section];
+        detailVC.passNewCount = ^(NSInteger count){
+            YDateListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            cell.commentCount.text = [NSString stringWithFormat:@"%ld",count];
+        };
     } else {
         detailVC.model = self.nearByArray[indexPath.section];
     }

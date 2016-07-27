@@ -58,7 +58,9 @@
 
 @implementation YDetailViewController
 
-
+- (void)viewWillDisappear:(BOOL)animated {
+    self.passNewCount(self.layoutArray.count);
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -247,8 +249,8 @@
         } failurRequest:^(NSError *error) {
             
         }];
-    
 }
+
 // 点击头像的代理方法
 - (void)userImageDidTap:(NSInteger)userId {
     YUserDetailViewController *userDetailVC = [[YUserDetailViewController alloc]init];

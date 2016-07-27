@@ -22,7 +22,7 @@
 
 @property (assign, nonatomic) id<YDateListTableViewCellDelegate>delegate;
 @property (weak, nonatomic) IBOutlet UILabel *cellIndex;
-
+@property (weak, nonatomic) IBOutlet UILabel *commentCount;
 @property (strong,nonatomic) YDateContentModel *model;
 @property (strong, nonatomic) BMKUserLocation *userLocation;
 
