@@ -24,7 +24,7 @@
     UIImagePickerControllerDelegate,
     MFMailComposeViewControllerDelegate
 >
-@property(strong,nonatomic)UITableView *meTableView;
+
 @property(strong,nonatomic)UIView *headView;
 @property(strong,nonatomic)UIImageView *headImgView;
 @property(strong,nonatomic)UILabel *nameLabel;

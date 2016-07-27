@@ -13,8 +13,11 @@
 #import "YMeViewController.h"
 #import "YTabBar.h"
 #import "YNavigationController.h"
+#import "YLoginViewController.h"
+#import "YRegisterViewController.h"
+#import "YMeViewController.h"
 
-@interface YTabBarController ()<EMContactManagerDelegate>
+@interface YTabBarController ()<EMContactManagerDelegate,EMClientDelegate>
 
 @end
 
@@ -46,7 +49,7 @@
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
     
-    
+    [[EMClient sharedClient] addDelegate:self delegateQueue:nil];
 #pragma mark -- 添加子控制器
     [self setupChildVc:[[YEssenceViewController alloc] init] title:@"精华" image:@"tabBar_essence_icon" selectedImage:@"tabBar_essence_click_icon"];
     [self setupChildVc:[[YFunnyViewController alloc] init] title:@"趣事" image:@"tabBar_new_icon" selectedImage:@"tabBar_new_click_icon"];
@@ -96,6 +99,38 @@
         NSLog(@"发送同意成功");
     }
 }
+/*!
+ *  当前登录账号在其它设备登录时会接收到该回调
+ */
+- (void)didLoginFromOtherDevice{
+    [AVUser logOut];
+    EMError *error = [[EMClient sharedClient] logout:YES];
+    if (!error) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userName"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"passWord"];
+        YMeViewController *meVC = (YMeViewController *)[[self.childViewControllers lastObject].childViewControllers lastObject];
+        [meVC.meTableView reloadData];
+        [meVC addHeadView];
+    }else{
+        NSLog(@"%d",error.code);
+    }
+    NSString *date = nil;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY-MM-dd hh:mm:ss"];
+    date = [formatter stringFromDate:[NSDate date]];
+    UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"您的账号于%@异地被登录，是否重新登录?",date] preferredStyle:(UIAlertControllerStyleAlert)];
+    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"是" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+        YLoginViewController *loginVC = [YLoginViewController new];
+        [self presentViewController:loginVC animated:YES completion:nil];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"否" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [alertView addAction:doneAction];
+    [alertView addAction:cancelAction];
+    [self presentViewController:alertView animated:YES completion:nil];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

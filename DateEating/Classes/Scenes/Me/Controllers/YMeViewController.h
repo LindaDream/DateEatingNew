@@ -11,4 +11,6 @@
 @interface YMeViewController : UIViewController
 @property(assign,nonatomic)NSInteger unreadMessageCount;
 @property(strong,nonatomic)NSString *userName;
+@property(strong,nonatomic)UITableView *meTableView;
+- (void)addHeadView;
 @end
