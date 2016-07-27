@@ -210,8 +210,8 @@ static NSString *const listCellIdentifier = @"listCell";
         if (!error) {
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userName"];
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"passWord"];
-            [self.meTableView reloadData];
-            [self addHeadView];
+            YLoginViewController *loginVC= [YLoginViewController new];
+            [self presentViewController:loginVC animated:YES completion:nil];
         }else{
             NSLog(@"%d",error.code);
         }

@@ -9,6 +9,7 @@
 #import "YLoginViewController.h"
 #import "YTabBarController.h"
 #import "YRegisterViewController.h"
+#import "YOpenViewController.h"
 @interface YLoginViewController ()<UITextFieldDelegate>
 
 @end
@@ -48,7 +49,8 @@
 }
 #pragma mark--取消按钮--
 - (IBAction)cancelAction:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    YOpenViewController *openVC = [YOpenViewController new];
+    [self presentViewController:openVC animated:YES completion:nil];
 }
 #pragma mark--去注册--
 - (IBAction)goToRegisterAction:(id)sender {
