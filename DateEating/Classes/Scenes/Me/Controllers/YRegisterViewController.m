@@ -9,6 +9,8 @@
 #import "YRegisterViewController.h"
 #import "YLoginViewController.h"
 #import "YTabBarController.h"
+#import "SVProgressHUD.h"
+#import "AppDelegate.h"
 @interface YRegisterViewController ()<
     UITextFieldDelegate,
     UINavigationControllerDelegate,
@@ -158,6 +160,10 @@
 #pragma mark--注册按钮--
 - (IBAction)registerAction:(id)sender {
 #pragma mark--注册LeanCloud和环信--
+    // 显示菊花
+    [SVProgressHUD showWithMaskType:(SVProgressHUDMaskTypeClear)];
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    appDelegate.window.userInteractionEnabled = NO;
     // 注册环信
     self.hxError = [[EMClient sharedClient] registerWithUsername:self.userNameTF.text password:self.passwordTF.text];
     if (self.hxError == nil) {
@@ -175,7 +181,12 @@
         // 注册leancloud
         dispatch_async(dispatch_get_main_queue(), ^{
             [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                // 隐藏菊花
+                [SVProgressHUD dismiss];
+                AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+                appDelegate.window.userInteractionEnabled = YES;
                 if (succeeded) {
+                    
                     UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:@"注册成功!" preferredStyle:(UIAlertControllerStyleAlert)];
                     UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
                         YLoginViewController *loginVC = [YLoginViewController new];
@@ -197,6 +208,10 @@
             }];
         });
     }else if (self.hxError.code == 203){
+        // 隐藏菊花
+        [SVProgressHUD dismiss];
+        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        appDelegate.window.userInteractionEnabled = YES;
         [self.userNameYesImgView setHidden:YES];
         self.userNameDefaultLabel.text = @"用户名已存在，请重新填写!";
         self.userNameDefaultLabel.textColor = [UIColor redColor];
