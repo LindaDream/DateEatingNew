@@ -21,8 +21,27 @@
     // 键盘回收
     self.userNameTF.delegate = self;
     self.passwordTF.delegate = self;
+    [self drawView];
     // Do any additional setup after loading the view from its nib.
 }
+
+- (void)drawView{
+    _userNameLabel.frame = CGRectMake(30, self.view.height / 4, 64, 30);
+    
+    _userNameTF.frame = CGRectMake(CGRectGetMaxX(_userNameLabel.frame) + 5, CGRectGetMinY(_userNameLabel.frame), kWidth - (CGRectGetMaxX(_userNameLabel.frame) + 35), 30);
+    
+    _passwordLabel.frame = CGRectMake(CGRectGetMinX(_userNameLabel.frame), CGRectGetMaxY(_userNameTF.frame) + 20, 64, 30);
+    
+    _passwordTF.frame = CGRectMake(CGRectGetMaxX(_passwordLabel.frame) + 5, CGRectGetMinY(_passwordLabel.frame), kWidth - (CGRectGetMaxX(_passwordLabel.frame) + 35), 30);
+    
+     _goToRegisterBtn.frame = CGRectMake(CGRectGetMaxX(_passwordTF.frame) - 50, CGRectGetMaxY(_passwordTF.frame) + 20, 64, 30);
+    
+    _loginBtn.frame = CGRectMake(CGRectGetMinX(_userNameLabel.frame) + 30, CGRectGetMaxY(_goToRegisterBtn.frame) + 40, 80,30 );
+    
+     _cancelBtn.frame = CGRectMake(CGRectGetMaxX(_passwordTF.frame) - 80 ,CGRectGetMinY(_loginBtn.frame), 80, 30);
+}
+
+
 #pragma mark--登录按钮--
 - (IBAction)loginAction:(id)sender {
     [AVUser logInWithUsernameInBackground:self.userNameTF.text password:self.passwordTF.text block:^(AVUser *user, NSError *error) {
