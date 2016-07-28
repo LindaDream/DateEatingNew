@@ -99,7 +99,7 @@ static NSString *const systemCellIdentifier = @"systemCell";
     grayLine.backgroundColor = [UIColor lightGrayColor];
     [cell.contentView addSubview:grayLine
      ];
-    
+    cell.textLabel.font = [UIFont systemFontOfSize:15.0];
     if (tableView == self.mealTableView) {
         YMealDetailsModel *model = self.mealArray[indexPath.row];
         cell.textLabel.text = model.title;

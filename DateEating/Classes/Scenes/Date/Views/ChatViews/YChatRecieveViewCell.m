@@ -29,7 +29,7 @@
 }
 -(UIImageView *)headImgView{
     if (!_headImgView) {
-        _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 38, 38)];
+        _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(2, 0, 38, 38)];
         _headImgView.layer.masksToBounds = YES;
         _headImgView.layer.cornerRadius = 19;
     }
@@ -49,7 +49,7 @@
 }
 -(UILabel *)messageLabel{
     if (!_messageLabel) {
-        _messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, 165, 0)];
+        _messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(62, 0, 165, 0)];
         _messageLabel.font = [UIFont systemFontOfSize:16.0];
         _messageLabel.textAlignment = NSTextAlignmentLeft;
         CGPoint centerPoint = _messageLabel.center;

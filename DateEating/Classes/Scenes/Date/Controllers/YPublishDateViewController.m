@@ -227,7 +227,8 @@ static NSString *const findeCellIdentifier = @"findeCell";
     [self.view addSubview:self.backView];
     
     // pickerView
-    self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(30, 200, 350, 200)];
+    self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0,0,250,300)];
+    self.pickerView.center = CGPointMake(self.view.width / 2, self.view.height / 2);
     self.pickerView.layer.masksToBounds = YES;
     self.pickerView.layer.cornerRadius = 10;
     self.pickerView.backgroundColor = [UIColor whiteColor];
@@ -251,16 +252,6 @@ static NSString *const findeCellIdentifier = @"findeCell";
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
     return 3;
 }
-#pragma mark--设置每行的内容--
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    if (component == 0) {
-        return [[[YTimePiker sharedYTimePiker] dateArray] objectAtIndex:row];
-    }else if(component == 1){
-        return [[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row];
-    }else{
-        return [[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row];
-    }
-}
 #pragma mark--放方法决定该控件包含多少个列表项--
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
     if (component == 0) {
@@ -271,33 +262,21 @@ static NSString *const findeCellIdentifier = @"findeCell";
         return [[YTimePiker sharedYTimePiker] minuteArray].count;
     }
 }
+
 #pragma mark--pickerView点击方法--
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     if (component == 0) {
-        //self.dateStr = [self.dateStr stringByAppendingString:[[[YTimePiker sharedYTimePiker] dateArray] objectAtIndex:row]].mutableCopy;
         self.dateTmpStr = [[[YTimePiker sharedYTimePiker] dateArray] objectAtIndex:row];
     }else if (component == 1){
-        //self.dateStr = [self.dateStr stringByAppendingString:[NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row]]].mutableCopy;
         self.hourTmpStr = [NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row]];
     }
     if (component == 2) {
-        //self.dateStr = [self.dateStr stringByAppendingString:[NSString stringWithFormat:@": %@",[[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row]]].mutableCopy;
         self.minuteTmpStr = [[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row];
         self.message = [NSString stringWithFormat:@"%@%@ : %@",self.dateTmpStr,self.hourTmpStr,self.minuteTmpStr];
         [self selectedTime:self.message];
     }
 }
 - (void)selectedTime:(NSString *)message{
-//    NSMutableString *str = @"".mutableCopy;
-//    str = [[[str stringByAppendingString:self.dateTmpStr].mutableCopy stringByAppendingString:self.hourTmpStr].mutableCopy stringByAppendingString:[NSString stringWithFormat:@": %@",self.minuteTmpStr].mutableCopy].mutableCopy;
-//    if (![self.dateStr isEqualToString:str]) {
-//        UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:@"请选择正确的时间,例如:2016-01-1周五 00 : 00。请依次选择日期和时间!" preferredStyle:(UIAlertControllerStyleAlert)];
-//        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
-//            self.dateStr = @"".mutableCopy;
-//        }];
-//        [alertView addAction:doneAction];
-//        [self presentViewController:alertView animated:YES completion:nil];
-//    }else{
         UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"您选择的时间是:%@",message] preferredStyle:(UIAlertControllerStyleAlert)];
         UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
             self.timeStr = message;
@@ -311,17 +290,32 @@ static NSString *const findeCellIdentifier = @"findeCell";
         [alertView addAction:cancelAction];
         [alertView addAction:doneAction];
         [self presentViewController:alertView animated:YES completion:nil];
-//    }
 }
 #pragma mark--设置每列的宽度--
 -(CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component{
     if (component == 0) {
-        return 200;
+        return 160;
     }else if(component == 1){
-        return 50;
+        return 30;
     }else{
-        return 50;
+        return 30;
     }
+}
+-(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+    UILabel *label = [[UILabel alloc] init];
+    label.font = [UIFont systemFontOfSize:15.0];
+    label.textAlignment = UITextAlignmentCenter;
+    if (component == 0) {
+        label.frame = CGRectMake(0, 0, 160, 30);
+        label.text = [[[YTimePiker sharedYTimePiker] dateArray] objectAtIndex:row];
+    }else if (component == 1){
+        label.frame = CGRectMake(0, 0, 30, 30);
+        label.text = [[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row];
+    }else if (component == 2){
+        label.frame = CGRectMake(0, 0, 30, 30);
+        label.text = [[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row];
+    }
+    return label;
 }
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.backView removeFromSuperview];
