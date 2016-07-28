@@ -56,7 +56,7 @@
     NSArray *imageURLString = funny.imgArr; // 解析数据时得到的轮播图数组
     [_cycleScrollView removeFromSuperview];
     // 创建代标题的轮播图
-    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.scrollView.width, self.scrollView.height) imageURLStringsGroup:nil];
+    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kWidth - 4, self.scrollView.height) imageURLStringsGroup:nil];
     // 设置代理
     _cycleScrollView.delegate = self;
     // 设置小圆点的位置

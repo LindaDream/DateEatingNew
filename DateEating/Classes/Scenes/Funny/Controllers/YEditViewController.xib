@@ -18,7 +18,10 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="jLF-cc-koq">
+                <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="editBack.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="BzB-Lj-Npd">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                </imageView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.75" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="jLF-cc-koq">
                     <rect key="frame" x="23" y="278" width="368" height="437"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cu9-1N-yVX">
@@ -32,32 +35,29 @@
                         <outlet property="delegate" destination="-1" id="Mtt-gl-DLb"/>
                     </connections>
                 </collectionView>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="分享生活，留住感动" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NKc-bq-JEM">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.75" contentMode="scaleToFill" text="分享生活，留住感动" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NKc-bq-JEM">
                     <rect key="frame" x="23" y="75" width="368" height="182"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="182" id="oaN-Oy-u9G"/>
+                        <constraint firstAttribute="height" constant="182" id="bIC-Vm-qA0"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="editBack.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="BzB-Lj-Npd">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="BzB-Lj-Npd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1hS-i7-HjJ"/>
-                <constraint firstItem="NKc-bq-JEM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="23" id="7Pf-Qe-m0P"/>
-                <constraint firstAttribute="bottom" secondItem="jLF-cc-koq" secondAttribute="bottom" constant="21" id="LSE-L6-3jB"/>
-                <constraint firstItem="NKc-bq-JEM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="75" id="OSx-T3-nYy"/>
-                <constraint firstItem="jLF-cc-koq" firstAttribute="top" secondItem="NKc-bq-JEM" secondAttribute="bottom" constant="21" id="Ojf-rF-WdT"/>
+                <constraint firstItem="jLF-cc-koq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="23" id="DaS-zF-Xhb"/>
+                <constraint firstItem="NKc-bq-JEM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="23" id="MRE-d0-thY"/>
+                <constraint firstItem="jLF-cc-koq" firstAttribute="top" secondItem="NKc-bq-JEM" secondAttribute="bottom" constant="21" id="QnI-XK-w5M"/>
                 <constraint firstItem="BzB-Lj-Npd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="UgO-VI-gsd"/>
+                <constraint firstAttribute="trailing" secondItem="jLF-cc-koq" secondAttribute="trailing" constant="23" id="VMw-Aa-s66"/>
                 <constraint firstAttribute="bottom" secondItem="BzB-Lj-Npd" secondAttribute="bottom" id="Wed-95-un2"/>
-                <constraint firstAttribute="trailing" secondItem="NKc-bq-JEM" secondAttribute="trailing" constant="23" id="dhF-ql-spA"/>
-                <constraint firstAttribute="trailing" secondItem="jLF-cc-koq" secondAttribute="trailing" constant="23" id="g28-vg-P20"/>
+                <constraint firstItem="NKc-bq-JEM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="75" id="Zi2-VB-Bcl"/>
+                <constraint firstAttribute="trailing" secondItem="NKc-bq-JEM" secondAttribute="trailing" constant="23" id="dXc-SW-bTB"/>
                 <constraint firstAttribute="trailing" secondItem="BzB-Lj-Npd" secondAttribute="trailing" id="jWm-2h-zy1"/>
-                <constraint firstItem="jLF-cc-koq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="23" id="jqM-wK-VLn"/>
+                <constraint firstAttribute="bottom" secondItem="jLF-cc-koq" secondAttribute="bottom" constant="21" id="uMT-AX-d4M"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
             <point key="canvasLocation" x="88" y="343"/>

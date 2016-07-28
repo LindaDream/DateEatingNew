@@ -145,10 +145,13 @@ static NSString *const imageCellId = @"imageCellId";
                 NSData *data = UIImageJPEGRepresentation(self.photoArray[i], 1.0);
                 AVFile *file = [AVFile fileWithName:@"img.png" data:data];
                 [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    [funnyObject setObject:file.url forKey:[NSString stringWithFormat:@"image%d",i]];
-                    
-                    if (i == self.photoArray.count - 1) {
-                        [self saveObjectWithObject:funnyObject];
+                    if (succeeded) {
+                        [funnyObject setObject:file.url forKey:[NSString stringWithFormat:@"image%d",i]];
+                        if (i == self.photoArray.count - 1) {
+                            [self saveObjectWithObject:funnyObject];
+                        }
+                    }else{
+                        [self showAlertViewWithMessage:@"有一张图片上传失败"];
                     }
                 }];
             }

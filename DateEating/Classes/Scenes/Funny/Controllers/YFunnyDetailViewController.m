@@ -104,7 +104,7 @@ static NSString *const contentCellId = @"contentCellId";
     CGRect contentViewRect = self.contentView.frame;
     CGRect editContentViewRect = self.editContentView.frame;
     contentViewRect.origin.y = -h;
-    editContentViewRect.origin.y = self.view.height - 45 - h;
+    editContentViewRect.origin.y = self.view.height - 50 - h;
     //取出动画时长
     NSTimeInterval duration = [dict[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     //使用动画更改self.view.frame
@@ -112,6 +112,7 @@ static NSString *const contentCellId = @"contentCellId";
         //这里填入一些view的最终状态属性设置，即会自动产生过渡动画
         self.contentView.frame = contentViewRect;
         self.editContentView.frame = editContentViewRect;
+        self.editContentView.alpha = 1;
     }];
 }
 
@@ -146,8 +147,6 @@ static NSString *const contentCellId = @"contentCellId";
 
 // 设置view位置
 - (void)setTheViewFrame{
-    
-    
     CGFloat h = [[self class] textHeightFromModel:_funny];
     self.contentScorllView.frame = CGRectMake(0, 0, kWidth, kHeight - 45);
     self.contentView.frame = CGRectMake(0, 0, kWidth, 643 + h);
@@ -155,18 +154,18 @@ static NSString *const contentCellId = @"contentCellId";
     self.contentScorllView.delegate = self;
     self.avatarImageView.frame = CGRectMake(14, 16, 40, 40);
     self.publishName.frame = CGRectMake(77, 25, 300, 21);
-    self.contentLabel.frame = CGRectMake(14, 64, 386, h);
+    self.contentLabel.frame = CGRectMake(14, 64, kContentLabelWith, h);
     self.contentLabel.numberOfLines = 0;
     
     self.editContentView.frame = CGRectMake(0, self.contentScorllView.height, kWidth, 45);
-    self.contentTextField.frame = CGRectMake(50, 0, 292, 37);
-    self.contentTextField.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    self.contentTextField.delegate = self;
-    self.sendContentBtn.frame = CGRectMake(350, 0, 56, 34);
-    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(8, 0, 35, 35)];
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(8, 5, 35, 35)];
     [button setImage:[UIImage imageNamed:@"emoji"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(emojiBtnAction) forControlEvents:UIControlEventTouchUpInside];
     [self.editContentView addSubview:button];
+    self.sendContentBtn.frame = CGRectMake(kWidth - 56 - 8, 5, 56, 35);
+    self.contentTextField.frame = CGRectMake(50, 5, kWidth - 123, 35);
+    self.contentTextField.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.contentTextField.delegate = self;
     
     
     if (_funny.imgArr.count == 0) {
@@ -174,12 +173,12 @@ static NSString *const contentCellId = @"contentCellId";
         self.scrollView.hidden = YES;
         self.scrollView.height = 0;
         self.pinglunLabel.frame = CGRectMake(14 ,CGRectGetMaxY(self.contentLabel.frame) + 10, self.pinglunLabel.width, self.pinglunLabel.height);
-        self.contentTableView.frame = CGRectMake(0 ,CGRectGetMaxY(self.pinglunLabel.frame) + 10, self.contentTableView.width, self.contentTableView.height);
+        self.contentTableView.frame = CGRectMake(0 ,CGRectGetMaxY(self.pinglunLabel.frame) + 10, kWidth, self.contentTableView.height);
     }else {
         
-        self.scrollView.frame = CGRectMake(14 ,CGRectGetMaxY(self.contentLabel.frame) + 10, self.scrollView.width, self.scrollView.height);
+        self.scrollView.frame = CGRectMake(14 ,CGRectGetMaxY(self.contentLabel.frame) + 10, kContentLabelWith, self.scrollView.height);
         self.pinglunLabel.frame = CGRectMake(14 ,CGRectGetMaxY(self.scrollView.frame) + 10, self.pinglunLabel.width, self.pinglunLabel.height);
-        self.contentTableView.frame = CGRectMake(0 ,CGRectGetMaxY(self.pinglunLabel.frame) + 10, self.contentTableView.width, self.contentTableView.height);
+        self.contentTableView.frame = CGRectMake(0 ,CGRectGetMaxY(self.pinglunLabel.frame) + 10, kWidth, self.contentTableView.height);
     }
     
 }
