@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface YRegisterViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIImageView *backImgView;
 @property (weak, nonatomic) IBOutlet UITextField *userNameTF;
 
 @property (weak, nonatomic) IBOutlet UITextField *passwordTF;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPasswordTF;
 @property (weak, nonatomic) IBOutlet UITextField *emailTF;
-@property (weak, nonatomic) IBOutlet UIImageView *avatarImgView;
+@property (weak, nonatomic) IBOutlet  UIImageView *avatarImgView;
 @property (weak, nonatomic) IBOutlet UILabel *userNameDefaultLabel;
 @property (weak, nonatomic) IBOutlet UILabel *passwordDefaultsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *confirmDefaultLabel;

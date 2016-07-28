@@ -40,7 +40,7 @@
     self.passwordTF.delegate = self;
     self.confirmPasswordTF.delegate = self;
     self.emailTF.delegate = self;
-// 设置头像
+    // 设置头像
     [self setAvatar];
 }
 #pragma mark--通知--
@@ -92,6 +92,7 @@
     NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     if ([emailTest evaluateWithObject:self.emailTF.text]) {
+        self.emailDefaultLabel.text = @"请输入QQ、163邮或126邮箱";
         self.emailDefaultLabel.textColor = [UIColor lightGrayColor];
         [self.emailYesImgView setHidden:NO];
     }else if(![emailTest evaluateWithObject:self.emailTF.text]){
@@ -106,10 +107,11 @@
 #pragma mark--设置头像--
 - (void)setAvatar{
     self.avatarImgView.userInteractionEnabled = YES;
+    self.avatarImgView.layer.masksToBounds = YES;
+    self.avatarImgView.layer.cornerRadius = self.avatarImgView.width / 2;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
     [tap addTarget:self action:@selector(getPicture)];
     [self.avatarImgView addGestureRecognizer:tap];
-   
 }
 - (void)getPicture{
     UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:@"请选择图片" preferredStyle:(UIAlertControllerStyleActionSheet)];
