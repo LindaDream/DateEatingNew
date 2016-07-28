@@ -23,7 +23,7 @@
     
     NSMutableArray *mArr = [NSMutableArray array];
     [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"select * from ContentObject where ownerId = '%@'",ownerId] callback:^(AVCloudQueryResult *result, NSError *error) {
-        if (result.results.count != 0) {
+        if (result != nil) {
             for (AVObject *obj in result.results) {
                 
                 NSDictionary *dic = [obj dictionaryForObject];

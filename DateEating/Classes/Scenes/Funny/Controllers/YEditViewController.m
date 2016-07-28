@@ -116,46 +116,47 @@ static NSString *const imageCellId = @"imageCellId";
 #pragma mark--发表趣事--
 - (void)publishAction{
     
-    // 显示菊花
-    [SVProgressHUD showWithMaskType:(SVProgressHUDMaskTypeClear)];
-    
-    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    
-    appDelegate.window.userInteractionEnabled = NO;
-    
-    
-    // 获取当前系统时间
-    NSString* date;
-    NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"YYYY-MM-dd hh:mm:ss"];
-    date = [formatter stringFromDate:[NSDate date]];
-    // 生成趣事对象
-    YFunnyModel *funny = [YFunnyModel new];
-    funny.publishName = [AVUser currentUser].username;
-    funny.publishContent = self.editTextView.text;
-    funny.publishTime = date;
-    
-    
-    AVObject *funnyObject = [[AVObject alloc] initWithClassName:@"funnyObject"];
-    [funnyObject setObject:funny.publishName forKey:@"publishName"];
-    [funnyObject setObject:funny.publishContent forKey:@"publishContent"];
-    [funnyObject setObject:funny.publishTime forKey:@"publishTime"];
-    
-    if (self.photoArray.count > 0) {
-        for (int i = 0; i < self.photoArray.count; i++) {
-            NSData *data = UIImageJPEGRepresentation(self.photoArray[i], 1.0);
-            AVFile *file = [AVFile fileWithName:@"img.png" data:data];
-            [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                [funnyObject setObject:file.url forKey:[NSString stringWithFormat:@"image%d",i]];
-                
-                if (i == self.photoArray.count - 1) {
-                    [self saveObjectWithObject:funnyObject];
-                }
-            }];
-        }
+    if (self.editTextView.text.length == 0 || self.photoArray.count == 0) {
+        [self showAlertViewWithMessage:@"请编辑动态后再发送"];
     }else{
-        [self saveObjectWithObject:funnyObject];
+        // 显示菊花
+        [SVProgressHUD showWithMaskType:(SVProgressHUDMaskTypeClear)];
+        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        appDelegate.window.userInteractionEnabled = NO;
+        // 获取当前系统时间
+        NSString* date;
+        NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"YYYY-MM-dd hh:mm:ss"];
+        date = [formatter stringFromDate:[NSDate date]];
+        // 生成趣事对象
+        YFunnyModel *funny = [YFunnyModel new];
+        funny.publishName = [AVUser currentUser].username;
+        funny.publishContent = self.editTextView.text;
+        funny.publishTime = date;
+        
+        
+        AVObject *funnyObject = [[AVObject alloc] initWithClassName:@"funnyObject"];
+        [funnyObject setObject:funny.publishName forKey:@"publishName"];
+        [funnyObject setObject:funny.publishContent forKey:@"publishContent"];
+        [funnyObject setObject:funny.publishTime forKey:@"publishTime"];
+        
+        if (self.photoArray.count > 0) {
+            for (int i = 0; i < self.photoArray.count; i++) {
+                NSData *data = UIImageJPEGRepresentation(self.photoArray[i], 1.0);
+                AVFile *file = [AVFile fileWithName:@"img.png" data:data];
+                [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    [funnyObject setObject:file.url forKey:[NSString stringWithFormat:@"image%d",i]];
+                    
+                    if (i == self.photoArray.count - 1) {
+                        [self saveObjectWithObject:funnyObject];
+                    }
+                }];
+            }
+        }else{
+            [self saveObjectWithObject:funnyObject];
+        }
     }
+    
 }
 
 // 保存AVObject
