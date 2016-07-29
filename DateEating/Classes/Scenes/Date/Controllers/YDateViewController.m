@@ -199,7 +199,7 @@
         
     }];
 }
-- (void)requestNearByDataWithUrl:(NSInteger )start {
+- (void)requestNearByDataWithUrl:(NSInteger)start {
     __weak YDateViewController *dateVC = self;
     [YNetWorkRequestManager getRequestWithUrl:NearByRequest_Url([_handle multi], [_handle gender], [_handle time], [_handle age], [_handle constellation], [_handle occupation], start) successRequest:^(id dict) {
         NSNumber *count = dict[@"data"][@"total"];
@@ -426,13 +426,13 @@
     YDetailViewController *detailVC = [[YDetailViewController alloc]init];
     if (tableView == self.hotTableView) {
         detailVC.model = self.layoutArray[indexPath.section];
-        detailVC.passNewCount = ^(NSInteger count){
-            YDateListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-            cell.commentCount.text = [NSString stringWithFormat:@"%ld",count];
-        };
     } else {
         detailVC.model = self.nearByArray[indexPath.section];
     }
+    detailVC.passNewCount = ^(NSInteger count){
+        YDateListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        cell.commentCount.text = [NSString stringWithFormat:@"%ld",count];
+    };
     detailVC.userLocation = self.userLocation;
     [self.navigationController pushViewController:detailVC animated:YES];
     

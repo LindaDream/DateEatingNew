@@ -146,18 +146,14 @@ static NSString *const restaurantListCellIndentifier = @"restaurantListCell";
     if (self.searchController.active) {
         for (YRestaurantListModel *model in self.dataArray) {
             if ([model.name isEqualToString:self.searchListArr[indexPath.row]]) {
-                detailVC.count = model.caterUserCount;
+                detailVC.fromDetailVC = NO;
                 detailVC.businessId = model.businessId;
-                detailVC.addressStr = model.regionsStr;
-                detailVC.nameStr = model.name;
             }
         }
     }else{
         self.model = self.dataArray[indexPath.row];
-        detailVC.count = self.model.caterUserCount;
+        detailVC.fromDetailVC = NO;
         detailVC.businessId = self.model.businessId;
-        detailVC.addressStr = self.model.regionsStr;
-        detailVC.nameStr = self.model.name;
     }
     [self.navigationController pushViewController:detailVC animated:YES];
 }
