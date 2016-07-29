@@ -15,5 +15,6 @@ typedef void(^PassNewCount)(NSInteger);
 @property (strong,nonatomic) YDateContentModel *model;
 @property (strong,nonatomic) BMKUserLocation *userLocation;
 @property (copy, nonatomic) PassNewCount passNewCount;
+@property (assign, nonatomic) BOOL isListData;
 
 @end

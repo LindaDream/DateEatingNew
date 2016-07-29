@@ -33,8 +33,6 @@ MFMessageComposeViewControllerDelegate
 @property(strong,nonatomic)UIButton *telBtn;
 // 关注按钮
 @property(strong,nonatomic)UIButton *attentionBtn;
-// 关注按钮上的label
-//@property(strong,nonatomic)UILabel *attentionLabel;
 // 判断关注按钮是否被点击
 @property(assign,nonatomic)BOOL isAttented;
 // 尾部视图
@@ -51,6 +49,7 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [self getData];
+    [self isAttition];
 }
 
 - (void)viewDidLoad {
@@ -60,41 +59,45 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
     self.model = [YCaterDetail new];
     [self.restaurantTableView registerNib:[UINib nibWithNibName:@"YRestaurantTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:restaurantCellIdentifier];
     [self addHeadView];
-    [self addFootView];
-    if (self.fromDetailVC) {
-        self.footView.hidden = YES;
+    if (self.fromDetailVC == NO) {
+        [self addFootView];
     }
 }
 #pragma mark--数据解析--
 - (void)getData{
     NSString *urlStr;
-    if (self.fromDetailVC) {
+    if (self.fromDetailVC && !self.ourSeverMark) {
         urlStr = [RestaurantDetail_URL(self.eventId) stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     } else {
         urlStr = [CaterDetailRequest_Url(self.businessId)stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     }
-    
     __weak typeof(self) weakSelf = self;
     [YNetWorkRequestManager getRequestWithUrl:urlStr successRequest:^(id dict) {
         NSDictionary *modelDic = dict[@"data"];
-        NSLog(@"%@",modelDic[@"caterUserCount"]);
         [weakSelf.model setValuesForKeysWithDictionary:modelDic];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.restaurantTableView reloadData];
-            [self isAttented];
-            [self addHeadView];
+            //self.restaurantTableView.tableHeaderView = nil;
+            [self setData];
         });
     } failurRequest:^(NSError *error) {
         
     }];
-    
+}
+
+- (void)setData {
+    [self.headImgView sd_setImageWithURL:[NSURL URLWithString:self.model.cater.sPhotoUrl] placeholderImage:[UIImage imageNamed:@"DateLogo.jpg"]];
+    self.nameLabel.text = self.model.cater.name;
+    self.priceLabel.text = [NSString stringWithFormat:@"人均￥%@元",self.model.cater.avgPrice];
+    self.typeLabel.text = self.model.cater.categoriesStr;
 }
 
 // 判断是否关注过此餐厅
 - (void)isAttition {
     // AND查询
     AVQuery *nameQuery = [AVQuery queryWithClassName:@"MyAttention"];
-    [nameQuery whereKey:@"name" equalTo:self.model.cater.name];
+    [nameQuery whereKey:@"name" equalTo:self.nameStr];
+    NSLog(@"%@",self.nameStr);
     AVQuery *userNameQuery = [AVQuery queryWithClassName:@"MyAttention"];
     [userNameQuery whereKey:@"userName" equalTo:[AVUser currentUser].username];
     AVQuery *query = [AVQuery andQueryWithSubqueries:[NSArray arrayWithObjects:nameQuery,userNameQuery, nil]];
@@ -116,8 +119,6 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
     }];
 }
 
-
-
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
 }
@@ -136,7 +137,6 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
     }else{
         cell.imgView.image = [UIImage imageNamed:@"mine_restaurant"];
         cell.desLabel.text = [NSString stringWithFormat:@"关注此餐厅的人(%ld)",self.model.caterUserCount];
-        NSLog(@"%ld",self.model.caterUserCount);
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -166,59 +166,51 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
 }
 #pragma mark--设置头部视图--
 - (void)addHeadView{
-    self.headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 150)];
+    self.headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, 150)];
     // 添加餐厅头像
     self.headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 80, 80)];
     self.headImgView.layer.masksToBounds = YES;
     self.headImgView.layer.cornerRadius = 5;
-    [self.headImgView sd_setImageWithURL:[NSURL URLWithString:self.model.cater.photoUrl] placeholderImage:[UIImage imageNamed:@"DateLogo.jpg"]];
+    [self.headImgView sd_setImageWithURL:[NSURL URLWithString:self.model.cater.sPhotoUrl] placeholderImage:[UIImage imageNamed:@"DateLogo.jpg"]];
     [self.headView addSubview:self.headImgView];
     
     // 添加餐厅名称
     self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.headImgView.frame) + 10, CGRectGetMinY(self.headImgView.frame), 150, 20)];
-    self.nameLabel.adjustsFontSizeToFitWidth = YES;
-    self.nameLabel.text = self.model.cater.name;
+    //self.nameLabel.text = self.model.cater.name;
     [self.nameLabel setFont:[UIFont systemFontOfSize:15.0]];
     [self.headView addSubview:self.nameLabel];
     
     // 添加价格标签
     self.priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.nameLabel.frame), CGRectGetMaxY(self.nameLabel.frame) + 12, 150, 20)];
-    self.priceLabel.adjustsFontSizeToFitWidth = YES;
-    self.priceLabel.text = [NSString stringWithFormat:@"人均￥%@元",self.model.cater.avgPrice];
+    //self.priceLabel.text = [NSString stringWithFormat:@"人均￥%@元",self.model.cater.avgPrice];
     [self.priceLabel setFont:[UIFont systemFontOfSize:13.0]];
     [self.headView addSubview:self.priceLabel];
     
     // 添加类型标签
     self.typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.priceLabel.frame), CGRectGetMaxY(self.priceLabel.frame)+8, 150, 20)];
-    self.typeLabel.adjustsFontSizeToFitWidth = YES;
-    self.typeLabel.text = self.model.cater.categoriesStr;
+    //self.typeLabel.text = self.model.cater.categoriesStr;
     [self.typeLabel setFont:[UIFont systemFontOfSize:13.0]];
     [self.headView addSubview:self.typeLabel];
     
     // 添加电话按钮
     self.telBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    self.telBtn.frame = CGRectMake(self.view.width - 50, CGRectGetMinY(self.nameLabel.frame), 30, 30);
+    self.telBtn.frame = CGRectMake(kWidth - 50, CGRectGetMinY(self.nameLabel.frame), 30, 30);
     [self.telBtn setBackgroundImage:[UIImage imageNamed:@"tel"] forState:(UIControlStateNormal)];
     [self.telBtn addTarget:self action:@selector(telAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.headView addSubview:self.telBtn];
     
     // 添加关注按钮
     self.attentionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 120, 30)];
-    self.attentionBtn.center = CGPointMake(self.headView.center.x, CGRectGetMaxY(self.typeLabel.frame) + 25);
-    [self.attentionBtn setBackgroundImage:[UIImage imageNamed:@"guarantee_red_bg"] forState:(UIControlStateNormal)];
-    [self.attentionBtn setTitle:@"关注" forState:UIControlStateNormal];
+    self.attentionBtn.center = CGPointMake(self.headView.width/2.0, CGRectGetMaxY(self.headImgView.frame) + 25);
     self.attentionBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-    [self.attentionBtn setTitleColor:YRGBColor(243, 32, 37) forState:UIControlStateNormal];
     [self.attentionBtn addTarget:self action:@selector(attentAction:) forControlEvents:(UIControlEventTouchUpInside)];
-//    self.attentionBtn.layer.masksToBounds = YES;
-//    self.attentionBtn.layer.cornerRadius = 20;
     [self.headView addSubview:self.attentionBtn];
     
     [self.restaurantTableView setTableHeaderView:self.headView];
 }
 #pragma mark--尾部视图--
 - (void)addFootView{
-    self.footView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height - 50, self.view.width, 50)];
+    self.footView = [[UIView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 50, self.view.width, 50)];
     self.footView.backgroundColor = [UIColor colorWithRed:243/255.0 green:32/255.0 blue:37/255.0 alpha:1];
     self.footBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     self.footBtn.frame = CGRectMake(0, 0, self.footView.width, self.footView.height);
@@ -260,22 +252,22 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
         // 保存当前用户名
         [object setObject:[AVUser currentUser].username forKey:@"userName"];
         // 保存餐厅名称
-        [object setObject:self.nameLabel.text forKey:@"name"];
+        [object setObject:self.model.cater.name forKey:@"name"];
         // 保存人均价格
-        [object setObject:self.priceLabel.text forKey:@"avgPrice"];
+        [object setObject:self.model.cater.avgPrice forKey:@"avgPrice"];
         // 保存地址
         [object setObject:self.model.cater.address forKey:@"address"];
         // 保存类型
-        [object setObject:self.typeLabel.text forKey:@"type"];
+        [object setObject:self.model.cater.categories forKey:@"type"];
         // 保存businessId
         [object setObject:self.model.cater.businessId forKey:@"businessId"];
         // 保存关注人数(NSInteger转换成NSNumber类型)
-        [object setObject:[NSNumber numberWithInteger:self.count] forKey:@"count"];
+        [object setObject:[NSNumber numberWithInteger:self.model.userContentCount] forKey:@"count"];
         // 保存餐厅图片链接
         [object setObject:self.model.cater.sPhotoUrl forKey:@"headImg"];
         // AND查询
         AVQuery *nameQuery = [AVQuery queryWithClassName:@"MyAttention"];
-        [nameQuery whereKey:@"name" equalTo:self.model.cater.name];
+        [nameQuery whereKey:@"name" equalTo:self.nameStr];
         AVQuery *userNameQuery = [AVQuery queryWithClassName:@"MyAttention"];
         [userNameQuery whereKey:@"userName" equalTo:[AVUser currentUser].username];
         AVQuery *query = [AVQuery andQueryWithSubqueries:[NSArray arrayWithObjects:nameQuery,userNameQuery, nil]];
@@ -298,11 +290,12 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
         [self.attentionBtn setTitleColor:YRGBColor(243, 32, 37) forState:UIControlStateNormal];
         // 删除关注的数据
         // 执行 CQL 语句实现删除一个 MyAttention 对象
-        self.object = [[NSUserDefaults standardUserDefaults] objectForKey:self.model.cater.name];
+        self.object = [[NSUserDefaults standardUserDefaults] objectForKey:self.nameStr];
+        NSLog(@"%@",self.nameStr);
         [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"delete from MyAttention where objectId='%@'",self.object] callback:^(AVCloudQueryResult *result, NSError *error) {
             NSLog(@"删除成功");
         }];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.model.cater.name];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.nameStr];
         self.isAttented = YES;
     }
 }

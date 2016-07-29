@@ -62,6 +62,7 @@ static NSString *const dateOrPartyCellIdentifier = @"dateOrPartyCell";
                 model.eventName = [dict objectForKey:@"theme"];
                 model.eventLocation = [dict objectForKey:@"address"];
                 model.dateTime = [dict objectForKey:@"time"];
+                model.ourSeverMark = @"Our";
                 if ([[dict objectForKey:@"concrete"] isEqualToString:@"我请客"]) {
                     model.fee = 0;
                 }else{

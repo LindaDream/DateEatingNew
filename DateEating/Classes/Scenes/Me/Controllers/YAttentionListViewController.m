@@ -75,7 +75,9 @@ static NSString *const attentionCellIdentifier = @"attentionCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     YRestaurantDetailViewController *detailVC = [YRestaurantDetailViewController new];
     YRestaurantListModel *model = self.dataArray[indexPath.row];
-    detailVC.fromDetailVC = NO;
+    detailVC.fromDetailVC = YES;
+    detailVC.ourSeverMark = YES;
+    detailVC.nameStr = model.name;
     detailVC.businessId = model.businessId;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
