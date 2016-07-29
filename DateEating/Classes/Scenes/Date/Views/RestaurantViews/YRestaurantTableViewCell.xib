@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,40 +14,33 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="47"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2nx-Jv-SX2">
-                        <rect key="frame" x="8" y="7" width="32" height="34"/>
-                        <animations/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2nx-Jv-SX2">
+                        <rect key="frame" x="8" y="8" width="30" height="34"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="34" id="N6z-yw-rKK"/>
-                            <constraint firstAttribute="width" constant="32" id="ufq-gJ-Gwh"/>
+                            <constraint firstAttribute="width" constant="30" id="9JL-Ui-RE1"/>
+                            <constraint firstAttribute="height" constant="30" id="uEq-tQ-Zem"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xf3-fO-wCL">
-                        <rect key="frame" x="53" y="24" width="341" height="0.0"/>
-                        <animations/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="341" id="dCX-Vw-GCp"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xf3-fO-wCL">
+                        <rect key="frame" x="64" y="13" width="328" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <animations/>
                 <constraints>
-                    <constraint firstItem="2nx-Jv-SX2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="7A5-Cf-8mn"/>
-                    <constraint firstItem="Xf3-fO-wCL" firstAttribute="leading" secondItem="2nx-Jv-SX2" secondAttribute="trailing" constant="13" id="JmW-mW-aG5"/>
-                    <constraint firstItem="2nx-Jv-SX2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="O39-5O-v8I"/>
-                    <constraint firstAttribute="trailing" secondItem="Xf3-fO-wCL" secondAttribute="trailing" constant="20" id="U23-KL-rfG"/>
-                    <constraint firstItem="Xf3-fO-wCL" firstAttribute="centerY" secondItem="2nx-Jv-SX2" secondAttribute="centerY" id="vE3-RV-46n"/>
+                    <constraint firstAttribute="trailing" secondItem="Xf3-fO-wCL" secondAttribute="trailing" constant="20" id="EiN-b7-S6a"/>
+                    <constraint firstItem="2nx-Jv-SX2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="TIz-Ks-7Fj"/>
+                    <constraint firstItem="2nx-Jv-SX2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="cGZ-Wa-IcV"/>
+                    <constraint firstItem="Xf3-fO-wCL" firstAttribute="leading" secondItem="2nx-Jv-SX2" secondAttribute="trailing" constant="10" id="eOv-YC-h2Q"/>
+                    <constraint firstItem="Xf3-fO-wCL" firstAttribute="centerY" secondItem="2nx-Jv-SX2" secondAttribute="centerY" id="ixC-ha-vxh"/>
                 </constraints>
             </tableViewCellContentView>
-            <animations/>
             <connections>
                 <outlet property="desLabel" destination="Xf3-fO-wCL" id="jv2-Q0-GjI"/>
                 <outlet property="imgView" destination="2nx-Jv-SX2" id="zqd-99-Eww"/>
             </connections>
-            <point key="canvasLocation" x="509" y="209"/>
+            <point key="canvasLocation" x="306" y="207"/>
         </tableViewCell>
     </objects>
 </document>

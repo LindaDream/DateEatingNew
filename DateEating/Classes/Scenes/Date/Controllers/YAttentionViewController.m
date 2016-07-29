@@ -71,8 +71,18 @@ static NSString *const attentionListCellIdentifier = @"attentionListCell";
     cell.model = model;
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    YAttentionListModel *model = self.attentionArray[indexPath.row];
+    YUserDetailViewController *userDetailVC = [[YUserDetailViewController alloc]init];
+    userDetailVC.userId = model.userId;
+    [self.navigationController pushViewController:userDetailVC animated:YES];
+    
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 67;
+    return 60;
 }
 /*
 // Override to support conditional editing of the table view.

@@ -13,5 +13,6 @@
 
 @property (strong, nonatomic) YDateContentModel * model;
 @property (assign, nonatomic) NSInteger userId;
+@property (assign, nonatomic) NSInteger caterUserCount;
 
 @end

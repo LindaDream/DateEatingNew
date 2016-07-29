@@ -64,8 +64,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.contentView.frame = CGRectMake(0, self.view.height - 50, self.view.width, 50);
-    [self.view addSubview:self.contentView];
     // 注册键盘出现的代理
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardWillShowNotification object:nil];
     // 注册键盘消失的代理
@@ -95,10 +93,6 @@
     self.sendBtn.enabled = NO;
     [self.sendBtn setBackgroundColor:YRGBColor(180, 180, 180)];
     
-    self.contentView.layer.shadowColor=[[UIColor grayColor] colorWithAlphaComponent:0.8].CGColor;
-    self.contentView.layer.shadowOffset=CGSizeMake(10,10);
-    self.contentView.layer.shadowOpacity=0.5;    
-    self.contentView.layer.shadowRadius=8;
 }
 
 // 懒加载
@@ -226,29 +220,18 @@
                                        delegate:self];
 }
 
-#pragma mark -- 收藏操作 --
-- (void)saveBtnAction:(UIBarButtonItem *)item {
-    
-}
-
 #pragma mark -- 餐厅详情按钮代理 --
 - (void)restaurantBtnDidClicked:(YDetailHeaderTableViewCell *)cell {
-        YCaterDetail *detail = [[YCaterDetail alloc]init];
-        [YNetWorkRequestManager getRequestWithUrl:CaterDetailRequest_Url(self.model.caterBusinessId) successRequest:^(id dict) {
-            NSDictionary *modelDic = dict[@"data"];
-            [detail setValuesForKeysWithDictionary:modelDic];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                YRestaurantDetailViewController *detailVC = [[YRestaurantDetailViewController alloc]init];
-                detailVC.count = detail.caterUserCount;
-                detailVC.businessId = detail.cater.businessId;
-                detailVC.addressStr = detail.cater.address;
-                detailVC.nameStr = detail.cater.name;
-                detailVC.fromDetailVC = YES;
-                [self.navigationController pushViewController:detailVC animated:YES];
-            });
-        } failurRequest:^(NSError *error) {
-            
-        }];
+    
+     YRestaurantDetailViewController *detailVC = [[YRestaurantDetailViewController alloc]init];
+    if (self.model.ourSeverMark) {
+        detailVC.fromDetailVC = NO;
+        detailVC.businessId = self.model.caterBusinessId;
+    } else {
+        detailVC.fromDetailVC = YES;
+        detailVC.eventId = self.model.ID;
+    }
+    [self.navigationController pushViewController:detailVC animated:YES];  
 }
 
 // 点击头像的代理方法
@@ -424,8 +407,8 @@
     NSNumber *duration = [aNotification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSNumber *curve = [aNotification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
     keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
-    CGRect btnFrame = self.contentView.frame;
-    btnFrame.origin.y = self.view.bounds.size.height - (keyboardBounds.size.height + btnFrame.size.height);
+    CGRect btnFrame = self.view.frame;
+    btnFrame.origin.y = -keyboardBounds.size.height;
     // animations settings
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationBeginsFromCurrentState:YES];
@@ -434,7 +417,7 @@
     [UIView setAnimationDelegate:self];
     
     // set views with new info
-    self.contentView.frame = btnFrame;
+    self.view.frame = btnFrame;
     // commit animations
     [UIView commitAnimations];
 }
@@ -444,8 +427,8 @@
     NSNumber *curve = [aNotification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
     
     // get a rect for the textView frame
-    CGRect btnFrame = self.contentView.frame;
-    btnFrame.origin.y = self.view.bounds.size.height - btnFrame.size.height;
+    CGRect btnFrame = self.view.frame;
+    btnFrame.origin.y = 0;
     
     // animations settings
     [UIView beginAnimations:nil context:NULL];
@@ -454,7 +437,7 @@
     [UIView setAnimationCurve:[curve intValue]];
     
     // set views with new info
-    self.contentView.frame = btnFrame;
+    self.view.frame = btnFrame;
     
     // commit animations
     [UIView commitAnimations];

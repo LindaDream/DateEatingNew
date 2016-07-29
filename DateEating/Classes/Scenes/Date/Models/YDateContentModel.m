@@ -21,7 +21,7 @@
         self.caterPlatform = [NSString stringWithFormat:@"%@",value];
     } else {
         [super setValue:value forKey:key];
-    } 
+    }
 }
 
 

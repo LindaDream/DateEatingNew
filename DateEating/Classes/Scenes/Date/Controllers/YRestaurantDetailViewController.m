@@ -8,7 +8,7 @@
 
 #import "YRestaurantDetailViewController.h"
 #import "YRestaurantTableViewCell.h"
-#import "YRestaurantDetailModel.h"
+#import "YCaterDetail.h"
 #import "YPublishDateViewController.h"
 #import "YMapViewController.h"
 #import "YAttentionViewController.h"
@@ -34,13 +34,13 @@ MFMessageComposeViewControllerDelegate
 // 关注按钮
 @property(strong,nonatomic)UIButton *attentionBtn;
 // 关注按钮上的label
-@property(strong,nonatomic)UILabel *attentionLabel;
+//@property(strong,nonatomic)UILabel *attentionLabel;
 // 判断关注按钮是否被点击
 @property(assign,nonatomic)BOOL isAttented;
 // 尾部视图
 @property(strong,nonatomic)UIView *footView;
 @property(strong,nonatomic)UIButton *footBtn;
-@property(strong,nonatomic)YRestaurantDetailModel *model;
+@property(strong,nonatomic)YCaterDetail *model;
 @property(strong,nonatomic)NSString *object;
 @end
 
@@ -51,38 +51,13 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [self getData];
-    // AND查询
-    AVQuery *nameQuery = [AVQuery queryWithClassName:@"MyAttention"];
-    [nameQuery whereKey:@"name" equalTo:self.nameStr];
-    AVQuery *userNameQuery = [AVQuery queryWithClassName:@"MyAttention"];
-    [userNameQuery whereKey:@"userName" equalTo:[AVUser currentUser].username];
-    AVQuery *query = [AVQuery andQueryWithSubqueries:[NSArray arrayWithObjects:nameQuery,userNameQuery, nil]];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (objects.count != 0) {
-            self.isAttented = NO;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.attentionBtn setBackgroundImage:[UIImage imageNamed:@"guarantee_bg"] forState:(UIControlStateNormal)];
-                self.attentionLabel.text = @"已关注";
-                self.attentionLabel.textColor = [UIColor lightGrayColor];
-                [self.attentionBtn addSubview:self.attentionLabel];
-            });
-        }else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.attentionBtn setBackgroundImage:[UIImage imageNamed:@"guarantee_red_bg"] forState:(UIControlStateNormal)];
-                self.attentionLabel.backgroundColor = [UIColor whiteColor];
-                self.attentionLabel.text = @"关注";
-                self.attentionLabel.textColor = [UIColor colorWithRed:243/255.0 green:32/255.0 blue:37/255.0 alpha:1];
-                [self.attentionBtn addSubview:self.attentionLabel];
-            });
-        }
-    }];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"餐厅详情";
     self.isAttented = YES;
-    self.model = [YRestaurantDetailModel new];
+    self.model = [YCaterDetail new];
     [self.restaurantTableView registerNib:[UINib nibWithNibName:@"YRestaurantTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:restaurantCellIdentifier];
     [self addHeadView];
     [self addFootView];
@@ -92,17 +67,57 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
 }
 #pragma mark--数据解析--
 - (void)getData{
-    NSString *urlStr = [RestaurantDetail_URL(self.businessId) stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    [YRestaurantDetailModel parsesWithUrl:urlStr successRequest:^(id dict) {
+    NSString *urlStr;
+    if (self.fromDetailVC) {
+        urlStr = [RestaurantDetail_URL(self.eventId) stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    } else {
+        urlStr = [CaterDetailRequest_Url(self.businessId)stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    [YNetWorkRequestManager getRequestWithUrl:urlStr successRequest:^(id dict) {
+        NSDictionary *modelDic = dict[@"data"];
+        NSLog(@"%@",modelDic[@"caterUserCount"]);
+        [weakSelf.model setValuesForKeysWithDictionary:modelDic];
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.model = dict;
             [self.restaurantTableView reloadData];
+            [self isAttented];
             [self addHeadView];
         });
     } failurRequest:^(NSError *error) {
         
     }];
+    
 }
+
+// 判断是否关注过此餐厅
+- (void)isAttition {
+    // AND查询
+    AVQuery *nameQuery = [AVQuery queryWithClassName:@"MyAttention"];
+    [nameQuery whereKey:@"name" equalTo:self.model.cater.name];
+    AVQuery *userNameQuery = [AVQuery queryWithClassName:@"MyAttention"];
+    [userNameQuery whereKey:@"userName" equalTo:[AVUser currentUser].username];
+    AVQuery *query = [AVQuery andQueryWithSubqueries:[NSArray arrayWithObjects:nameQuery,userNameQuery, nil]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (objects.count != 0) {
+            self.isAttented = NO;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.attentionBtn setBackgroundImage:[UIImage imageNamed:@"guarantee_bg"] forState:(UIControlStateNormal)];
+                [self.attentionBtn setTitle:@"已关注" forState:UIControlStateNormal];
+                [self.attentionBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+            });
+        }else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.attentionBtn setBackgroundImage:[UIImage imageNamed:@"guarantee_red_bg"] forState:(UIControlStateNormal)];
+                [self.attentionBtn setTitle:@"关注" forState:UIControlStateNormal];
+                [self.attentionBtn setTitleColor:YRGBColor(243, 32, 37) forState:UIControlStateNormal];
+            });
+        }
+    }];
+}
+
+
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
 }
@@ -117,10 +132,11 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
     cell.frame = rect;
     if (indexPath.section == 0) {
         cell.imgView.image = [UIImage imageNamed:@"locationCell"];
-        cell.desLabel.text = self.model.address;
+        cell.desLabel.text = self.model.cater.address;
     }else{
         cell.imgView.image = [UIImage imageNamed:@"mine_restaurant"];
-        cell.desLabel.text = [NSString stringWithFormat:@"关注此餐厅的人(%ld)",self.count];
+        cell.desLabel.text = [NSString stringWithFormat:@"关注此餐厅的人(%ld)",self.model.caterUserCount];
+        NSLog(@"%ld",self.model.caterUserCount);
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -129,11 +145,11 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         YMapViewController *mapVC = [YMapViewController new];
-        mapVC.model = self.model;
+        mapVC.model = self.model.cater;
         [self.navigationController pushViewController:mapVC animated:YES];
     }else{
         YAttentionViewController *attentionListVC = [YAttentionViewController new];
-        attentionListVC.businessID = self.model.businessId;
+        attentionListVC.businessID = self.model.cater.businessId;
         [self.navigationController pushViewController:attentionListVC animated:YES];
     }
 }
@@ -150,30 +166,33 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
 }
 #pragma mark--设置头部视图--
 - (void)addHeadView{
-    self.headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 160)];
+    self.headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 150)];
     // 添加餐厅头像
     self.headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 80, 80)];
     self.headImgView.layer.masksToBounds = YES;
     self.headImgView.layer.cornerRadius = 5;
-    [self.headImgView setImageWithURL:[NSURL URLWithString:self.model.sPhotoUrl] placeholderImage:[UIImage imageNamed:@"DateLogo.jpg"]];
+    [self.headImgView sd_setImageWithURL:[NSURL URLWithString:self.model.cater.photoUrl] placeholderImage:[UIImage imageNamed:@"DateLogo.jpg"]];
     [self.headView addSubview:self.headImgView];
     
     // 添加餐厅名称
-    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.headImgView.frame) + 10, CGRectGetMinY(self.headImgView.frame) - 15, 200, 30)];
-    self.nameLabel.text = self.model.name;
-    [self.nameLabel setFont:[UIFont systemFontOfSize:16.0]];
+    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.headImgView.frame) + 10, CGRectGetMinY(self.headImgView.frame), 150, 20)];
+    self.nameLabel.adjustsFontSizeToFitWidth = YES;
+    self.nameLabel.text = self.model.cater.name;
+    [self.nameLabel setFont:[UIFont systemFontOfSize:15.0]];
     [self.headView addSubview:self.nameLabel];
     
     // 添加价格标签
-    self.priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.nameLabel.frame), CGRectGetMaxY(self.nameLabel.frame) + 10, 100, 30)];
-    self.priceLabel.text = [NSString stringWithFormat:@"人均￥%@元",self.model.avgPrice];
-    [self.priceLabel setFont:[UIFont systemFontOfSize:14.0]];
+    self.priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.nameLabel.frame), CGRectGetMaxY(self.nameLabel.frame) + 12, 150, 20)];
+    self.priceLabel.adjustsFontSizeToFitWidth = YES;
+    self.priceLabel.text = [NSString stringWithFormat:@"人均￥%@元",self.model.cater.avgPrice];
+    [self.priceLabel setFont:[UIFont systemFontOfSize:13.0]];
     [self.headView addSubview:self.priceLabel];
     
     // 添加类型标签
-    self.typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.priceLabel.frame), CGRectGetMaxY(self.priceLabel.frame) + 5, 200, 30)];
-    self.typeLabel.text = self.model.categoriesStr;
-    [self.typeLabel setFont:[UIFont systemFontOfSize:14.0]];
+    self.typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.priceLabel.frame), CGRectGetMaxY(self.priceLabel.frame)+8, 150, 20)];
+    self.typeLabel.adjustsFontSizeToFitWidth = YES;
+    self.typeLabel.text = self.model.cater.categoriesStr;
+    [self.typeLabel setFont:[UIFont systemFontOfSize:13.0]];
     [self.headView addSubview:self.typeLabel];
     
     // 添加电话按钮
@@ -184,18 +203,15 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
     [self.headView addSubview:self.telBtn];
     
     // 添加关注按钮
-    self.attentionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.typeLabel.frame) + 30, 160, 30)];
-    self.attentionBtn.center = CGPointMake(self.headView.center.x, CGRectGetMaxY(self.typeLabel.frame) + 20);
-    self.attentionLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 2, 60, 26)];
+    self.attentionBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 120, 30)];
+    self.attentionBtn.center = CGPointMake(self.headView.center.x, CGRectGetMaxY(self.typeLabel.frame) + 25);
     [self.attentionBtn setBackgroundImage:[UIImage imageNamed:@"guarantee_red_bg"] forState:(UIControlStateNormal)];
-    self.attentionLabel.backgroundColor = [UIColor whiteColor];
-    self.attentionLabel.text = @"关注";
-    [self.attentionLabel setFont:[UIFont systemFontOfSize:14.0]];
-    self.attentionLabel.textColor = [UIColor colorWithRed:243/255.0 green:32/255.0 blue:37/255.0 alpha:1];
-    [self.attentionBtn addSubview:self.attentionLabel];
+    [self.attentionBtn setTitle:@"关注" forState:UIControlStateNormal];
+    self.attentionBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    [self.attentionBtn setTitleColor:YRGBColor(243, 32, 37) forState:UIControlStateNormal];
     [self.attentionBtn addTarget:self action:@selector(attentAction:) forControlEvents:(UIControlEventTouchUpInside)];
-    self.attentionBtn.layer.masksToBounds = YES;
-    self.attentionBtn.layer.cornerRadius = 20;
+//    self.attentionBtn.layer.masksToBounds = YES;
+//    self.attentionBtn.layer.cornerRadius = 20;
     [self.headView addSubview:self.attentionBtn];
     
     [self.restaurantTableView setTableHeaderView:self.headView];
@@ -218,13 +234,13 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
     NSArray *vcArr = self.navigationController.viewControllers;
     if (self.isDateView) {
         YPublishDateViewController *dateVC = (YPublishDateViewController *)[vcArr objectAtIndex:1];
-        dateVC.addressStr = self.nameStr;
-        dateVC.businessID = self.model.businessId;
+        dateVC.addressStr = self.model.cater.name;
+        dateVC.businessID = self.model.cater.businessId;
         [self.navigationController popToViewController:dateVC animated:YES];
     }else{
         YPublishPartyViewController *partyVC = (YPublishPartyViewController *)[vcArr objectAtIndex:1];
-        partyVC.addressStr = self.nameStr;
-        partyVC.businessID = self.model.businessId;
+        partyVC.addressStr = self.model.cater.name;
+        partyVC.businessID = self.model.cater.businessId;
         [self.navigationController popToViewController:partyVC animated:YES];
     }
 
@@ -232,15 +248,15 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
 #pragma mark--联系卖家--
 - (void)telAction:(UIButton *)telBtn{
     // 调用系统电话
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",self.model.telephone]]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",self.model.cater.telephone]]];
 }
 #pragma mark--关注餐厅--
 - (void)attentAction:(UIButton *)attentBtn{
     AVObject *object = [AVObject objectWithClassName:@"MyAttention"];
     if (self.isAttented) {
         [self.attentionBtn setBackgroundImage:[UIImage imageNamed:@"guarantee_bg"] forState:(UIControlStateNormal)];
-        self.attentionLabel.text = @"已关注";
-        self.attentionLabel.textColor = [UIColor lightGrayColor];
+        [self.attentionBtn setTitle:@"已关注" forState:UIControlStateNormal];
+        [self.attentionBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         // 保存当前用户名
         [object setObject:[AVUser currentUser].username forKey:@"userName"];
         // 保存餐厅名称
@@ -248,18 +264,18 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
         // 保存人均价格
         [object setObject:self.priceLabel.text forKey:@"avgPrice"];
         // 保存地址
-        [object setObject:self.addressStr forKey:@"address"];
+        [object setObject:self.model.cater.address forKey:@"address"];
         // 保存类型
         [object setObject:self.typeLabel.text forKey:@"type"];
         // 保存businessId
-        [object setObject:self.model.businessId forKey:@"businessId"];
+        [object setObject:self.model.cater.businessId forKey:@"businessId"];
         // 保存关注人数(NSInteger转换成NSNumber类型)
         [object setObject:[NSNumber numberWithInteger:self.count] forKey:@"count"];
         // 保存餐厅图片链接
-        [object setObject:self.model.sPhotoUrl forKey:@"headImg"];
+        [object setObject:self.model.cater.sPhotoUrl forKey:@"headImg"];
         // AND查询
         AVQuery *nameQuery = [AVQuery queryWithClassName:@"MyAttention"];
-        [nameQuery whereKey:@"name" equalTo:self.nameStr];
+        [nameQuery whereKey:@"name" equalTo:self.model.cater.name];
         AVQuery *userNameQuery = [AVQuery queryWithClassName:@"MyAttention"];
         [userNameQuery whereKey:@"userName" equalTo:[AVUser currentUser].username];
         AVQuery *query = [AVQuery andQueryWithSubqueries:[NSArray arrayWithObjects:nameQuery,userNameQuery, nil]];
@@ -268,7 +284,7 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
                 [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (succeeded) {
                         NSLog(@"保存成功");
-                        [[NSUserDefaults standardUserDefaults] setObject:object.objectId forKey:self.nameStr];
+                        [[NSUserDefaults standardUserDefaults] setObject:object.objectId forKey:self.model.cater.name];
                     }
                 }];
             }else{
@@ -278,15 +294,15 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
         self.isAttented = NO;
     }else{
         [self.attentionBtn setBackgroundImage:[UIImage imageNamed:@"guarantee_red_bg"] forState:(UIControlStateNormal)];
-        self.attentionLabel.text = @"关注";
-        self.attentionLabel.textColor = [UIColor colorWithRed:243/255.0 green:32/255.0 blue:37/255.0 alpha:1];
+        [self.attentionBtn setTitle:@"关注" forState:UIControlStateNormal];
+        [self.attentionBtn setTitleColor:YRGBColor(243, 32, 37) forState:UIControlStateNormal];
         // 删除关注的数据
         // 执行 CQL 语句实现删除一个 MyAttention 对象
-        self.object = [[NSUserDefaults standardUserDefaults] objectForKey:self.nameStr];
+        self.object = [[NSUserDefaults standardUserDefaults] objectForKey:self.model.cater.name];
         [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"delete from MyAttention where objectId='%@'",self.object] callback:^(AVCloudQueryResult *result, NSError *error) {
             NSLog(@"删除成功");
         }];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.nameStr];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.model.cater.name];
         self.isAttented = YES;
     }
 }
