@@ -94,6 +94,10 @@ static NSString *const listCellIdentifier = @"listCell";
     [self addMeTableView];
     [self addHeadView];
 }
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DateButtonClicked" object:nil];
+}
 #pragma mark--获取未读消息条数--
 - (void)getUnreadMessageCount:(NSNotification *)notification{
     self.unreadMessageCount = 0;
