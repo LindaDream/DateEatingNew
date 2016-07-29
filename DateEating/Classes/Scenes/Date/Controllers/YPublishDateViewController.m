@@ -116,6 +116,7 @@ static NSString *const findeCellIdentifier = @"findeCell";
     self.title = @"发布约会";
     self.isSelected = YES;
     self.dateStr = @"".mutableCopy;
+    self.dateTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     // 注册cell
     [self.dateTableView registerNib:[UINib nibWithNibName:@"YThemeTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:themeCellIdentifier];
     [self.dateTableView registerNib:[UINib nibWithNibName:@"YObjectTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:objectCellIdentifier];

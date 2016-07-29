@@ -80,7 +80,7 @@
 #pragma mark--键盘回收--
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     if (textField == self.userNameTF) {
-        [self.userNameTF becomeFirstResponder];
+        [self.passwordTF becomeFirstResponder];
     }else{
         [textField resignFirstResponder];
     }

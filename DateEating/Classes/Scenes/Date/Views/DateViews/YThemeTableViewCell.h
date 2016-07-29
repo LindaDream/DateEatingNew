@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YThemeTableViewCell : UITableViewCell
+@interface YThemeTableViewCell : UITableViewCell<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *themeTF;
 
 @end

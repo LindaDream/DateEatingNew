@@ -26,6 +26,8 @@ static NSString *const dateOrPartyCellIdentifier = @"dateOrPartyCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"约会、聚会";
+    self.dateTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.partyTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.dateArray = [NSMutableArray new];
     self.partyArray = [NSMutableArray new];
     self.dateOrPartySegment.selectedSegmentIndex = 0;
@@ -47,7 +49,7 @@ static NSString *const dateOrPartyCellIdentifier = @"dateOrPartyCell";
 #pragma mark--scrollView代理实现--
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (scrollView == self.backScrollView) {
-        self.dateOrPartySegment.selectedSegmentIndex = scrollView.contentOffset.x / 414.0;
+        self.dateOrPartySegment.selectedSegmentIndex = scrollView.contentOffset.x / self.view.width;
     }
 }
 #pragma mark--数据请求--
