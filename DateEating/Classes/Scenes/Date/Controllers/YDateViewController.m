@@ -66,6 +66,8 @@
     [self.button removeFromSuperview];
 }
 - (void)viewWillAppear:(BOOL)animated {
+    // 接收加号按钮点击通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dateView:) name:@"DateButtonClicked" object:nil];
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(15, 7, 50, 30)];
     [button setTitleColor:YRGBColor(255, 102, 102) forState:UIControlStateNormal];
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
@@ -95,8 +97,7 @@
     self.handle = [YNSUserDefaultHandel sharedYNSUserDefaultHandel];
     // 接收夜间模式转换通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(change:) name:@"NotificationNight" object:nil];
-    // 接收加号按钮点击通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dateView:) name:@"DateButtonClicked" object:nil];
+   
     // 设置navigtationbar的头视图
     [self setNavigationBar];
     // 设置上拉加载下拉刷新

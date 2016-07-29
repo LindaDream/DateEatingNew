@@ -53,6 +53,8 @@ static NSString *const listCellIdentifier = @"listCell";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    // 接收加号按钮点击通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dateView:) name:@"DateButtonClicked" object:nil];
     if ([AVUser currentUser]) {
         self.nameLabel.text = [AVUser currentUser].username;
         self.emailLabel.text = [AVUser currentUser].email;
@@ -81,8 +83,7 @@ static NSString *const listCellIdentifier = @"listCell";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // 接收加号按钮点击通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dateView:) name:@"DateButtonClicked" object:nil];
+    
     self.isNight = @"1";
     // 设置导航栏标题
     self.navigationItem.title = @"我的";

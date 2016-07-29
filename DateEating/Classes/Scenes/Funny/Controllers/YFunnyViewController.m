@@ -32,8 +32,7 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
     [super viewDidLoad];
     // 接收夜间模式转换通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(change:) name:@"NotificationNight" object:nil];
-    // 接收加号按钮点击通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dateView:) name:@"DateButtonClicked" object:nil];
+    
     // 设置导航栏标题
     self.navigationItem.title = @"趣事";
     // 设置view的背景色
@@ -50,6 +49,8 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
 - (void)viewWillAppear:(BOOL)animated{
 
     [super viewWillAppear:animated];
+    // 接收加号按钮点击通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dateView:) name:@"DateButtonClicked" object:nil];
     [self getAllFunny];
 }
 
