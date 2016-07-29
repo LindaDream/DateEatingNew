@@ -434,6 +434,7 @@
         cell.commentCount.text = [NSString stringWithFormat:@"%ld",count];
     };
     detailVC.userLocation = self.userLocation;
+    detailVC.isListData = YES;
     [self.navigationController pushViewController:detailVC animated:YES];
     
 }

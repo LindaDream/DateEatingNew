@@ -69,7 +69,7 @@ static NSString *const restaurantListCellIndentifier = @"restaurantListCell";
 #pragma mark--searchBarController必须实现的代理--
 -(void)updateSearchResultsForSearchController:(UISearchController *)searchController{
     NSString *string = self.searchController.searchBar.text;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[cd]%@",string];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[s]%@",string];
     if (self.searchListArr) {
         [self.searchListArr removeAllObjects];
     }
@@ -142,17 +142,21 @@ static NSString *const restaurantListCellIndentifier = @"restaurantListCell";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     YRestaurantDetailViewController *detailVC = [YRestaurantDetailViewController new];
-    detailVC.isDateView = self.isDateView;
+    //detailVC.isDateView = self.isDateView;
     if (self.searchController.active) {
         for (YRestaurantListModel *model in self.dataArray) {
             if ([model.name isEqualToString:self.searchListArr[indexPath.row]]) {
                 detailVC.fromDetailVC = NO;
+                detailVC.isDateView = self.isDateView;
+                detailVC.nameStr = model.name;
                 detailVC.businessId = model.businessId;
             }
         }
     }else{
         self.model = self.dataArray[indexPath.row];
         detailVC.fromDetailVC = NO;
+        detailVC.isDateView = self.isDateView;
+        detailVC.nameStr = self.model.name;
         detailVC.businessId = self.model.businessId;
     }
     [self.navigationController pushViewController:detailVC animated:YES];

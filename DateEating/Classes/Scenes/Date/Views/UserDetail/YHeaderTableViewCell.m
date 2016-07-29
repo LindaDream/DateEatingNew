@@ -55,7 +55,6 @@
     [_userImage sd_setImageWithURL:[NSURL URLWithString:array.firstObject] placeholderImage:[UIImage imageNamed:@"DefaultAvatar"]];
     CGFloat distance = [[YDistanceMangear sharedYDistanceMangear]getDistanceByUserLocation:nil Latitude:model.lat longitude:model.lng];
     _distance.text = [NSString stringWithFormat:@"%.2lfkm",distance/1000.0];
-    _onLineTime.text = @"3小时前";
     _nick.text = model.nick;
     if (model.gender == 0) {
         _gender.image = [UIImage imageNamed:@"ic_sex_girl"];
@@ -67,7 +66,25 @@
     _constellation.text = model.constellation;
     _height.text = [NSString stringWithFormat:@"%ldcm",model.height];
     _personInfo.text = model.personalInfo;
-    
+    if (!model.lastOnlineTime) {
+        _onLineTime.text = [NSString stringWithFormat:@""];
+    } else {
+        // 显示时间
+        NSTimeInterval nowTime = [[NSDate date] timeIntervalSince1970]*1000;
+        CGFloat totalTime = ((NSInteger)nowTime - model.lastOnlineTime.integerValue)/1000.0;
+        NSInteger day = totalTime/86400;
+        NSInteger hour = totalTime/3600;
+        NSInteger min = totalTime/60;
+        if (day > 0) {
+            _onLineTime.text = [NSString stringWithFormat:@"%ld天前",day];
+        } else if (hour > 0) {
+            _onLineTime.text = [NSString stringWithFormat:@"%ld小时前",hour];
+        } else if (min > 0){
+            _onLineTime.text = [NSString stringWithFormat:@"%ld分钟前",min];
+        } else {
+            _onLineTime.text = [NSString stringWithFormat:@"小于1分钟"];
+        }
+    }    
 }
 
 @end

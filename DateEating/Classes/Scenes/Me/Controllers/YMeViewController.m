@@ -91,6 +91,7 @@ static NSString *const listCellIdentifier = @"listCell";
     UIBarButtonItem *settingButton = [UIBarButtonItem itemWithImage:@"mine-setting-icon" heightImage:@"mine-setting-icon-click" target:self action:@selector(settingClick)];
     UIBarButtonItem *nightModeButton = [UIBarButtonItem itemWithImage:@"mine-moon-icon" heightImage:@"mine-moon-icon-click" target:self action:@selector(nightModeClick)];
     self.navigationItem.rightBarButtonItems = @[settingButton,nightModeButton];
+    self.meTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addMeTableView];
     [self addHeadView];
 }

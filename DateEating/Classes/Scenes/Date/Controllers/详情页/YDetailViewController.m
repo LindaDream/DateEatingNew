@@ -59,7 +59,9 @@
 @implementation YDetailViewController
 
 - (void)viewWillDisappear:(BOOL)animated {
-    self.passNewCount(self.layoutArray.count);
+    if (self.isListData) {
+        self.passNewCount(self.layoutArray.count);
+    }    
 }
 
 - (void)viewDidLoad {
@@ -225,11 +227,14 @@
     
      YRestaurantDetailViewController *detailVC = [[YRestaurantDetailViewController alloc]init];
     if (self.model.ourSeverMark) {
-        detailVC.fromDetailVC = NO;
+        detailVC.fromDetailVC = YES;
+        detailVC.ourSeverMark = YES;
         detailVC.businessId = self.model.caterBusinessId;
+        detailVC.nameStr = self.model.eventLocation;
     } else {
         detailVC.fromDetailVC = YES;
         detailVC.eventId = self.model.ID;
+        detailVC.nameStr = self.model.eventLocation;
     }
     [self.navigationController pushViewController:detailVC animated:YES];  
 }
