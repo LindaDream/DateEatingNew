@@ -91,7 +91,6 @@ static NSString *const listCellIdentifier = @"listCell";
     UIBarButtonItem *settingButton = [UIBarButtonItem itemWithImage:@"mine-setting-icon" heightImage:@"mine-setting-icon-click" target:self action:@selector(settingClick)];
     UIBarButtonItem *nightModeButton = [UIBarButtonItem itemWithImage:@"mine-moon-icon" heightImage:@"mine-moon-icon-click" target:self action:@selector(nightModeClick)];
     self.navigationItem.rightBarButtonItems = @[settingButton,nightModeButton];
-    self.meTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addMeTableView];
     [self addHeadView];
 }
@@ -133,6 +132,7 @@ static NSString *const listCellIdentifier = @"listCell";
     self.meTableView.delegate = self;
     self.meTableView.dataSource = self;
     [self.meTableView registerNib:[UINib nibWithNibName:@"YClearTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:clearCellIdentifier];
+    self.meTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.meTableView];
 }
 #pragma mark--设置头部视图--

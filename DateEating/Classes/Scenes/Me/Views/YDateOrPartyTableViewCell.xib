@@ -62,7 +62,7 @@
                             <constraint firstAttribute="height" constant="1" id="IJS-XL-4iF"/>
                         </constraints>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fHu-yV-W2k">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="head_img.png" translatesAutoresizingMaskIntoConstraints="NO" id="fHu-yV-W2k">
                         <rect key="frame" x="8" y="8" width="60" height="60"/>
                         <animations/>
                         <constraints>
@@ -118,4 +118,7 @@
             <point key="canvasLocation" x="370" y="238"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="head_img.png" width="80" height="81"/>
+    </resources>
 </document>

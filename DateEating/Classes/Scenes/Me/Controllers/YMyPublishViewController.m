@@ -41,7 +41,7 @@ static NSString *const dateOrPartyCellIdentifier = @"dateOrPartyCell";
 #pragma mark--设置分段控制器--
 - (void)changeView:(UISegmentedControl *)seg{
     if (seg.selectedSegmentIndex == 1) {
-        self.backScrollView.contentOffset = CGPointMake(414, 0);
+        self.backScrollView.contentOffset = CGPointMake(kWidth, 0);
     }else{
         self.backScrollView.contentOffset = CGPointMake(0, 0);
     }

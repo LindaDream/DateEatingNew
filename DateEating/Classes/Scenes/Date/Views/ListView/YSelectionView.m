@@ -33,7 +33,7 @@
         [backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction)]];
         [self addSubview:backgroundView];
         // 容器view
-        self.contentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.width - 160, 50)];
+        self.contentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.width * 2 / 3, 50)];
         _contentView.backgroundColor = [UIColor whiteColor];
         [self addSubview:_contentView];
         // 标题label

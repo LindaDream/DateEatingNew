@@ -330,8 +330,10 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (scrollView == self.scrollView) {
         if (scrollView.contentOffset.x >= self.view.width) {
+            self.button.hidden = YES;
             self.titleViewSegment.selectedSegmentIndex = 1;
         } else {
+            self.button.hidden = NO;
             self.titleViewSegment.selectedSegmentIndex = 0;
         }
     }

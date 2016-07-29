@@ -40,14 +40,14 @@ static NSString *const systemCellIdentifier = @"systemCell";
 #pragma mark--切换界面--
 - (void)changeView:(UISegmentedControl *)seg{
     if (seg.selectedSegmentIndex == 1) {
-        self.scrollView.contentOffset = CGPointMake(414, 0);
+        self.scrollView.contentOffset = CGPointMake(kWidth, 0);
     }else{
         self.scrollView.contentOffset = CGPointMake(0, 0);
     }
 }
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (scrollView == self.scrollView) {
-        self.mealOrPlaySegment.selectedSegmentIndex = scrollView.contentOffset.x / 414.0;
+        self.mealOrPlaySegment.selectedSegmentIndex = scrollView.contentOffset.x / kWidth;
     }
 }
 #pragma mark--数据请求--
@@ -95,7 +95,7 @@ static NSString *const systemCellIdentifier = @"systemCell";
     CGRect rect = cell.textLabel.frame;
     rect.size.height = height;
     cell.textLabel.frame = rect;
-    UIView *grayLine = [[UIView alloc] initWithFrame:CGRectMake(0, cell.contentView.frame.size.height, 414, 1)];
+    UIView *grayLine = [[UIView alloc] initWithFrame:CGRectMake(0, cell.contentView.frame.size.height, kWidth, 1)];
     grayLine.backgroundColor = [UIColor lightGrayColor];
     [cell.contentView addSubview:grayLine
      ];
