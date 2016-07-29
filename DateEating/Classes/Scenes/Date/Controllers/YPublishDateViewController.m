@@ -269,7 +269,8 @@ static NSString *const findeCellIdentifier = @"findeCell";
     
     // 选择按钮
     self.selectBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    self.selectBtn.frame = CGRectMake(CGRectGetMinX(self.pickerView.frame) + self.pickerView.width / 2 - 25, CGRectGetMaxY(self.pickerView.frame) + 50, 80, 50);
+    self.selectBtn.frame = CGRectMake(0,0, 80, 50);
+    self.selectBtn.center = CGPointMake(kWidth / 2, CGRectGetMaxY(self.pickerView.frame) + 50);
     self.selectBtn.layer.masksToBounds = YES;
     self.selectBtn.layer.cornerRadius = 5;
     self.selectBtn.backgroundColor = [UIColor colorWithRed:244/255.0 green:86/255.0 blue:79/255.0 alpha:1];
