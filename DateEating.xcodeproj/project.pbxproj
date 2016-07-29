@@ -456,6 +456,11 @@
 		D6B2A1011D3A56B4002BB383 /* mine_committed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6B2A0F91D3A56B4002BB383 /* mine_committed@2x.png */; };
 		D6B2A1021D3A56B4002BB383 /* mine_committed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6B2A0FA1D3A56B4002BB383 /* mine_committed@3x.png */; };
 		D6B2A1041D3A6DCE002BB383 /* eventBgBottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D6B2A1031D3A6DCE002BB383 /* eventBgBottom@2x.png */; };
+		D6BDC4601D4B8A5500BA8103 /* YDisclaimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BDC45E1D4B8A5500BA8103 /* YDisclaimerViewController.m */; };
+		D6BDC4611D4B8A5500BA8103 /* YDisclaimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6BDC45F1D4B8A5500BA8103 /* YDisclaimerViewController.xib */; };
+		D6BDC4631D4B97D900BA8103 /* mzsm.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D6BDC4621D4B97D900BA8103 /* mzsm.jpg */; };
+		D6BDC4671D4B996200BA8103 /* YAboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BDC4651D4B996200BA8103 /* YAboutUsViewController.m */; };
+		D6BDC4681D4B996200BA8103 /* YAboutUsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6BDC4661D4B996200BA8103 /* YAboutUsViewController.xib */; };
 		D6BDCFF61D3C72A5000DC251 /* YUserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BDCFF41D3C72A5000DC251 /* YUserDetailViewController.m */; };
 		D6BDCFF71D3C72A5000DC251 /* YUserDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6BDCFF51D3C72A5000DC251 /* YUserDetailViewController.xib */; };
 		D6BDCFFB1D3C7EE5000DC251 /* YUserDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BDCFFA1D3C7EE5000DC251 /* YUserDetailModel.m */; };
@@ -1147,6 +1152,13 @@
 		D6B2A0F91D3A56B4002BB383 /* mine_committed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mine_committed@2x.png"; sourceTree = "<group>"; };
 		D6B2A0FA1D3A56B4002BB383 /* mine_committed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mine_committed@3x.png"; sourceTree = "<group>"; };
 		D6B2A1031D3A6DCE002BB383 /* eventBgBottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eventBgBottom@2x.png"; sourceTree = "<group>"; };
+		D6BDC45D1D4B8A5500BA8103 /* YDisclaimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDisclaimerViewController.h; sourceTree = "<group>"; };
+		D6BDC45E1D4B8A5500BA8103 /* YDisclaimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDisclaimerViewController.m; sourceTree = "<group>"; };
+		D6BDC45F1D4B8A5500BA8103 /* YDisclaimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YDisclaimerViewController.xib; sourceTree = "<group>"; };
+		D6BDC4621D4B97D900BA8103 /* mzsm.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mzsm.jpg; sourceTree = "<group>"; };
+		D6BDC4641D4B996200BA8103 /* YAboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAboutUsViewController.h; sourceTree = "<group>"; };
+		D6BDC4651D4B996200BA8103 /* YAboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YAboutUsViewController.m; sourceTree = "<group>"; };
+		D6BDC4661D4B996200BA8103 /* YAboutUsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YAboutUsViewController.xib; sourceTree = "<group>"; };
 		D6BDCFF31D3C72A5000DC251 /* YUserDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YUserDetailViewController.h; sourceTree = "<group>"; };
 		D6BDCFF41D3C72A5000DC251 /* YUserDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YUserDetailViewController.m; sourceTree = "<group>"; };
 		D6BDCFF51D3C72A5000DC251 /* YUserDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YUserDetailViewController.xib; sourceTree = "<group>"; };
@@ -1852,6 +1864,13 @@
 				CEB827541D42296800BB2E31 /* YRegisterViewController.h */,
 				CEB827551D42296800BB2E31 /* YRegisterViewController.m */,
 				CEB827561D42296800BB2E31 /* YRegisterViewController.xib */,
+				D6BDC45D1D4B8A5500BA8103 /* YDisclaimerViewController.h */,
+				D6BDC45E1D4B8A5500BA8103 /* YDisclaimerViewController.m */,
+				D6BDC45F1D4B8A5500BA8103 /* YDisclaimerViewController.xib */,
+				D6BDC4641D4B996200BA8103 /* YAboutUsViewController.h */,
+				D6BDC4651D4B996200BA8103 /* YAboutUsViewController.m */,
+				D6BDC4661D4B996200BA8103 /* YAboutUsViewController.xib */,
+				D6BDC4621D4B97D900BA8103 /* mzsm.jpg */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2624,6 +2643,7 @@
 				CEE081911D3658B90052A1D4 /* head.jpg in Resources */,
 				CEB826E41D41B56700BB2E31 /* 发布.png in Resources */,
 				D61D1B301D3871BC00C36F84 /* ic_sex_girl@2x.png in Resources */,
+				D6BDC4611D4B8A5500BA8103 /* YDisclaimerViewController.xib in Resources */,
 				CEB826F81D41B56700BB2E31 /* flash_open_pic.png in Resources */,
 				D61D1B351D3871BC00C36F84 /* NaviUnFiltered@2x.png in Resources */,
 				D66E5A721D33DE84003DED51 /* mainCellBackground.png in Resources */,
@@ -2718,6 +2738,7 @@
 				D66E5A9C1D33DE84003DED51 /* tagicon@2x.png in Resources */,
 				CE5976471D4740E200524D9A /* genderSelect.png in Resources */,
 				CEBF8FC21D45B24900406A61 /* YTimeOrAddressTableViewCell.xib in Resources */,
+				D6BDC4681D4B996200BA8103 /* YAboutUsViewController.xib in Resources */,
 				D66E5AD01D33DE84003DED51 /* nav_coin_icon_click@3x.png in Resources */,
 				D66E5B0E1D33DE84003DED51 /* tabBar_new_icon.png in Resources */,
 				CEB827311D42079D00BB2E31 /* SenderVoiceNodeDownloading@2x.png in Resources */,
@@ -2973,6 +2994,7 @@
 				D66E5A8B1D33DE84003DED51 /* playButtonPause@2x.png in Resources */,
 				D66E5AE91D33DE84003DED51 /* publish-text@3x.png in Resources */,
 				CEBF8F721D459CA600406A61 /* skin-1.png in Resources */,
+				D6BDC4631D4B97D900BA8103 /* mzsm.jpg in Resources */,
 				D66E5AEB1D33DE84003DED51 /* publish-video@2x.png in Resources */,
 				D66E5AA41D33DE84003DED51 /* FollowBtnClickBg@2x.png in Resources */,
 				D6F0F3671D3B464400D1EF81 /* iconfont-heart.png in Resources */,
@@ -3146,6 +3168,7 @@
 				D6F0F3D61D3B49BE00D1EF81 /* DDIndicator.m in Sources */,
 				CEB8270F1D41BB6500BB2E31 /* YChatViewController.m in Sources */,
 				CE97AB7C1D38CCB10051D2D7 /* YTimePiker.m in Sources */,
+				D6BDC4601D4B8A5500BA8103 /* YDisclaimerViewController.m in Sources */,
 				CE49795E1D3515170087FAF6 /* YFeeTypeModel.m in Sources */,
 				CEE5757A1D3A7BF7008B2906 /* YRestaurantDetailViewController.m in Sources */,
 				CED374F61D37DBD60039709F /* YPartyCountTableViewCell.m in Sources */,
@@ -3166,6 +3189,7 @@
 				D67A346A1D3A82EE00D5BA9D /* UIButton+YCategory.m in Sources */,
 				CEB827731D42296800BB2E31 /* YClearTableViewCell.m in Sources */,
 				CEB826EF1D41B56700BB2E31 /* ZZPhotoListViewController.m in Sources */,
+				D6BDC4671D4B996200BA8103 /* YAboutUsViewController.m in Sources */,
 				CED28D521D378A0300A468CF /* YPlayModel.m in Sources */,
 				D6F0F3D41D3B49BE00D1EF81 /* CategoryButton.m in Sources */,
 				CE289D081D3CBBFB00FE8CB1 /* YAttentionViewController.m in Sources */,

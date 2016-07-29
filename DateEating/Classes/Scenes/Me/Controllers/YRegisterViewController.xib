@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YRegisterViewController">
@@ -31,11 +31,9 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_background_i5.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="8vG-p6-RL1">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                    <animations/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用 户 名:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YAX-VK-vcb">
                     <rect key="frame" x="30" y="148" width="73" height="30"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="73" id="Uap-cg-z6h"/>
                         <constraint firstAttribute="height" constant="30" id="bhm-tf-x9q"/>
@@ -46,7 +44,6 @@
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入用户名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="il3-aP-paQ">
                     <rect key="frame" x="111" y="148" width="260" height="30"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="dZz-so-8dK"/>
                     </constraints>
@@ -55,7 +52,6 @@
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密     码:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xgd-pO-YQj">
                     <rect key="frame" x="30" y="212" width="73" height="30"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="OT5-1K-DzT"/>
                         <constraint firstAttribute="width" constant="73" id="fMt-Va-3ZB"/>
@@ -66,7 +62,6 @@
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请再次输入密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7fd-s9-Yjp">
                     <rect key="frame" x="120" y="275" width="251" height="30"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="mdb-df-rJJ"/>
                     </constraints>
@@ -75,7 +70,6 @@
                 </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yCi-we-YY5">
                     <rect key="frame" x="111" y="212" width="260" height="30"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="QbW-bi-HS2"/>
                     </constraints>
@@ -84,7 +78,6 @@
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="确认密码:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNw-Sd-Cnd">
                     <rect key="frame" x="30" y="275" width="82" height="30"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="0EJ-dQ-B0N"/>
                         <constraint firstAttribute="width" constant="82" id="N5L-dr-SVG"/>
@@ -95,14 +88,12 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码长度必须满足6-18位字符" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Mh-DW-5a7">
                     <rect key="frame" x="50" y="250" width="314" height="17"/>
-                    <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="两次密码输入不一致" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ajY-Vy-i1v">
                     <rect key="frame" x="50" y="315" width="314" height="17"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="rZv-XI-aem"/>
                     </constraints>
@@ -112,7 +103,6 @@
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Yes.png" translatesAutoresizingMaskIntoConstraints="NO" id="5Vo-gN-h0x">
                     <rect key="frame" x="379" y="156" width="20" height="20"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="20" id="6En-79-ErG"/>
                         <constraint firstAttribute="height" constant="20" id="krJ-ak-eXB"/>
@@ -120,7 +110,6 @@
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Yes.png" translatesAutoresizingMaskIntoConstraints="NO" id="DST-mC-1EE">
                     <rect key="frame" x="379" y="216" width="20" height="20"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="20" id="WQ1-WK-MHO"/>
                         <constraint firstAttribute="height" constant="20" id="gEI-1D-d9R"/>
@@ -128,7 +117,6 @@
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Yes.png" translatesAutoresizingMaskIntoConstraints="NO" id="kAI-W5-XWj">
                     <rect key="frame" x="379" y="283" width="20" height="20"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="20" id="OBJ-Qf-89U"/>
                         <constraint firstAttribute="height" constant="20" id="nZe-yO-P6r"/>
@@ -136,7 +124,6 @@
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="邮      箱:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIm-f4-ZAt">
                     <rect key="frame" x="30" y="334" width="73" height="30"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="7Jt-t6-UpR"/>
                         <constraint firstAttribute="width" constant="73" id="V0t-r5-hSN"/>
@@ -147,7 +134,6 @@
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入邮箱账号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="33B-MX-S9u">
                     <rect key="frame" x="111" y="337" width="260" height="30"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="fEW-gu-fVe"/>
                     </constraints>
@@ -156,7 +142,6 @@
                 </textField>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Yes.png" translatesAutoresizingMaskIntoConstraints="NO" id="bJV-8g-UJg">
                     <rect key="frame" x="379" y="342" width="20" height="20"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="20" id="1j2-st-lFD"/>
                         <constraint firstAttribute="height" constant="20" id="UNM-dz-bcn"/>
@@ -164,7 +149,6 @@
                 </imageView>
                 <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6wY-n1-Vru">
                     <rect key="frame" x="50" y="577" width="80" height="39"/>
-                    <animations/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="39" id="67u-XG-7b8"/>
@@ -186,7 +170,6 @@
                 </button>
                 <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4vN-q2-vxg">
                     <rect key="frame" x="267" y="577" width="80" height="39"/>
-                    <animations/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="9aN-Oh-WsM"/>
@@ -208,7 +191,6 @@
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名长度必须满足4-10位字符" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m04-WJ-1bq">
                     <rect key="frame" x="50" y="186" width="314" height="17"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="mZG-fS-SPQ"/>
                     </constraints>
@@ -218,7 +200,6 @@
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="head_img.png" translatesAutoresizingMaskIntoConstraints="NO" id="o5k-5x-oug">
                     <rect key="frame" x="167" y="60" width="80" height="80"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="BQ2-0a-RJJ"/>
                         <constraint firstAttribute="height" constant="80" id="Tal-yG-asX"/>
@@ -232,13 +213,11 @@
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入QQ、163邮或126邮箱" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yx8-B1-1tu">
                     <rect key="frame" x="50" y="380" width="314" height="17"/>
-                    <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="DST-mC-1EE" firstAttribute="top" secondItem="5Vo-gN-h0x" secondAttribute="bottom" constant="40" id="0JI-uh-dur"/>
