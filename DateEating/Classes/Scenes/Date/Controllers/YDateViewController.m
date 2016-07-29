@@ -113,7 +113,10 @@
     [self requestNearByDataWithUrl:0];
     
 }
-
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DateButtonClicked" object:nil];
+}
 #pragma mark -- 处理位置坐标更新代理 --
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
 {

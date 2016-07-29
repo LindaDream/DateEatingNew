@@ -162,7 +162,10 @@ static NSString *const cityCellId = @"cityCellId";
     }];
     
 }
-
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DateButtonClicked" object:nil];
+}
 - (void)addNavigationItems{
     
     // 设置导航栏左边的按钮

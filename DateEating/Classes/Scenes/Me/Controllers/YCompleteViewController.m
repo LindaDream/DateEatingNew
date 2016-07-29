@@ -58,6 +58,7 @@ static NSString *const systemCellIdentifier = @"systemCell";
 #pragma mark--星座输入框代理方法--
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
     if (textField == self.constellationTF) {
+        [textField resignFirstResponder];
         textField.text = @"";
         [UIView animateWithDuration:0.5 animations:^{
             self.constellationTableView.hidden = NO;

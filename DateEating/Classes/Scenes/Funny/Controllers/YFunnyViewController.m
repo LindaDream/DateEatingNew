@@ -53,7 +53,10 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
     [self getAllFunny];
 }
 
-
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DateButtonClicked" object:nil];
+}
 #pragma mark--夜间模式通知方法--
 - (void)change:(NSNotification *)notication{
     NSDictionary *userInfo = [notication userInfo];
