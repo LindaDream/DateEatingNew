@@ -296,7 +296,7 @@
     
     self.contentView.contentTwoView.text = [@"    " stringByAppendingString:self.wordTwo];
     CGRect newcontentTwoView = self.contentView.contentTwoView.frame;
-    newcontentTwoView.origin = CGPointMake((kWidth - 340) / 2, self.contentView.image.frame.origin.y + self.contentView.image.frame.size.height + 40);
+    newcontentTwoView.origin = CGPointMake((kWidth - self.contentView.contentTwoView.width) / 2, self.contentView.image.frame.origin.y + self.contentView.image.frame.size.height + 40);
     newcontentTwoView.size.height = [self hightForLabelWithString:self.wordTwo];
     self.contentView.contentTwoView.frame = newcontentTwoView;
     

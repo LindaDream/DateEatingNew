@@ -147,7 +147,7 @@
     _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
     // 小圆点颜色
     _cycleScrollView.pageDotColor = [UIColor whiteColor];
-    
+    _cycleScrollView.currentPageDotColor = [UIColor greenColor];
     // 把图片数组赋值给每个图片
     _cycleScrollView.imageURLStringsGroup = imageURLString;
     
@@ -435,13 +435,17 @@
 - (void)changeFrame
 {
     _cycleScrollView.imageURLStringsGroup = self.model.headPics;
+    self.mealView.titleLabel.numberOfLines = 0;
     self.mealView.titleLabel.text = self.model.title;
-    self.mealView.hostNameLabel.text = [@"铺店: " stringByAppendingString:self.model.hostName];
-    self.mealView.addressLabel.text = [@"地址: " stringByAppendingString:self.model.address];
+    self.mealView.titleLabel.height = [[self class] textHeightWithTitle:self.model.title];
+    NSLog(@"%lf,%lf",self.mealView.titleLabel.height,[[self class] textHeightWithTitle:self.model.title]);
+    
+    self.mealView.hostNameLabel.text = [@"   铺店: " stringByAppendingString:self.model.hostName];
+    self.mealView.addressLabel.text = [@"   地址: " stringByAppendingString:self.model.address];
     self.mealView.tagLable.text = [self getTag];
     self.mealView.descriptionLabel.text = self.model.Description;
-    self.mealView.contactNumber.text = [@"电话: " stringByAppendingString:self.model.contactNumber];
-    self.mealView.showLabel.text = @"-- 简介 --";
+    self.mealView.contactNumber.text = [@"   电话: " stringByAppendingString:self.model.contactNumber];
+    self.mealView.showLabel.text = @"  -- 简介 --";
     self.contentView.sayLabel.text = @"-----------  正文 -----------";
 
     CGRect newAddressLabelFrame = self.mealView.addressLabel.frame;
@@ -488,7 +492,7 @@
     }
     self.contentView.contentTwoView.text = [@"    " stringByAppendingString:self.wordTwo];
     CGRect newcontentTwoView = self.contentView.contentTwoView.frame;
-    newcontentTwoView.origin = CGPointMake((kWidth - 340) / 2, self.contentView.image.frame.origin.y + self.contentView.image.frame.size.height);
+    newcontentTwoView.origin = CGPointMake((kWidth - self.contentView.contentTwoView.width) / 2, self.contentView.image.frame.origin.y + self.contentView.image.frame.size.height);
     newcontentTwoView.size.height = [self hightForLabelWithString:self.wordTwo];
     self.contentView.contentTwoView.frame = newcontentTwoView;
     
@@ -578,6 +582,14 @@
         [self.navigationController popToRootViewControllerAnimated:YES];
         self.isOnce = YES;
     }
+}
+
+// 计算文本高度
++ (CGFloat)textHeightWithTitle:(NSString *)title{
+    
+    CGRect rect = [title boundingRectWithSize:CGSizeMake( 320, 200) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20.0]} context:nil];
+    return rect.size.height;
+    
 }
 
 - (void)showAlertViewWithMessage:(NSString *)message
