@@ -41,6 +41,8 @@
     [item setTitleTextAttributes:attrs forState:(UIControlStateNormal)];
     [item setTitleTextAttributes:selectAttrs forState:(UIControlStateSelected)];
     
+    // 去除发布按钮上边的黑线
+    [[UITabBar appearance] setShadowImage:[[UIImage alloc] init]];
 }
 
 
