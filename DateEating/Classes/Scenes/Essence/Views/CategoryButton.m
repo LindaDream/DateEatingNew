@@ -29,10 +29,11 @@
 
 - (void)addSubview
 {
-    self.myImageView = [[UIImageView alloc] initWithFrame:CGRectMake(7.5, 3, 35, 35)];
+    self.myImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width * 3 / 5, self.width * 3 / 5)];
+    self.myImageView.center = CGPointMake(self.centerX, self.width * 1.5 / 5);
     [self addSubview:self.myImageView];
     
-    self.myTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 38, 50, 12)];
+    self.myTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.width * 3 / 5 + 3, self.width, 12)];
     self.myTitleLabel.font = [UIFont systemFontOfSize:11];
     self.myTitleLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.myTitleLabel];

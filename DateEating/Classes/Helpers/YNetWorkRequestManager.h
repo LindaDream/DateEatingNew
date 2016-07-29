@@ -13,6 +13,8 @@ typedef void(^failureRequest)(NSError *error);
 
 @interface YNetWorkRequestManager : NSObject
 
+// get
 + (void)getRequestWithUrl:(NSString *)url successRequest:(successRequest)success failurRequest:(failureRequest)failure;
-
+// post
++ (void)postRequestWithPath:(NSString *)path successRequest:(successRequest)success failurRequest:(failureRequest)failure;
 @end

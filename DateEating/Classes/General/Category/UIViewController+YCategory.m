@@ -25,22 +25,22 @@
 
 -(void)addDateBtnAndPartyBtn{
     UIButton *dateBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    dateBtn.frame = CGRectMake(207, 696.5, 100, 100);
+    dateBtn.frame = CGRectMake(self.tabBarController.tabBar.width / 2,CGRectGetMinY(self.tabBarController.tabBar.frame),80,80);
     [dateBtn setBackgroundImage:[UIImage imageNamed:@"event_single"] forState:(UIControlStateNormal)];
     [dateBtn addTarget:self action:@selector(addDate:) forControlEvents:(UIControlEventTouchUpInside)];
     dateBtn.tag = 101;
     [self.view addSubview:dateBtn];
     
     UIButton *partyBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    partyBtn.frame = CGRectMake(207, 696.5, 100, 100);
+    partyBtn.frame = CGRectMake(self.tabBarController.tabBar.width / 2,CGRectGetMinY(self.tabBarController.tabBar.frame),80,80);
     [partyBtn setBackgroundImage:[UIImage imageNamed:@"event_multi"] forState:(UIControlStateNormal)];
     [partyBtn addTarget:self action:@selector(addParty:) forControlEvents:(UIControlEventTouchUpInside)];
     partyBtn.tag = 102;
     [self.view addSubview:partyBtn];
     [UIView animateKeyframesWithDuration:1 delay:0 options:(UIViewKeyframeAnimationOptionCalculationModeLinear) animations:^{
         // 第一帧
-        dateBtn.center = CGPointMake(103, 500);
-        partyBtn.center = CGPointMake(311, 500);
+        dateBtn.center = CGPointMake(self.view.width * 0.25, self.view.height * 0.75);
+        partyBtn.center = CGPointMake(self.view.width * 0.75, self.view.height * 0.75);;
     } completion:^(BOOL finished) {
         
     }];

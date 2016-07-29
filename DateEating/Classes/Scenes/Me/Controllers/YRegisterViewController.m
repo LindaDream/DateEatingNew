@@ -9,6 +9,8 @@
 #import "YRegisterViewController.h"
 #import "YLoginViewController.h"
 #import "YTabBarController.h"
+#import "SVProgressHUD.h"
+#import "AppDelegate.h"
 @interface YRegisterViewController ()<
     UITextFieldDelegate,
     UINavigationControllerDelegate,
@@ -38,7 +40,7 @@
     self.passwordTF.delegate = self;
     self.confirmPasswordTF.delegate = self;
     self.emailTF.delegate = self;
-// 设置头像
+    // 设置头像
     [self setAvatar];
 }
 #pragma mark--通知--
@@ -90,6 +92,7 @@
     NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     if ([emailTest evaluateWithObject:self.emailTF.text]) {
+        self.emailDefaultLabel.text = @"请输入QQ、163邮或126邮箱";
         self.emailDefaultLabel.textColor = [UIColor lightGrayColor];
         [self.emailYesImgView setHidden:NO];
     }else if(![emailTest evaluateWithObject:self.emailTF.text]){
@@ -104,10 +107,11 @@
 #pragma mark--设置头像--
 - (void)setAvatar{
     self.avatarImgView.userInteractionEnabled = YES;
+    self.avatarImgView.layer.masksToBounds = YES;
+    self.avatarImgView.layer.cornerRadius = self.avatarImgView.width / 2;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
     [tap addTarget:self action:@selector(getPicture)];
     [self.avatarImgView addGestureRecognizer:tap];
-   
 }
 - (void)getPicture{
     UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:@"请选择图片" preferredStyle:(UIAlertControllerStyleActionSheet)];
@@ -158,6 +162,10 @@
 #pragma mark--注册按钮--
 - (IBAction)registerAction:(id)sender {
 #pragma mark--注册LeanCloud和环信--
+    // 显示菊花
+    [SVProgressHUD showWithMaskType:(SVProgressHUDMaskTypeClear)];
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    appDelegate.window.userInteractionEnabled = NO;
     // 注册环信
     self.hxError = [[EMClient sharedClient] registerWithUsername:self.userNameTF.text password:self.passwordTF.text];
     if (self.hxError == nil) {
@@ -175,7 +183,12 @@
         // 注册leancloud
         dispatch_async(dispatch_get_main_queue(), ^{
             [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                // 隐藏菊花
+                [SVProgressHUD dismiss];
+                AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+                appDelegate.window.userInteractionEnabled = YES;
                 if (succeeded) {
+                    
                     UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:@"注册成功!" preferredStyle:(UIAlertControllerStyleAlert)];
                     UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
                         YLoginViewController *loginVC = [YLoginViewController new];
@@ -197,6 +210,10 @@
             }];
         });
     }else if (self.hxError.code == 203){
+        // 隐藏菊花
+        [SVProgressHUD dismiss];
+        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        appDelegate.window.userInteractionEnabled = YES;
         [self.userNameYesImgView setHidden:YES];
         self.userNameDefaultLabel.text = @"用户名已存在，请重新填写!";
         self.userNameDefaultLabel.textColor = [UIColor redColor];

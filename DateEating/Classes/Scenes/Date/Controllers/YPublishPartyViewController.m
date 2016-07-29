@@ -219,7 +219,8 @@ static NSString *const systemCellIdentifier = @"systemCell";
         if (indexPath.section == 1) {
             self.countBackView = [[UIView alloc] initWithFrame:self.view.frame];
             self.countBackView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
-            self.countView = [[UITableView alloc] initWithFrame:CGRectMake(107, 200, 200, 250) style:(UITableViewStylePlain)];
+            self.countView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 200, 250) style:(UITableViewStylePlain)];
+            self.countView.center = CGPointMake(self.view.width / 2, self.view.height / 2);
             self.countView.delegate = self;
             self.countView.dataSource = self;
             [self.countView registerClass:[UITableViewCell class] forCellReuseIdentifier:systemCellIdentifier];
@@ -280,7 +281,8 @@ static NSString *const systemCellIdentifier = @"systemCell";
     [self.view addSubview:self.backView];
     
     // pickerView
-    self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(30, 200, 350, 200)];
+    self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0,0,250,300)];
+    self.pickerView.center = CGPointMake(self.view.width / 2, self.view.height / 2);
     self.pickerView.layer.masksToBounds = YES;
     self.pickerView.layer.cornerRadius = 10;
     self.pickerView.backgroundColor = [UIColor whiteColor];
@@ -304,16 +306,7 @@ static NSString *const systemCellIdentifier = @"systemCell";
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
     return 3;
 }
-#pragma mark--设置每行的内容--
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    if (component == 0) {
-        return [[[YTimePiker sharedYTimePiker] dateArray] objectAtIndex:row];
-    }else if(component == 1){
-        return [[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row];
-    }else{
-        return [[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row];
-    }
-}
+
 #pragma mark--放方法决定该控件包含多少个列表项--
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
     if (component == 0) {
@@ -369,13 +362,30 @@ static NSString *const systemCellIdentifier = @"systemCell";
 #pragma mark--设置每列的宽度--
 -(CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component{
     if (component == 0) {
-        return 200;
+        return 160;
     }else if(component == 1){
-        return 50;
+        return 30;
     }else{
-        return 50;
+        return 30;
     }
 }
+-(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+    UILabel *label = [[UILabel alloc] init];
+    label.font = [UIFont systemFontOfSize:15.0];
+    label.textAlignment = UITextAlignmentCenter;
+    if (component == 0) {
+        label.frame = CGRectMake(0, 0, 160, 30);
+        label.text = [[[YTimePiker sharedYTimePiker] dateArray] objectAtIndex:row];
+    }else if (component == 1){
+        label.frame = CGRectMake(0, 0, 30, 30);
+        label.text = [[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row];
+    }else if (component == 2){
+        label.frame = CGRectMake(0, 0, 30, 30);
+        label.text = [[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row];
+    }
+    return label;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

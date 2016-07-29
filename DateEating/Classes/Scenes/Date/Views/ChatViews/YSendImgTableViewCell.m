@@ -28,7 +28,7 @@
 }
 -(UIImageView *)headImgView{
     if (!_headImgView) {
-        _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(376, 0, 38, 38)];
+       _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kWidth - 40, 0, 38, 38)];
         _headImgView.layer.masksToBounds = YES;
         _headImgView.layer.cornerRadius = 19;
     }
@@ -44,7 +44,7 @@
 }
 -(UIImageView *)messsageImgView{
     if (!_messsageImgView) {
-        _messsageImgView = [[UIImageView alloc] initWithFrame:CGRectMake(193, 20, 160, 160)];
+        _messsageImgView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMinX(_headImgView.frame) - 182, 20, 160, 160)];
         _messsageImgView.layer.masksToBounds = YES;
         _messsageImgView.layer.cornerRadius = 10;
     }

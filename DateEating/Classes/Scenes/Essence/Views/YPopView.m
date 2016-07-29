@@ -40,11 +40,11 @@
 
 - (void)addViewWithStr:(NSString *)str{
 
-    self.actionView = [[UIView alloc] initWithFrame:CGRectMake((kWidth - 270) / 2, kWidth / 2, 270, 270)];
+    self.actionView = [[UIView alloc] initWithFrame:CGRectMake((kWidth - kWidth * 2 / 3) / 2, kWidth / 2, kWidth * 2 / 3, kWidth * 2 / 3)];
     
     self.actionView.backgroundColor = [UIColor lightGrayColor];
     
-    self.disperseDistance = 40;
+    self.disperseDistance = 30;
     
     self.actionView.layer.masksToBounds = YES;
     
@@ -90,16 +90,12 @@
 - (void)addBtnWithArr:(NSArray *)arr{
 
     // 主按钮
-    self.mainBtn = [[CategoryButton alloc] initWithFrame:CGRectMake((self.actionView.width - 70) / 2, (self.actionView.height - 70) / 2, 70, 70)];
+    self.mainBtn = [[CategoryButton alloc] initWithFrame:CGRectMake((self.actionView.width - kWidth / 6) / 2, (self.actionView.height - kWidth / 6) / 2, kWidth / 6, kWidth / 6)];
+    NSLog(@"%lf",kWidth);
     // 设置主按钮的tag值为10000
     self.mainBtn.tag = 10000;
     // 改变主按钮上的图片文字位置
-    self.mainBtn.myImageView.width = 40;
-    self.mainBtn.myImageView.height = 40;
-    self.mainBtn.myTitleLabel.width = 60;
-    self.mainBtn.myTitleLabel.font = [UIFont systemFontOfSize:15];
-    self.mainBtn.myImageView.center = CGPointMake(self.mainBtn.width / 2, 23.5);
-    self.mainBtn.myTitleLabel.center = CGPointMake(self.mainBtn.width / 2, CGRectGetMaxY(self.mainBtn.myImageView.frame) + 10);
+    self.mainBtn.myImageView.center = CGPointMake(self.mainBtn.width / 2, self.mainBtn.width * 1.5 / 5);
     self.mainBtn.myImageView.image = [UIImage imageNamed:@"strategy_allCategory"];
     self.mainBtn.myTitleLabel.text = @"全部选择";
     self.mainBtn.backgroundColor = [UIColor whiteColor];
@@ -110,7 +106,7 @@
     CGFloat angle = 2 * M_PI / (arr.count / 2);
     
     for (int i = 0; i < arr.count / 2; i++) {
-        CategoryButton *btn = [[CategoryButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+        CategoryButton *btn = [[CategoryButton alloc] initWithFrame:CGRectMake(0, 0, kWidth / 6 - 8, kWidth / 6 - 8)];
         btn.backgroundColor = [UIColor colorWithRed:255 green:80 blue:72 alpha:1];
         btn.center = CGPointMake(self.mainBtn.centerX + cos(angle * i) * (btn.width + self.disperseDistance), self.mainBtn.centerY + sin(angle * i) * (btn.height + self.disperseDistance));
         btn.tag = 10000 + i + 1;
