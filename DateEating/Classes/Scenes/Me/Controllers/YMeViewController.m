@@ -17,6 +17,8 @@
 #import "YMyPublishViewController.h"
 #import "YMyCollectionViewController.h"
 #import "YFriendsViewController.h"
+#import "YDisclaimerViewController.h"
+#import "YAboutUsViewController.h"
 @interface YMeViewController ()<
     UITableViewDataSource,
     UITableViewDelegate,
@@ -468,9 +470,11 @@ static NSString *const listCellIdentifier = @"listCell";
             [alertView addAction:cancelAction];
             [self presentViewController:alertView animated:YES completion:nil];
         }
-    }else{
+    }else if(tableView == self.listTableView){
         if (indexPath.row == 0) {
-            
+            YDisclaimerViewController *disclaimerVC = [YDisclaimerViewController new];
+            UINavigationController *disclaimerNVC = [[UINavigationController alloc] initWithRootViewController:disclaimerVC];
+            [self presentViewController:disclaimerNVC animated:YES completion:nil];
         }else if (indexPath.row == 1){
             // 发送邮件进行反馈
             
@@ -501,7 +505,9 @@ static NSString *const listCellIdentifier = @"listCell";
             // 实现0.3秒回收
             [self performSelector:@selector(actionDismissAlertView:) withObject:alertView afterDelay:0.1];
         }else if (indexPath.row == 3){
-            
+            YAboutUsViewController *aboutUs = [YAboutUsViewController new];
+            UINavigationController *aboutUsNVC = [[UINavigationController alloc] initWithRootViewController:aboutUs];
+            [self presentViewController:aboutUsNVC animated:YES completion:nil];
         }
     }
 }
