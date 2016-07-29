@@ -354,11 +354,12 @@ static NSString *const cityCellId = @"cityCellId";
     
     // 为两个数组赋值
     [YCityModel parsesWithUrl:kCityIDUrl successRequest:^(id dict) {
-        self.cityArr = dict;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.cityTableView reloadData];
-        });
-        
+        if (dict != nil){
+            self.cityArr = dict;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.cityTableView reloadData];
+            });
+        }
     } failurRequest:^(NSError *error) {
         
     }];

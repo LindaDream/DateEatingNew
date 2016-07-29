@@ -144,23 +144,27 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
 - (void)getHeadImage{
     
     [YContent getContentAvatarWithUserName:self.toName SuccessRequest:^(id dict) {
-        UIImageView *imgView1 = [[UIImageView alloc] init];
-        [imgView1 sd_setImageWithURL:[NSURL URLWithString:dict]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.friendHeadImage = imgView1.image;
-            [self.chatTableView reloadData];
-        });
+        if (dict != nil) {
+            UIImageView *imgView1 = [[UIImageView alloc] init];
+            [imgView1 sd_setImageWithURL:[NSURL URLWithString:dict]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.friendHeadImage = imgView1.image;
+                [self.chatTableView reloadData];
+            });
+        }
     } failurRequest:^(NSError *error) {
         NSLog(@"获取friendHeadImage失败");
     }];
     AVUser *user = [AVUser currentUser];
     [YContent getContentAvatarWithUserName:user.username SuccessRequest:^(id dict) {
-        UIImageView *imgView2 = [[UIImageView alloc] init];
-        [imgView2 sd_setImageWithURL:[NSURL URLWithString:dict]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.myHeadImage = imgView2.image;
-            [self.chatTableView reloadData];
-        });
+        if (dict != nil) {
+            UIImageView *imgView2 = [[UIImageView alloc] init];
+            [imgView2 sd_setImageWithURL:[NSURL URLWithString:dict]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.myHeadImage = imgView2.image;
+                [self.chatTableView reloadData];
+            });
+        }
     } failurRequest:^(NSError *error) {
         NSLog(@"获取friendHeadImage失败");
     }];
@@ -193,11 +197,6 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
 }
 - (void)keyBoardHide:(NSNotification *)notification{
     NSDictionary *dict = [notification userInfo];
-//    NSValue *value = [dict objectForKey:UIKeyboardFrameEndUserInfoKey];
-//    CGSize keyBoardSize = [value CGRectValue].size;
-//    self.keyBoardHeight = keyBoardSize.height;
-//    CGRect rect = self.view.frame;
-//    rect.origin.y += self.keyBoardHeight;
     CGRect rect = CGRectMake(0, 0, self.view.width, self.view.height);
     //取出动画时长
     NSTimeInterval duration = [dict[UIKeyboardAnimationDurationUserInfoKey] doubleValue];

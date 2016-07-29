@@ -27,7 +27,7 @@
         [self.publishButton setBackgroundImage:[UIImage imageNamed:@"tabBar_publish_click_icon"] forState:(UIControlStateHighlighted)];
         self.publishButton.layer.masksToBounds = YES;
         self.publishButton.layer.cornerRadius = self.publishButton.width / 2;
-        self.publishButton.size = CGSizeMake(self.publishButton.currentBackgroundImage.size.width + 30, self.publishButton.currentBackgroundImage.size.height + 30);
+        self.publishButton.size = CGSizeMake(self.publishButton.currentBackgroundImage.size.width + 10, self.publishButton.currentBackgroundImage.size.height + 10);
         [self.publishButton addTarget:self action:@selector(dateAction:) forControlEvents:(UIControlEventTouchUpInside)];
         [self addSubview:self.publishButton];
         

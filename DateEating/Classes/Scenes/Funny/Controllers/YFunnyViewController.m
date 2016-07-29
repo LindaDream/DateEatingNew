@@ -100,22 +100,21 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
 }
 
 - (void)getAllFunny{
-
-    
     [YFunnyModel parsesFunnyWithsuccessRequest:^(id dict) {
-        [self.arr removeAllObjects];
-        NSArray *array = dict;
-        [self.arr removeAllObjects];
-        for (NSInteger i = array.count - 1; i >= 0; i--) {
-            [self.arr addObject:array[i]];
+        if (dict != nil){
+            [self.arr removeAllObjects];
+            NSArray *array = dict;
+            [self.arr removeAllObjects];
+            for (NSInteger i = array.count - 1; i >= 0; i--) {
+                [self.arr addObject:array[i]];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.funnyTableView reloadData];
+            });
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.funnyTableView reloadData];
-        });
     } failurRequest:^(NSError *error) {
         NSLog(@"%ld",error.code);
     }];
-
 }
 
 
