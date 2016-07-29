@@ -69,7 +69,7 @@ static NSString *const restaurantListCellIndentifier = @"restaurantListCell";
 #pragma mark--searchBarController必须实现的代理--
 -(void)updateSearchResultsForSearchController:(UISearchController *)searchController{
     NSString *string = self.searchController.searchBar.text;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[cd]%@",string];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[s]%@",string];
     if (self.searchListArr) {
         [self.searchListArr removeAllObjects];
     }
