@@ -67,13 +67,9 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(15, 7, 50, 30)];
-    [button setImage:[UIImage imageNamed:@"NaviList"] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:@"NaviList_"] forState:UIControlStateHighlighted];
     [button setTitleColor:YRGBColor(255, 102, 102) forState:UIControlStateNormal];
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     button.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-    button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 3);
-    button.titleEdgeInsets = UIEdgeInsetsMake(0, 3, 0, 0);
     [button addTarget:self action:@selector(cityListAction:) forControlEvents:UIControlEventTouchUpInside];
     NSString *name = [self.handle city].allKeys.firstObject;
     [button setTitle:name forState:UIControlStateNormal];
