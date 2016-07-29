@@ -38,7 +38,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Orv-sd-Cfg">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DateLogo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Orv-sd-Cfg">
                                 <rect key="frame" x="15" y="10" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="Q60-If-fMS"/>
@@ -100,4 +100,7 @@
             <point key="canvasLocation" x="398" y="168"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="DateLogo.jpg" width="300" height="267"/>
+    </resources>
 </document>

@@ -26,7 +26,7 @@
         for (int j = 0; j < imageArray.count - 4*i; j++) {
             UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(6*(j+1)+KWidth*j, 6*(i+1)+KWidth*i, KWidth, KWidth)];
             imageView.userInteractionEnabled = YES;
-            [imageView sd_setImageWithURL:[NSURL URLWithString:imageArray[j + 4 *i]] placeholderImage:[UIImage imageNamed:@"DefaultAvatar"]];
+            [imageView sd_setImageWithURL:[NSURL URLWithString:imageArray[j + 4 *i]] placeholderImage:[UIImage imageNamed:@"DateLogo.jpg"]];
             [self addSubview:imageView];
         }
     }

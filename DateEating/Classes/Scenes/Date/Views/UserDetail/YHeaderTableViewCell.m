@@ -52,7 +52,7 @@
     [UIView commitAnimations];
     
     NSArray *array = [model.pics componentsSeparatedByString:@","];
-    [_userImage sd_setImageWithURL:[NSURL URLWithString:array.firstObject] placeholderImage:[UIImage imageNamed:@"DefaultAvatar"]];
+    [_userImage sd_setImageWithURL:[NSURL URLWithString:array.firstObject] placeholderImage:[UIImage imageNamed:@"DateLogo.jpg"]];
     CGFloat distance = [[YDistanceMangear sharedYDistanceMangear]getDistanceByUserLocation:nil Latitude:model.lat longitude:model.lng];
     _distance.text = [NSString stringWithFormat:@"%.2lfkm",distance/1000.0];
     _nick.text = model.nick;

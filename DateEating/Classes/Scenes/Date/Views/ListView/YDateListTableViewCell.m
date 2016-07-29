@@ -75,7 +75,7 @@
         _showCount.text = [NSString stringWithFormat:@"%ld",model.showCount];
         _commentCount.text = [NSString stringWithFormat:@"%ld",model.commentCount];
         
-        [_userImage sd_setImageWithURL:[NSURL URLWithString:model.user.userImageUrl] placeholderImage:[UIImage imageNamed:@"DefaultAvatar"]];
+        [_userImage sd_setImageWithURL:[NSURL URLWithString:model.user.userImageUrl] placeholderImage:[UIImage imageNamed:@"DateLogo.jpg"]];
         
         if (model.user.gender == 0) {
             _genderImage.image = [UIImage imageNamed:@"ic_sex_girl"];

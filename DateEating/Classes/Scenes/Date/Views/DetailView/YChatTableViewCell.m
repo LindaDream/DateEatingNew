@@ -41,13 +41,13 @@
         if (model.isOurData) {
             [YContent getContentAvatarWithUserName:model.user.nick SuccessRequest:^(id dict) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [_userImage sd_setImageWithURL:dict placeholderImage:[UIImage imageNamed:@"DefaultAvatar"]];
+                    [_userImage sd_setImageWithURL:dict placeholderImage:[UIImage imageNamed:@"DateLogo.jpg"]];
                 });
             } failurRequest:^(NSError *error) {
             }];
             _message.text = model.content;
         } else {
-            [_userImage sd_setImageWithURL:[NSURL URLWithString:model.user.userImageUrl] placeholderImage:[UIImage imageNamed:@"DefaultAvatar"]];
+            [_userImage sd_setImageWithURL:[NSURL URLWithString:model.user.userImageUrl] placeholderImage:[UIImage imageNamed:@"DateLogo.jpg"]];
             [_userImage addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)]];
             if (model.replyUser != nil) {
                 _message.text = [NSString stringWithFormat:@"回复%@:%@",model.replyUser.nick,model.content];

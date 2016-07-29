@@ -77,7 +77,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xhc-dt-goS">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DateLogo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Xhc-dt-goS">
                                         <rect key="frame" x="30" y="40" width="80" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="4cj-1g-Dgd"/>
@@ -177,6 +177,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="DateLogo.jpg" width="300" height="267"/>
         <image name="user_header_bg.jpg" width="320" height="199"/>
     </resources>
 </document>
