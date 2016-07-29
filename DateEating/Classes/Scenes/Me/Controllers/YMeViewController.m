@@ -53,6 +53,8 @@ static NSString *const listCellIdentifier = @"listCell";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    // 接收加号按钮点击通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dateView:) name:@"DateButtonClicked" object:nil];
     if ([AVUser currentUser]) {
         self.nameLabel.text = [AVUser currentUser].username;
         self.emailLabel.text = [AVUser currentUser].email;
@@ -81,8 +83,7 @@ static NSString *const listCellIdentifier = @"listCell";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // 接收加号按钮点击通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dateView:) name:@"DateButtonClicked" object:nil];
+    
     self.isNight = @"1";
     // 设置导航栏标题
     self.navigationItem.title = @"我的";
@@ -93,6 +94,10 @@ static NSString *const listCellIdentifier = @"listCell";
     self.navigationItem.rightBarButtonItems = @[settingButton,nightModeButton];
     [self addMeTableView];
     [self addHeadView];
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DateButtonClicked" object:nil];
 }
 #pragma mark--获取未读消息条数--
 - (void)getUnreadMessageCount:(NSNotification *)notification{
@@ -132,6 +137,7 @@ static NSString *const listCellIdentifier = @"listCell";
     self.meTableView.delegate = self;
     self.meTableView.dataSource = self;
     [self.meTableView registerNib:[UINib nibWithNibName:@"YClearTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:clearCellIdentifier];
+    self.meTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.meTableView];
 }
 #pragma mark--设置头部视图--

@@ -43,6 +43,7 @@ static NSString *const restaurantListCellIndentifier = @"restaurantListCell";
     self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.delegate = self;
     self.searchController.searchResultsUpdater = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 #pragma mark--设置导航栏--
 - (void)setNavigationBar{

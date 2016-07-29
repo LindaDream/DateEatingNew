@@ -116,6 +116,7 @@ static NSString *const findeCellIdentifier = @"findeCell";
     self.title = @"发布约会";
     self.isSelected = YES;
     self.dateStr = @"".mutableCopy;
+    
     // 注册cell
     [self.dateTableView registerNib:[UINib nibWithNibName:@"YThemeTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:themeCellIdentifier];
     [self.dateTableView registerNib:[UINib nibWithNibName:@"YObjectTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:objectCellIdentifier];
@@ -268,7 +269,10 @@ static NSString *const findeCellIdentifier = @"findeCell";
     
     // 选择按钮
     self.selectBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    self.selectBtn.frame = CGRectMake(CGRectGetMinX(self.pickerView.frame) + self.pickerView.width / 2 - 25, CGRectGetMinY(self.pickerView.frame) - 50, 50, 30);
+    self.selectBtn.frame = CGRectMake(0,0, 80, 50);
+    self.selectBtn.center = CGPointMake(kWidth / 2, CGRectGetMaxY(self.pickerView.frame) + 50);
+    self.selectBtn.layer.masksToBounds = YES;
+    self.selectBtn.layer.cornerRadius = 5;
     self.selectBtn.backgroundColor = [UIColor colorWithRed:244/255.0 green:86/255.0 blue:79/255.0 alpha:1];
     [self.selectBtn setTitle:@"选择" forState:(UIControlStateNormal)];
     [self.selectBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];

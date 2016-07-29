@@ -81,6 +81,8 @@ static NSString *const cityCellId = @"cityCellId";
 @implementation YEssenceViewController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    // 接收加号按钮点击通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dateView:) name:@"DateButtonClicked" object:nil];
     // 注册消息回调
     [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
 }
@@ -97,8 +99,7 @@ static NSString *const cityCellId = @"cityCellId";
     self.msgArray = [NSMutableArray new];
     // 接收夜间模式转换通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(change:) name:@"NotificationNight" object:nil];
-    // 接收加号按钮点击通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dateView:) name:@"DateButtonClicked" object:nil];
+    
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     // 设置view的背景色
@@ -148,7 +149,7 @@ static NSString *const cityCellId = @"cityCellId";
         [weakSelf requestPlayWithCityId:weakSelf.cityId categoryId:weakSelf.categoryId page:@"1"];
         [weakSelf.playTableView.mj_header endRefreshing];
     }];
-    // 上啦加载
+    // 上拉加载
     self.mealTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         weakSelf.howRefresh = @"上拉加载";
         [weakSelf requestMealWithCityId:weakSelf.cityId categoryId:weakSelf.categoryId page:[NSString stringWithFormat:@"%d",weakSelf.mealNextPage.intValue]];
@@ -162,7 +163,10 @@ static NSString *const cityCellId = @"cityCellId";
     }];
     
 }
-
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DateButtonClicked" object:nil];
+}
 - (void)addNavigationItems{
     
     // 设置导航栏左边的按钮

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YFindeTableViewCell : UITableViewCell
+@interface YFindeTableViewCell : UITableViewCell<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *findeTF;
 

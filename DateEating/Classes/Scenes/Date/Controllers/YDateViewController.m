@@ -66,14 +66,12 @@
     [self.button removeFromSuperview];
 }
 - (void)viewWillAppear:(BOOL)animated {
+    // 接收加号按钮点击通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dateView:) name:@"DateButtonClicked" object:nil];
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(15, 7, 50, 30)];
-    [button setImage:[UIImage imageNamed:@"NaviList"] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:@"NaviList_"] forState:UIControlStateHighlighted];
     [button setTitleColor:YRGBColor(255, 102, 102) forState:UIControlStateNormal];
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     button.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-    button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 3);
-    button.titleEdgeInsets = UIEdgeInsetsMake(0, 3, 0, 0);
     [button addTarget:self action:@selector(cityListAction:) forControlEvents:UIControlEventTouchUpInside];
     NSString *name = [self.handle city].allKeys.firstObject;
     [button setTitle:name forState:UIControlStateNormal];
@@ -99,8 +97,7 @@
     self.handle = [YNSUserDefaultHandel sharedYNSUserDefaultHandel];
     // 接收夜间模式转换通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(change:) name:@"NotificationNight" object:nil];
-    // 接收加号按钮点击通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dateView:) name:@"DateButtonClicked" object:nil];
+   
     // 设置navigtationbar的头视图
     [self setNavigationBar];
     // 设置上拉加载下拉刷新
@@ -117,7 +114,10 @@
     [self requestNearByDataWithUrl:0];
     
 }
-
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DateButtonClicked" object:nil];
+}
 #pragma mark -- 处理位置坐标更新代理 --
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
 {
@@ -334,8 +334,10 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (scrollView == self.scrollView) {
         if (scrollView.contentOffset.x >= self.view.width) {
+            self.button.hidden = YES;
             self.titleViewSegment.selectedSegmentIndex = 1;
         } else {
+            self.button.hidden = NO;
             self.titleViewSegment.selectedSegmentIndex = 0;
         }
     }

@@ -116,7 +116,7 @@ static NSString *const imageCellId = @"imageCellId";
 #pragma mark--发表趣事--
 - (void)publishAction{
     
-    if (self.editTextView.text.length == 0 || self.photoArray.count == 0) {
+    if (self.editTextView.text.length == 0) {
         [self showAlertViewWithMessage:@"请编辑动态后再发送"];
     }else{
         // 显示菊花

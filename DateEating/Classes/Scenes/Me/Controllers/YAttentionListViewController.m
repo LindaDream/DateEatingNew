@@ -24,6 +24,7 @@ static NSString *const attentionCellIdentifier = @"attentionCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.tableView registerNib:[UINib nibWithNibName:@"YAttentionViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:attentionCellIdentifier];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 #pragma mark--查找数据--
 - (void)getData{
