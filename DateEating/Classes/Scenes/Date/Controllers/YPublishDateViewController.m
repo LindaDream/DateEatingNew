@@ -37,6 +37,7 @@
 @property(strong,nonatomic)NSString *dateTmpStr;
 @property(strong,nonatomic)NSString *hourTmpStr;
 @property(strong,nonatomic)NSString *minuteTmpStr;
+@property(strong,nonatomic)UIButton *selectBtn;
 // 约会时间
 @property(strong,nonatomic)NSString *timeStr;
 @property(assign,nonatomic)BOOL isDateView;
@@ -236,17 +237,47 @@ static NSString *const findeCellIdentifier = @"findeCell";
     self.pickerView.dataSource = self;
     // 设置选中当天日期
     NSString *date = nil;
-    NSInteger index = 0;
+    NSInteger dateIndex = 0;
+    NSInteger hourIndex = 0;
+    NSInteger minuteIndex = 0;
     NSDateFormatter *fomatter = [NSDateFormatter new];
-    [fomatter setDateFormat:@"YYYY-MM-dd"];
+    [fomatter setDateFormat:@"YYYY-MM-dd hh:mm"];
     date = [fomatter stringFromDate:[NSDate date]];
     for (NSString *dateStr in [[YTimePiker sharedYTimePiker] dateArray]) {
-        if ([[dateStr substringToIndex:10] isEqualToString:date]) {
-            index = [[[YTimePiker sharedYTimePiker] dateArray] indexOfObject:dateStr];
+        if ([[dateStr substringToIndex:10] isEqualToString:[date substringToIndex:10]]) {
+            dateIndex = [[[YTimePiker sharedYTimePiker] dateArray] indexOfObject:dateStr];
+            self.dateTmpStr = dateStr;
         }
     }
-    [self.pickerView selectRow:index inComponent:0 animated:YES];
+    for (NSString *hourStr in [[YTimePiker sharedYTimePiker] hourArray]) {
+        if ([hourStr isEqualToString:[date substringWithRange:NSMakeRange(11, 2)]]) {
+            hourIndex = [[[YTimePiker sharedYTimePiker] hourArray] indexOfObject:hourStr];
+            self.hourTmpStr = hourStr;
+        }
+    }
+    for (NSString *minuteStr in [[YTimePiker sharedYTimePiker] minuteArray]) {
+        if ([minuteStr isEqualToString:[date substringWithRange:NSMakeRange(14, 2)]]) {
+            minuteIndex = [[[YTimePiker sharedYTimePiker] minuteArray] indexOfObject:minuteStr];
+            self.minuteTmpStr = minuteStr;
+        }
+    }
+    [self.pickerView selectRow:dateIndex inComponent:0 animated:YES];
+    [self.pickerView selectRow:hourIndex inComponent:1 animated:YES];
+    [self.pickerView selectRow:minuteIndex inComponent:2 animated:YES];
     [self.backView addSubview:self.pickerView];
+    
+    // 选择按钮
+    self.selectBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    self.selectBtn.frame = CGRectMake(CGRectGetMinX(self.pickerView.frame) + self.pickerView.width / 2 - 25, CGRectGetMinY(self.pickerView.frame) - 50, 50, 30);
+    self.selectBtn.backgroundColor = [UIColor colorWithRed:244/255.0 green:86/255.0 blue:79/255.0 alpha:1];
+    [self.selectBtn setTitle:@"选择" forState:(UIControlStateNormal)];
+    [self.selectBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    [self.selectBtn addTarget:self action:@selector(finishSelect) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.backView addSubview:self.selectBtn];
+}
+- (void)finishSelect{
+    self.message = [NSString stringWithFormat:@"%@%@ : %@",self.dateTmpStr,self.hourTmpStr,self.minuteTmpStr];
+    [self selectedTime:self.message];
 }
 #pragma mark--pickerView的dataSource协议中的方法，返回控件包含几列--
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
@@ -273,7 +304,6 @@ static NSString *const findeCellIdentifier = @"findeCell";
     if (component == 2) {
         self.minuteTmpStr = [[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row];
         self.message = [NSString stringWithFormat:@"%@%@ : %@",self.dateTmpStr,self.hourTmpStr,self.minuteTmpStr];
-        [self selectedTime:self.message];
     }
 }
 - (void)selectedTime:(NSString *)message{

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -16,7 +16,6 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cbo-oP-BUJ">
                         <rect key="frame" x="8" y="14" width="119" height="128"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="119" id="LGU-pz-EqE"/>
                             <constraint firstAttribute="height" constant="128" id="e8k-N2-eRd"/>
@@ -30,7 +29,6 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Te4-GV-ocN">
                         <rect key="frame" x="135" y="14" width="212" height="0.0"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="212" id="Sod-ZB-oal"/>
                         </constraints>
@@ -40,7 +38,6 @@
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgd-TD-q7b">
                         <rect key="frame" x="135" y="48" width="163" height="26"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="26" id="JCe-iD-fdU"/>
                             <constraint firstAttribute="width" constant="163" id="utC-qS-vgD"/>
@@ -51,7 +48,6 @@
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HK3-u2-yDg">
                         <rect key="frame" x="135" y="82" width="271" height="26"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="271" id="BaC-aT-bQE"/>
                             <constraint firstAttribute="height" constant="26" id="aKl-y6-f8s"/>
@@ -62,7 +58,6 @@
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tto-oo-hCO">
                         <rect key="frame" x="135" y="116" width="271" height="26"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="26" id="fR2-xY-n8U"/>
                             <constraint firstAttribute="width" constant="271" id="q86-Ih-rxd"/>
@@ -73,7 +68,6 @@
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dti-WM-IYB">
                         <rect key="frame" x="185" y="157" width="121" height="28"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="28" id="1yp-oY-5uF"/>
                             <constraint firstAttribute="width" constant="121" id="5gB-qL-NcZ"/>
@@ -82,7 +76,6 @@
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chizhejia_red.png" translatesAutoresizingMaskIntoConstraints="NO" id="oii-LR-Zde">
                         <rect key="frame" x="210" y="162" width="23" height="20"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="23" id="8ES-Pe-dK0"/>
                             <constraint firstAttribute="height" constant="20" id="cWY-yt-w5s"/>
@@ -90,7 +83,6 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="吃这家" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ts8-mB-21Z">
                         <rect key="frame" x="236" y="161" width="52" height="20"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="ArL-fX-Heh"/>
                             <constraint firstAttribute="width" constant="52" id="TrA-hc-4Tu"/>
@@ -101,7 +93,6 @@
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qFx-pd-YQo">
                         <rect key="frame" x="0.0" y="189" width="414" height="1"/>
-                        <animations/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="414" id="cHg-rw-OuN"/>
@@ -110,7 +101,6 @@
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5f0-tf-aK1">
                         <rect key="frame" x="306" y="53" width="100" height="26"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="26" id="RYd-Sf-qrc"/>
                             <constraint firstAttribute="width" constant="100" id="cYh-MT-12f"/>
@@ -120,7 +110,6 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <animations/>
                 <constraints>
                     <constraint firstItem="tto-oo-hCO" firstAttribute="leading" secondItem="cbo-oP-BUJ" secondAttribute="trailing" constant="8" id="4Ml-iQ-xfZ"/>
                     <constraint firstItem="Te4-GV-ocN" firstAttribute="leading" secondItem="cbo-oP-BUJ" secondAttribute="trailing" constant="8" id="4Vl-d7-Ord"/>
@@ -151,7 +140,6 @@
                     <constraint firstItem="HK3-u2-yDg" firstAttribute="leading" secondItem="cbo-oP-BUJ" secondAttribute="trailing" constant="8" id="wvI-Lq-yji"/>
                 </constraints>
             </tableViewCellContentView>
-            <animations/>
             <connections>
                 <outlet property="addressLabel" destination="HK3-u2-yDg" id="jDY-de-cKU"/>
                 <outlet property="countLabel" destination="5f0-tf-aK1" id="ZMf-e2-TJa"/>

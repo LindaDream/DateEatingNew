@@ -1547,6 +1547,7 @@
 				D61D1AE51D38717B00C36F84 /* 详情页 */,
 				D6B2A0D41D39E99D002BB383 /* CaterDetail */,
 				D6BDCFF21D3C727A000DC251 /* UserDetail */,
+				D62F6EFA1D4A099E00D41A9D /* NewDate */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2087,6 +2088,13 @@
 				D61D1B211D3871BC00C36F84 /* share@3x.png */,
 			);
 			path = Date;
+			sourceTree = "<group>";
+		};
+		D62F6EFA1D4A099E00D41A9D /* NewDate */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = NewDate;
 			sourceTree = "<group>";
 		};
 		D66E598A1D33DD20003DED51 /* Category */ = {

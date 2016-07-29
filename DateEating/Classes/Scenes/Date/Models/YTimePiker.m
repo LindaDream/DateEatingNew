@@ -62,8 +62,18 @@ singleton_implementaton(YTimePiker);
 }
 
 -(NSArray *)minuteArray{
-    NSArray *array = @[@"00",@"15",@"30",@"45"];
+    NSMutableArray *array = [NSMutableArray array];
+    NSString *minuteStr = nil;
+    for (int i = 0; i < 60; i++) {
+        if (i < 10) {
+            minuteStr = [NSString stringWithFormat:@"0%d",i];
+        }else{
+            minuteStr = [NSString stringWithFormat:@"%d",i];
+        }
+        [array addObject:minuteStr];
+    }
     return  array;
 }
+
 
 @end
