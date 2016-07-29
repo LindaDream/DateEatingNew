@@ -41,8 +41,10 @@ static NSString *const restaurantListCellIndentifier = @"restaurantListCell";
     // 设置searchBar
     self.searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.bounds.origin.x, self.searchController.searchBar.bounds.origin.y, self.searchController.searchBar.bounds.size.width, 44);
     self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.hidesNavigationBarDuringPresentation = NO;
     self.searchController.delegate = self;
     self.searchController.searchResultsUpdater = self;
+    [self.tableView setTableHeaderView:self.searchController.searchBar];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 #pragma mark--设置导航栏--
@@ -162,12 +164,12 @@ static NSString *const restaurantListCellIndentifier = @"restaurantListCell";
     }
     [self.navigationController pushViewController:detailVC animated:YES];
 }
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return self.searchController.searchBar.bounds.size.height;
-}
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    return self.searchController.searchBar;
-}
+//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    return self.searchController.searchBar.bounds.size.height;
+//}
+//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    return self.searchController.searchBar;
+//}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 200;
