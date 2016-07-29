@@ -29,10 +29,10 @@
 
 - (void)addSubView
 {
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((kUIScreenWidth - 320) / 2, 0, 340, 40)];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((kWidth - 320) / 2, 0, 320, 40)];
     [self addSubview:self.titleLabel];
     
-    self.tagLable = [[UILabel alloc] initWithFrame:CGRectMake((kUIScreenWidth - 320) / 2, 35, 320, 30)];
+    self.tagLable = [[UILabel alloc] initWithFrame:CGRectMake((kUIScreenWidth - 320) / 2, 40, 320, 30)];
     self.tagLable.font = [UIFont systemFontOfSize:13];
     self.tagLable.textColor = [UIColor grayColor];
     [self addSubview:self.tagLable];
@@ -61,6 +61,9 @@
     [self addSubview:self.descriptionLabel];
     
 }
+
+
+
 
 
 @end

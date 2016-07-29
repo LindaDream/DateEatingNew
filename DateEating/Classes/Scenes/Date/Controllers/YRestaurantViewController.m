@@ -164,12 +164,6 @@ static NSString *const restaurantListCellIndentifier = @"restaurantListCell";
     }
     [self.navigationController pushViewController:detailVC animated:YES];
 }
-//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    return self.searchController.searchBar.bounds.size.height;
-//}
-//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    return self.searchController.searchBar;
-//}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 200;
