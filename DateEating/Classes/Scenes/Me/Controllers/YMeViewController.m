@@ -382,7 +382,11 @@ static NSString *const listCellIdentifier = @"listCell";
             cell.imgView.image = [UIImage imageNamed:@"mine_clear"];
             cell.cellNameLabel.text = @"清除缓存";
             float size = [self folderSizeAtPath:kCachesPath];
-            cell.cacheLabel.text = [NSString stringWithFormat:@"%.2fM",size];
+            if (size == 0.0) {
+                cell.cacheLabel.text = @"0.00M";
+            }else{
+                cell.cacheLabel.text = [NSString stringWithFormat:@"%.2fM",size];
+            }
         }
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
