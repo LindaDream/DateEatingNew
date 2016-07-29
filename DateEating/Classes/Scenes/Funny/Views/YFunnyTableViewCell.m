@@ -80,9 +80,11 @@
     [self.scrollView addSubview:_cycleScrollView];
     
     [YContent getContentAvatarWithUserName:funny.publishName SuccessRequest:^(id dict) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.headImageView sd_setImageWithURL:[NSURL URLWithString:dict]];
-        });
+        if (dict != nil) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.headImageView sd_setImageWithURL:[NSURL URLWithString:dict]];
+            });
+        }
     } failurRequest:^(NSError *error) {
         
     }];

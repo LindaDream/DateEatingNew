@@ -265,9 +265,11 @@ static NSString *const contentCellId = @"contentCellId";
     }
     
     [YContent getContentAvatarWithUserName:self.publishName.text SuccessRequest:^(id dict) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:dict]];
-        });
+        if (dict != nil) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:dict]];
+            });
+        }
     } failurRequest:^(NSError *error) {
         NSLog(@"获取头像失败");
     }];
@@ -288,15 +290,13 @@ static NSString *const contentCellId = @"contentCellId";
 #pragma mark--获取评论--
 - (void)getAllContent{
 
-    
     [YContent parsesContentWithOwnerId:self.ownerId SuccessRequest:^(id dict) {
-        
-        self.contentArr = dict;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.contentTableView reloadData];
-        });
-        
-        
+        if (dict != nil) {
+            self.contentArr = dict;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.contentTableView reloadData];
+            });
+        }
     } failurRequest:^(NSError *error) {
         [self showAlertViewWithMessage:@"获取评论失败"];
     }];
