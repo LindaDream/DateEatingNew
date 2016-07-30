@@ -252,6 +252,7 @@
 		D61D1B491D38C3E500C36F84 /* guarantee_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D61D1B451D38C3E500C36F84 /* guarantee_bg@3x.png */; };
 		D61D1B4A1D38C3E500C36F84 /* guarantee_red_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D61D1B461D38C3E500C36F84 /* guarantee_red_bg@2x.png */; };
 		D61D1B4B1D38C3E500C36F84 /* guarantee_red_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D61D1B471D38C3E500C36F84 /* guarantee_red_bg@3x.png */; };
+		D6670FDF1D4C9F4A001AC938 /* LanuchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = D6670FDE1D4C9F4A001AC938 /* LanuchImage.png */; };
 		D66E597A1D33DBA1003DED51 /* YEssenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D66E59791D33DBA1003DED51 /* YEssenceViewController.m */; };
 		D66E59801D33DBF1003DED51 /* YDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D66E597F1D33DBF1003DED51 /* YDateViewController.m */; };
 		D66E59971D33DD20003DED51 /* UIBarButtonItem+XMGCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = D66E598C1D33DD20003DED51 /* UIBarButtonItem+XMGCategory.m */; };
@@ -933,6 +934,7 @@
 		D61D1B451D38C3E500C36F84 /* guarantee_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guarantee_bg@3x.png"; sourceTree = "<group>"; };
 		D61D1B461D38C3E500C36F84 /* guarantee_red_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guarantee_red_bg@2x.png"; sourceTree = "<group>"; };
 		D61D1B471D38C3E500C36F84 /* guarantee_red_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guarantee_red_bg@3x.png"; sourceTree = "<group>"; };
+		D6670FDE1D4C9F4A001AC938 /* LanuchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LanuchImage.png; sourceTree = "<group>"; };
 		D66E59781D33DBA1003DED51 /* YEssenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YEssenceViewController.h; sourceTree = "<group>"; };
 		D66E59791D33DBA1003DED51 /* YEssenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YEssenceViewController.m; sourceTree = "<group>"; };
 		D66E597E1D33DBF1003DED51 /* YDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDateViewController.h; sourceTree = "<group>"; };
@@ -1452,6 +1454,7 @@
 		CE6913521D33CFDB001FE50B /* Opensources */ = {
 			isa = PBXGroup;
 			children = (
+				D6670FDE1D4C9F4A001AC938 /* LanuchImage.png */,
 				CED28D531D378A0D00A468CF /* guide_background_i5@2x.jpg */,
 				CE49790F1D34EA5F0087FAF6 /* guide_slide_2.png */,
 				CE4979141D34EA900087FAF6 /* YOpenViewController.h */,
@@ -2968,6 +2971,7 @@
 				CEBF8FA11D45B00D00406A61 /* YCaterTableViewCell.xib in Resources */,
 				D6F0F3741D3B464400D1EF81 /* mine_wish_shiye.png in Resources */,
 				D6B2A1001D3A56B4002BB383 /* shopMessage@2x.png in Resources */,
+				D6670FDF1D4C9F4A001AC938 /* LanuchImage.png in Resources */,
 				CEB826FC1D41B56700BB2E31 /* select_no.png in Resources */,
 				D66E5AAD1D33DE84003DED51 /* friendsRecommentIcon-click@3x.png in Resources */,
 				D66E5A751D33DE84003DED51 /* mainCellCai@2x.png in Resources */,
@@ -3411,6 +3415,7 @@
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DateEating/Classes/Macros/PrefixHeader.pch";
 				INFOPLIST_FILE = DateEating/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Linda.DateEating;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3426,6 +3431,7 @@
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DateEating/Classes/Macros/PrefixHeader.pch";
 				INFOPLIST_FILE = DateEating/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Linda.DateEating;
 				PRODUCT_NAME = "$(TARGET_NAME)";
