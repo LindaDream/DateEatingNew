@@ -85,6 +85,6 @@
         </view>
     </objects>
     <resources>
-        <image name="guide_slide_2.png" width="633" height="1061"/>
+        <image name="guide_slide_2.png" width="630" height="946"/>
     </resources>
 </document>
