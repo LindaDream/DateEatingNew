@@ -214,6 +214,7 @@
 		CEE575821D3A7C25008B2906 /* YRestaurantListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE575801D3A7C25008B2906 /* YRestaurantListModel.m */; };
 		CEF341F31D348443007C3640 /* login_background_i5@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CEF341F21D348443007C3640 /* login_background_i5@2x.jpg */; };
 		CEF341F51D348DFC007C3640 /* Yes.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF341F41D348DFC007C3640 /* Yes.png */; };
+		D60CD5111D4C8F9E009706DC /* guide_slide_2.png in Resources */ = {isa = PBXBuildFile; fileRef = D60CD5101D4C8F9E009706DC /* guide_slide_2.png */; };
 		D61D1AEF1D38717B00C36F84 /* YDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D61D1AE91D38717B00C36F84 /* YDetailViewController.m */; };
 		D61D1AF01D38717B00C36F84 /* YDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D61D1AEA1D38717B00C36F84 /* YDetailViewController.xib */; };
 		D61D1AF11D38717B00C36F84 /* YSeekConditionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D61D1AEC1D38717B00C36F84 /* YSeekConditionViewController.m */; };
@@ -889,6 +890,7 @@
 		CEE575801D3A7C25008B2906 /* YRestaurantListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRestaurantListModel.m; sourceTree = "<group>"; };
 		CEF341F21D348443007C3640 /* login_background_i5@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "login_background_i5@2x.jpg"; path = "../login_background_i5@2x.jpg"; sourceTree = "<group>"; };
 		CEF341F41D348DFC007C3640 /* Yes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Yes.png; sourceTree = "<group>"; };
+		D60CD5101D4C8F9E009706DC /* guide_slide_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guide_slide_2.png; sourceTree = "<group>"; };
 		D61D1AE81D38717B00C36F84 /* YDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDetailViewController.h; sourceTree = "<group>"; };
 		D61D1AE91D38717B00C36F84 /* YDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDetailViewController.m; sourceTree = "<group>"; };
 		D61D1AEA1D38717B00C36F84 /* YDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YDetailViewController.xib; sourceTree = "<group>"; };
@@ -1497,6 +1499,7 @@
 				CED28D6E1D37942B00A468CF /* event_single@2x.png */,
 				CED28D6F1D37942B00A468CF /* event_single@3x.png */,
 				CED28D711D37942B00A468CF /* publishButtonClicked.png */,
+				D60CD5101D4C8F9E009706DC /* guide_slide_2.png */,
 				CEE0818E1D3658B90052A1D4 /* head.jpg */,
 				CEE0818F1D3658B90052A1D4 /* mine_save.png */,
 				CEE081901D3658B90052A1D4 /* MineBackGround.jpg */,
@@ -2603,6 +2606,10 @@
 				TargetAttributes = {
 					CE6913161D33C95D001FE50B = {
 						CreatedOnToolsVersion = 7.1;
+<<<<<<< HEAD
+=======
+						DevelopmentTeam = ZFBE9NJZM6;
+>>>>>>> f047739fae415e906f9ab0e450c0e00cea493f9f
 					};
 					CE69132F1D33C95D001FE50B = {
 						CreatedOnToolsVersion = 7.1;
@@ -2878,6 +2885,7 @@
 				D61D1B2E1D3871BC00C36F84 /* ic_sex_boy@2x.png in Resources */,
 				CEB826FD1D41B56700BB2E31 /* select_yes.png in Resources */,
 				D6F0F3811D3B464400D1EF81 /* register_user.png in Resources */,
+				D60CD5111D4C8F9E009706DC /* guide_slide_2.png in Resources */,
 				D66E5A6D1D33DE84003DED51 /* defaultUserIcon@2x.png in Resources */,
 				D66E5A661D33DE84003DED51 /* cellFollowDisableIcon@3x.png in Resources */,
 				D66E5A6B1D33DE84003DED51 /* common-gif@2x.png in Resources */,
@@ -3406,7 +3414,9 @@
 			baseConfigurationReference = 54D591035C569F9FB750CE83 /* Pods-DateEating.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DateEating/Classes/Macros/PrefixHeader.pch";
 				INFOPLIST_FILE = DateEating/Info.plist;
@@ -3414,6 +3424,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Linda.DateEating;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "84557e85-8a1f-4c73-a758-1faf4451dbfb";
 			};
 			name = Debug;
 		};
@@ -3422,7 +3433,9 @@
 			baseConfigurationReference = DDA8A0284974FF03CB93EF6B /* Pods-DateEating.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DateEating/Classes/Macros/PrefixHeader.pch";
 				INFOPLIST_FILE = DateEating/Info.plist;
@@ -3430,6 +3443,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Linda.DateEating;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "84557e85-8a1f-4c73-a758-1faf4451dbfb";
 			};
 			name = Release;
 		};
