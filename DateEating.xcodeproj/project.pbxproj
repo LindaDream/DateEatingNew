@@ -2606,10 +2606,7 @@
 				TargetAttributes = {
 					CE6913161D33C95D001FE50B = {
 						CreatedOnToolsVersion = 7.1;
-<<<<<<< HEAD
-=======
 						DevelopmentTeam = ZFBE9NJZM6;
->>>>>>> f047739fae415e906f9ab0e450c0e00cea493f9f
 					};
 					CE69132F1D33C95D001FE50B = {
 						CreatedOnToolsVersion = 7.1;
