@@ -20,10 +20,23 @@
 
     _content = content;
     self.fromToLabel.text = [NSString stringWithFormat:@"%@",content.fromName];
+    
+    // 显示时间
+    NSTimeInterval nowTime = [[NSDate date] timeIntervalSince1970]*1000;
+    CGFloat totalTime = ((NSInteger)nowTime - _content.contentTime)/1000.0;
+    NSInteger day = totalTime/86400;
+    NSInteger hour = totalTime/3600;
+    NSInteger min = totalTime/60;
+    if (day > 0) {
+        self.timeLabel.text = [NSString stringWithFormat:@"%ld天前",day];
+    } else if (hour > 0) {
+        self.timeLabel.text = [NSString stringWithFormat:@"%ld小时前",hour];
+    } else if (min > 0){
+        self.timeLabel.text = [NSString stringWithFormat:@"%ld分钟前",min];
+    } else {
+        self.timeLabel.text = [NSString stringWithFormat:@"小于1分钟"];
+    }
     self.contentLabel.text = content.contents;
-    
-    self.timeLabel.text = [self calculateTime];
-    
     [YContent getContentAvatarWithUserName:content.fromName SuccessRequest:^(id dict) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.contentAvatarImageView sd_setImageWithURL:[NSURL URLWithString:dict]];
@@ -40,63 +53,6 @@
 }
 
 
-- (NSString *)calculateTime{
-    
-    NSDictionary *createTime = [self analysisTimeWithTime:_content.contentTime];
-    // 获取当前系统时间
-    NSString* date;
-    NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"YYYY-MM-dd hh:mm:ss"];
-    date = [formatter stringFromDate:[NSDate date]];
-    NSDictionary *nowTime = [self analysisTimeWithTime:date];
-    if (((NSString *)nowTime[@"year"]).integerValue > ((NSString *)createTime[@"year"]).integerValue) {
-        
-        NSInteger year = ((NSString *)nowTime[@"year"]).integerValue - ((NSString *)createTime[@"year"]).integerValue;
-        return [NSString stringWithFormat:@"%ld年前",year];
-        
-    }else if (((NSString *)nowTime[@"mouth"]).integerValue > ((NSString *)createTime[@"mouth"]).integerValue) {
-        
-        NSInteger year = ((NSString *)nowTime[@"mouth"]).integerValue - ((NSString *)createTime[@"mouth"]).integerValue;
-        return [NSString stringWithFormat:@"%ld月前",year];
-        
-    }else if (((NSString *)nowTime[@"day"]).integerValue > ((NSString *)createTime[@"day"]).integerValue) {
-        
-        NSInteger year = ((NSString *)nowTime[@"day"]).integerValue - ((NSString *)createTime[@"day"]).integerValue;
-        return [NSString stringWithFormat:@"%ld天前",year];
-        
-    }else if (((NSString *)nowTime[@"hour"]).integerValue > ((NSString *)createTime[@"hour"]).integerValue) {
-        
-        NSInteger year = ((NSString *)nowTime[@"hour"]).integerValue - ((NSString *)createTime[@"hour"]).integerValue;
-        return [NSString stringWithFormat:@"%ld小时前",year];
-        
-    }else if (((NSString *)nowTime[@"minute"]).integerValue > ((NSString *)createTime[@"minute"]).integerValue) {
-        
-        NSInteger year = ((NSString *)nowTime[@"minute"]).integerValue - ((NSString *)createTime[@"minute"]).integerValue;
-        return [NSString stringWithFormat:@"%ld分钟前",year];
-        
-    }else {
-        return @"1分钟前";
-    }
-    
-}
-
-- (NSDictionary *)analysisTimeWithTime:(NSString *)time{
-
-    NSMutableDictionary *timeDict = [NSMutableDictionary dictionary];
-    NSString *year = [time substringWithRange:NSMakeRange(0,4)];
-    NSString *mouth = [time substringWithRange:NSMakeRange(5,2)];
-    NSString *day = [time substringWithRange:NSMakeRange(8,2)];
-    NSString *hour = [time substringWithRange:NSMakeRange(11,2)];
-    NSString *minute = [time substringWithRange:NSMakeRange(14,2)];
-    
-    [timeDict setValue:year forKey:@"year"];
-    [timeDict setValue:mouth forKey:@"mouth"];
-    [timeDict setValue:day forKey:@"day"];
-    [timeDict setValue:hour forKey:@"hour"];
-    [timeDict setValue:minute forKey:@"minute"];
-    
-    return timeDict;
-}
 
 // 计算有图片cell整体的高度
 + (CGFloat)cellHeight:(YContent *)content{

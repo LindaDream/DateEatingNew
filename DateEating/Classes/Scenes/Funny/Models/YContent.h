@@ -16,7 +16,7 @@
 
 @property (strong,nonatomic) NSString *toName;
 
-@property (strong,nonatomic) NSString *contentTime;
+@property (assign,nonatomic) NSInteger contentTime;
 
 @property (strong,nonatomic) NSString *contents;
 
