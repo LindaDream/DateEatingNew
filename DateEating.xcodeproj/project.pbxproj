@@ -2603,7 +2603,6 @@
 				TargetAttributes = {
 					CE6913161D33C95D001FE50B = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 37F42L54A4;
 					};
 					CE69132F1D33C95D001FE50B = {
 						CreatedOnToolsVersion = 7.1;
@@ -3411,7 +3410,7 @@
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DateEating/Classes/Macros/PrefixHeader.pch";
 				INFOPLIST_FILE = DateEating/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Linda.DateEating;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3427,7 +3426,7 @@
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DateEating/Classes/Macros/PrefixHeader.pch";
 				INFOPLIST_FILE = DateEating/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Linda.DateEating;
 				PRODUCT_NAME = "$(TARGET_NAME)";

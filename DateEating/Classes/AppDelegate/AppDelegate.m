@@ -59,8 +59,6 @@
     [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"2678684558"
                                               secret:@"236429818c65a5241e5cd04f3c739c04"
                                          RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
-    
-    
 #pragma mark--界面--
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
