@@ -26,8 +26,13 @@ singleton_implementaton(YTimePiker);
             dayCount = 30;
         }
         for (int day = 1; day <= dayCount; day++) {// 控制日期
+            if (day < 10) {
+                NSString *dateStr = [NSString stringWithFormat:@"2016-%@-0%d",monthArr[i],day];
+                [dateArray addObject:dateStr];
+            }else{
                 NSString *dateStr = [NSString stringWithFormat:@"2016-%@-%d",monthArr[i],day];
                 [dateArray addObject:dateStr];
+            }
         }
     }
     for (int i = 0; i < dateArray.count; i++) {
