@@ -404,12 +404,24 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
     EMMessage *message = self.msgArray[indexPath.row];
     // 获取消息体的内容
     EMImageMessageBody *imgBody = (EMImageMessageBody *)message.body;
-    if (message.body.type == 2) {
-        NSString *path = imgBody.localPath;
-        [UIImage imageWithContentsOfFile:path];
-        YBigImgViewController *bigImgVC = [YBigImgViewController new];
-        bigImgVC.path = path;
-        [self presentViewController:bigImgVC animated:YES completion:nil];
+    if (message.direction == 0) {
+        if (message.body.type == 2) {
+            NSString *path = imgBody.localPath;
+            UIImage *img = [UIImage imageWithContentsOfFile:path];
+            YBigImgViewController *bigImgVC = [YBigImgViewController new];
+            bigImgVC.img = img;
+            [self presentViewController:bigImgVC animated:YES completion:nil];
+        }
+    }else if (message.direction == 1){
+        if (message.body.type == 2){
+            NSString *path = imgBody.remotePath;
+            NSURL *url = [NSURL URLWithString:path];
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            UIImage *img = [UIImage imageWithData:data];
+            YBigImgViewController *bigImgVC = [YBigImgViewController new];
+            bigImgVC.img = img;
+            [self presentViewController:bigImgVC animated:YES completion:nil];
+        }
     }
     
 }

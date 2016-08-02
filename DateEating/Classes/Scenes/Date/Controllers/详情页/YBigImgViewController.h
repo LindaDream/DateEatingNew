@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface YBigImgViewController : UIViewController
-@property (strong,nonatomic) NSString *path;
+@property (strong,nonatomic) UIImage *img;
+
 @end
