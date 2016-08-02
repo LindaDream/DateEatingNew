@@ -70,6 +70,7 @@
 // 自己的数据
 @property (strong, nonatomic) NSString *dateTime;       // 约会时间（字符串格式）
 @property (strong, nonatomic) NSString *ourSeverMark;         // 我们自己的服务器的标记
+@property(strong,nonatomic)NSString *creatAt;
 @property (strong, nonatomic) UIImage *img;
 @property (strong, nonatomic) NSString *eventObject;     // 约会/聚会的对象
 

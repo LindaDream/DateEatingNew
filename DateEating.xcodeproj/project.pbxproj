@@ -35,6 +35,7 @@
 		CE69132A1D33C95D001FE50B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE6913281D33C95D001FE50B /* LaunchScreen.storyboard */; };
 		CE6913351D33C95D001FE50B /* DateEatingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6913341D33C95D001FE50B /* DateEatingTests.m */; };
 		CE6913401D33C95D001FE50B /* DateEatingUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE69133F1D33C95D001FE50B /* DateEatingUITests.m */; };
+		CE6E753C1D508ECF002C49C4 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = CE6E753B1D508ECF002C49C4 /* delete.png */; };
 		CE97AB7C1D38CCB10051D2D7 /* YTimePiker.m in Sources */ = {isa = PBXBuildFile; fileRef = CE97AB7B1D38CCB10051D2D7 /* YTimePiker.m */; };
 		CEB8267A1D41AE2A00BB2E31 /* mine_about.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB826791D41AE2A00BB2E31 /* mine_about.png */; };
 		CEB826D41D41B56700BB2E31 /* YEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8267E1D41B56700BB2E31 /* YEditViewController.m */; };
@@ -632,6 +633,7 @@
 		CE69133B1D33C95D001FE50B /* DateEatingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DateEatingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE69133F1D33C95D001FE50B /* DateEatingUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DateEatingUITests.m; sourceTree = "<group>"; };
 		CE6913411D33C95D001FE50B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE6E753B1D508ECF002C49C4 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
 		CE97AB7A1D38CCB10051D2D7 /* YTimePiker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTimePiker.h; sourceTree = "<group>"; };
 		CE97AB7B1D38CCB10051D2D7 /* YTimePiker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTimePiker.m; sourceTree = "<group>"; };
 		CEB826791D41AE2A00BB2E31 /* mine_about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mine_about.png; sourceTree = "<group>"; };
@@ -1403,6 +1405,7 @@
 				CE6913511D33CFDB001FE50B /* Macros */,
 				CE6913521D33CFDB001FE50B /* Opensources */,
 				CE6913531D33CFDB001FE50B /* Resources */,
+				CE6E753B1D508ECF002C49C4 /* delete.png */,
 				CE6913541D33CFDB001FE50B /* Scenes */,
 			);
 			path = Classes;
@@ -3046,6 +3049,7 @@
 				D66E5ADC1D33DE84003DED51 /* publish-audio@2x.png in Resources */,
 				D6F0F37B1D3B464400D1EF81 /* placeholder_image.png in Resources */,
 				CEE081921D3658B90052A1D4 /* mine_save.png in Resources */,
+				CE6E753C1D508ECF002C49C4 /* delete.png in Resources */,
 				CEBF8FBA1D45B24900406A61 /* YConcreteTableViewCell.xib in Resources */,
 				D6F20DA61D3E272E0082E398 /* NaviList_@2x.png in Resources */,
 				D66E5AA51D33DE84003DED51 /* friendsTrend_login.png in Resources */,

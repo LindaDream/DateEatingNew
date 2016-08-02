@@ -86,14 +86,40 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已过期" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQU-ma-lal">
+                        <rect key="frame" x="232" y="27" width="48" height="21"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="48" id="VNz-DU-9Lh"/>
+                            <constraint firstAttribute="height" constant="21" id="ex5-G5-5pN"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1mq-BZ-aWH">
+                        <rect key="frame" x="282" y="23" width="30" height="30"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="EDx-ug-PQI"/>
+                            <constraint firstAttribute="height" constant="30" id="cHW-Up-U74"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="delete.png"/>
+                        <connections>
+                            <action selector="deleteAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="m0A-0p-Jdl"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <animations/>
                 <constraints>
                     <constraint firstItem="bmW-8X-zyd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="8Zs-Y4-0SM"/>
                     <constraint firstItem="fHu-yV-W2k" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="EAA-VI-8gz"/>
+                    <constraint firstItem="1mq-BZ-aWH" firstAttribute="leading" secondItem="aQU-ma-lal" secondAttribute="trailing" constant="2" id="Llc-cw-EEg"/>
+                    <constraint firstItem="aQU-ma-lal" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="27" id="Rwk-Qv-xql"/>
                     <constraint firstItem="aZA-EA-iAt" firstAttribute="top" secondItem="Jy8-oB-vSQ" secondAttribute="bottom" constant="5" id="SWw-KV-ZaY"/>
                     <constraint firstAttribute="trailing" secondItem="bmW-8X-zyd" secondAttribute="trailing" id="U8l-It-53w"/>
                     <constraint firstItem="aZA-EA-iAt" firstAttribute="leading" secondItem="fHu-yV-W2k" secondAttribute="trailing" constant="6" id="XWb-8M-U4V"/>
+                    <constraint firstItem="1mq-BZ-aWH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="23" id="YCT-wh-tfx"/>
                     <constraint firstItem="3Iy-UW-nva" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="74" id="ZDf-hE-j9c"/>
                     <constraint firstItem="CTx-mI-9t8" firstAttribute="centerY" secondItem="3H9-lk-iEO" secondAttribute="centerY" id="ezD-Wg-CEx"/>
                     <constraint firstAttribute="trailing" secondItem="CTx-mI-9t8" secondAttribute="trailing" constant="17" id="ezG-J6-z2B"/>
@@ -102,6 +128,7 @@
                     <constraint firstAttribute="bottom" secondItem="bmW-8X-zyd" secondAttribute="bottom" id="h1i-Ov-ESA"/>
                     <constraint firstItem="Jy8-oB-vSQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="jEd-sV-Q3T"/>
                     <constraint firstItem="fHu-yV-W2k" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="o3i-UC-aUz"/>
+                    <constraint firstAttribute="trailing" secondItem="1mq-BZ-aWH" secondAttribute="trailing" constant="8" id="pMc-tp-rPb"/>
                     <constraint firstItem="Jy8-oB-vSQ" firstAttribute="leading" secondItem="fHu-yV-W2k" secondAttribute="trailing" constant="6" id="ref-cj-Vxc"/>
                     <constraint firstItem="3H9-lk-iEO" firstAttribute="top" secondItem="aZA-EA-iAt" secondAttribute="bottom" constant="5" id="xhq-ea-svm"/>
                 </constraints>
@@ -110,15 +137,18 @@
             <connections>
                 <outlet property="addressLabel" destination="aZA-EA-iAt" id="U3H-4d-G1S"/>
                 <outlet property="dateTimeLabel" destination="3H9-lk-iEO" id="Smx-p5-Q87"/>
+                <outlet property="deleteBtn" destination="1mq-BZ-aWH" id="w55-kv-ByR"/>
                 <outlet property="descriptionLabel" destination="3Iy-UW-nva" id="PHq-fk-Xty"/>
                 <outlet property="feeTypeLabel" destination="CTx-mI-9t8" id="JJc-GR-QMu"/>
                 <outlet property="headImgView" destination="fHu-yV-W2k" id="wO7-Mv-skT"/>
+                <outlet property="passLabel" destination="aQU-ma-lal" id="l8l-4T-gS6"/>
                 <outlet property="themeLabel" destination="Jy8-oB-vSQ" id="JLn-3Z-ENa"/>
             </connections>
             <point key="canvasLocation" x="370" y="238"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="delete.png" width="32" height="32"/>
         <image name="head_img.png" width="80" height="81"/>
     </resources>
 </document>
