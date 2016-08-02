@@ -329,7 +329,7 @@ static NSString *const systemCellIdentifier = @"systemCell";
     [self.view addSubview:self.backView];
     
     // pickerView
-    self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0,0,250,300)];
+    self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0,0,250,200)];
     self.pickerView.center = CGPointMake(self.view.width / 2, self.view.height / 2);
     self.pickerView.layer.masksToBounds = YES;
     self.pickerView.layer.cornerRadius = 10;
