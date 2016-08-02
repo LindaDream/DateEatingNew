@@ -3411,7 +3411,7 @@
 			baseConfigurationReference = 54D591035C569F9FB750CE83 /* Pods-DateEating.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Yang Zhang (3SKZE5ZR6E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
@@ -3421,7 +3421,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Linda.DateEating;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "84557e85-8a1f-4c73-a758-1faf4451dbfb";
+				PROVISIONING_PROFILE = "295fc56f-16ce-40ae-a9b9-356548ae2c34";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -3430,7 +3431,7 @@
 			baseConfigurationReference = DDA8A0284974FF03CB93EF6B /* Pods-DateEating.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Yang Zhang (3SKZE5ZR6E)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
@@ -3440,7 +3441,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Linda.DateEating;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "84557e85-8a1f-4c73-a758-1faf4451dbfb";
+				PROVISIONING_PROFILE = "295fc56f-16ce-40ae-a9b9-356548ae2c34";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
