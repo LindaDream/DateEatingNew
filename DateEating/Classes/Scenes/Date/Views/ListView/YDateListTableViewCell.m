@@ -73,7 +73,24 @@
         _constellation.text = model.user.constellation;
         _age.text = [NSString stringWithFormat:@"     %ld ",model.user.age];
         _showCount.text = [NSString stringWithFormat:@"%ld",model.showCount];
-        _commentCount.text = [NSString stringWithFormat:@"%ld",model.commentCount];
+        
+        if (model.ourSeverMark) {
+            _commentCount.text = [NSString stringWithFormat:@"%ld",model.commentCount];
+        } else {
+            NSString *eventId = [NSString stringWithFormat:@"%@%ld",model.user.nick,model.eventDateTime];
+            AVQuery *query2 = [AVQuery queryWithClassName:@"eventCount"];
+            [query2 whereKey:@"eventId" equalTo:eventId];
+            [query2 findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                if (error == nil) {
+                    NSLog(@"%ld",objects.count);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        _commentCount.text = [NSString stringWithFormat:@"%ld",model.commentCount + objects.count];
+                    });
+                }
+            }];
+            
+        }
+        
         
         [_userImage sd_setImageWithURL:[NSURL URLWithString:model.user.userImageUrl] placeholderImage:[UIImage imageNamed:@"DateLogo.jpg"]];
         

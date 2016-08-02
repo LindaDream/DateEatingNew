@@ -122,13 +122,19 @@ singleton_implementaton(YRequestOurData)
                 }
                 model.user = [[YActionUserModel alloc]init];
                 model.user.nick = [dict objectForKey:@"userName"];
-                
+                NSLog(@"%@",model.user.nick);
                 // 判断用户是否符合要求
                 BOOL __block conformToCondition = YES;
-                AVQuery *query = [AVQuery queryWithClassName:@"_User"];
-                [query whereKey:@"username" equalTo:model.user.nick];
-                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                AVQuery *query1 = [AVQuery queryWithClassName:@"_User"];
+                [query1 whereKey:@"username" equalTo:model.user.nick];
+                [query1 findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                     if (objects.count != 0) {
+                        
+                        AVObject *user11 = objects[0];
+                        AVFile *file = [user11 objectForKey:@"avatar"];
+                        model.user.userImageUrl = file.url;
+                        NSLog(@"%@",model.user.userImageUrl);
+                        
                         NSDictionary *userDic = [objects.firstObject dictionaryForObject];
                         NSString *gender = [userDic objectForKey:@"gender"];
                         if (genderStr != nil) {
@@ -157,43 +163,20 @@ singleton_implementaton(YRequestOurData)
                             }
                         }
                         model.user.constellation = constellation;
+                        NSString *eventId = [NSString stringWithFormat:@"%@%@",model.user.nick,model.dateTime];
                         
-                        [YContent getContentAvatarWithUserName:model.user.nick SuccessRequest:^(id dict) {
-                            model.user.userImageUrl = dict;
-                            
-                            NSString *eventId = [NSString stringWithFormat:@"%@%@",model.user.nick,model.dateTime];
-                            NSMutableArray *__block array = [NSMutableArray array];
-                            AVQuery *query = [AVQuery queryWithClassName:@"eventCount"];
-                            [query whereKey:@"eventId" equalTo:eventId];
-                            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                                if (objects.count != 0) {
-                                    for (AVObject *object in objects) {
-                                        NSDictionary *dict = [object dictionaryForObject];
-                                        YChatMessageModel *model = [YChatMessageModel new];
-                                        model.isOurData = YES;
-                                        model.user = [YActionUserModel new];
-                                        model.user.nick = [dict objectForKey:@"user"];
-                                        NSString *replayUserName = [dict objectForKey:@"replayUser"];
-                                        if (![replayUserName isEqualToString:model.user.nick]) {
-                                            model.replyUser = [YActionUserModel new];
-                                            model.replyUser.nick = replayUserName;
-                                        }
-                                        NSString *eventId = [dict objectForKey:@"eventId"];
-                                        model.eventId = eventId.integerValue;
-                                        model.content = [dict objectForKey:@"content"];
-                                        model.createTime = [[dict objectForKey:@"createTime"] integerValue];
-                                        [array addObject:model];
-                                    }
-                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                        model.commentCount = array.count;
-                                        if (conformToCondition) {
-                                            [self.dataArray addObject:model];
-                                            [self reloadData];
-                                        }
-                                    });
+                        AVQuery *query2 = [AVQuery queryWithClassName:@"eventCount"];
+                        [query2 whereKey:@"eventId" equalTo:eventId];
+                        [query2 findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                            if (error == nil) {
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                model.commentCount = objects.count;
+                                if (conformToCondition) {
+                                    [self.dataArray addObject:model];
+                                    [self reloadData];
                                 }
-                            }];
-                        } failurRequest:^(NSError *error) {
+                                });
+                            }
                         }];
                     }
                 }];
@@ -208,36 +191,7 @@ singleton_implementaton(YRequestOurData)
     }
 }
 
-- (void)getOurSeverData:(NSString *)nick dateTime:(NSString *)dateTime {
-    NSString *eventId = [NSString stringWithFormat:@"%@%@",nick,dateTime];
-    NSMutableArray *__block array = [NSMutableArray array];
-    AVQuery *query = [AVQuery queryWithClassName:@"eventCount"];
-    [query whereKey:@"eventId" equalTo:eventId];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (objects.count != 0) {
-            for (AVObject *object in objects) {
-                NSDictionary *dict = [object dictionaryForObject];
-                YChatMessageModel *model = [YChatMessageModel new];
-                model.isOurData = YES;
-                model.user = [YActionUserModel new];
-                model.user.nick = [dict objectForKey:@"user"];
-                NSString *replayUserName = [dict objectForKey:@"replayUser"];
-                if (![replayUserName isEqualToString:nick]) {
-                    model.replyUser = [YActionUserModel new];
-                    model.replyUser.nick = replayUserName;
-                }
-                NSString *eventId = [dict objectForKey:@"eventId"];
-                model.eventId = eventId.integerValue;
-                model.content = [dict objectForKey:@"content"];
-                model.createTime = [[dict objectForKey:@"createTime"] integerValue];
-                [array addObject:model];
-            }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                array.count;
-            });
-        }
-    }];
-}
+
 
 
 @end
