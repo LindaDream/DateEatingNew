@@ -95,6 +95,8 @@ static NSString *const findeCellIdentifier = @"findeCell";
             [object setObject:@"Our" forKey:@"Our"];
             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
+                    [[NSUserDefaults standardUserDefaults] setObject:object.objectId forKey:[NSString stringWithFormat:@"%@Date%@",[AVUser currentUser].username,object.createdAt]];
+                    NSLog(@"%@",object.objectId);
                     NSLog(@"保存成功");
                     // 获取小伙伴
                     NSArray *friendsArr = [YFriends getFriend];

@@ -96,6 +96,7 @@ static NSString *const systemCellIdentifier = @"systemCell";
             [object setObject:@"Our" forKey:@"Our"];
             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
+                    [[NSUserDefaults standardUserDefaults] setObject:object.objectId forKey:[NSString stringWithFormat:@"%@Party%@",[AVUser currentUser].username,object.createdAt]];
                     NSLog(@"保存成功");
                 }
             }];
