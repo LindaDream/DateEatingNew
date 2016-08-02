@@ -18,10 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
-    UIImage *img = [UIImage imageWithContentsOfFile:self.path];
-    self.bigImgView.image = img;
-    CGFloat imgWidth = img.size.width;
-    CGFloat imgHeight = img.size.height;
+    self.bigImgView.image = _img;
+    CGFloat imgWidth = _img.size.width;
+    CGFloat imgHeight = _img.size.height;
     imgHeight = imgHeight * kWidth / imgWidth;
     self.bigImgView.frame = CGRectMake(0, (kHeight - imgHeight) / 2, kWidth, imgHeight);
 //    if (imgWidth >= imgHeight) {
