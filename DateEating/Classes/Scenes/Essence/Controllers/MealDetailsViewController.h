@@ -13,5 +13,6 @@
 
 @property (nonatomic, strong)NSString *ID;
 @property (nonatomic, strong)YMealDetailsModel *model;
-
+// 是否已收藏
+@property (strong,nonatomic) NSString *isCollection;
 @end
