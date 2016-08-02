@@ -323,7 +323,10 @@
 {
     
     AVObject *object = [AVObject objectWithClassName:@"MyMealCollection"];
-    if (self.isCollection) {
+    
+    AVQuery *query = [AVQuery queryWithClassName:@"MyMealCollection"];
+    [query whereKey:@"ID" equalTo:self.ID];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
         // 保存当前用户名
         [object setObject:[AVUser currentUser].username forKey:@"userName"];
@@ -333,33 +336,27 @@
         
         // 保存title
         [object setObject:self.model.title forKey:@"title"];
-        
-        AVQuery *query = [AVQuery queryWithClassName:@"MyMealCollection"];
-        [query whereKey:@"ID" equalTo:self.ID];
-        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (objects.count == 0) {
                 [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     if (succeeded) {
                         [self showAlertViewWithMessage:(@"收藏成功")];
                         [[NSUserDefaults standardUserDefaults] setObject:object.objectId forKey:self.ID];
+                        self.isCollection = NO;
                     }
+                    
                 }];
             }else{
-                [self showAlertViewWithMessage:(@"您已收藏,不可重复收藏,如果想取消收藏，请再次点击")];
+                // 删除收藏的数据
+                // 执行 CQL 语句实现删除一个 MyAttention 对象
+                self.objId = [[NSUserDefaults standardUserDefaults] objectForKey:self.ID];
+                [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"delete from MyMealCollection where objectId='%@'",self.objId] callback:^(AVCloudQueryResult *result, NSError *error) {
+                    [self showAlertViewWithMessage:(@"取消收藏成功")];
+                    [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.ID];
+                    self.isCollection = YES;
+                }];
+                
             }
         }];
-        self.isCollection = NO;
-    }else{
-        
-        // 删除收藏的数据
-        // 执行 CQL 语句实现删除一个 MyAttention 对象
-        self.objId = [[NSUserDefaults standardUserDefaults] objectForKey:self.ID];
-        [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"delete from MyMealCollection where objectId='%@'",self.objId] callback:^(AVCloudQueryResult *result, NSError *error) {
-            [self showAlertViewWithMessage:(@"取消收藏成功")];
-        }];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.ID];
-        self.isCollection = YES;
-    }
 }
 
 - (BOOL)isHave
