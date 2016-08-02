@@ -157,7 +157,7 @@ static NSString *const findeCellIdentifier = @"findeCell";
     // 获取当前时间
     self.date = nil;
     NSDateFormatter *fomatter = [NSDateFormatter new];
-    [fomatter setDateFormat:@"YYYY-MM-dd hh:mm"];
+    [fomatter setDateFormat:@"YYYY-MM-dd HH:mm"];
     self.date = [fomatter stringFromDate:[NSDate date]];
     
     // 设置选中当天日期
@@ -173,25 +173,7 @@ static NSString *const findeCellIdentifier = @"findeCell";
             }
         }
     }
-    for (NSString *hourStr in [[YTimePiker sharedYTimePiker] hourArray]) {
-        if ([hourStr isEqualToString:[self.date substringWithRange:NSMakeRange(11, 2)]]) {
-            self.hourIndex = [[[YTimePiker sharedYTimePiker] hourArray] indexOfObject:hourStr];
-            self.hourTmpStr = hourStr;
-            for (NSInteger index = self.hourIndex; index < [[YTimePiker sharedYTimePiker] hourArray].count; index++) {
-                [self.hourArr addObject:[[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:index]];
-            }
-        }
-    }
-    for (NSString *minuteStr in [[YTimePiker sharedYTimePiker] minuteArray]) {
-        if ([minuteStr isEqualToString:[self.date substringWithRange:NSMakeRange(14, 2)]]) {
-            self.minuteIndex = [[[YTimePiker sharedYTimePiker] minuteArray] indexOfObject:minuteStr];
-            self.minuteTmpStr = minuteStr;
-            for (NSInteger index = self.minuteIndex; index < [[YTimePiker sharedYTimePiker] minuteArray].count; index++) {
-                [self.minuteArr addObject:[[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:index]];
-            }
-        }
-    }
-    
+
     // 注册cell
     [self.dateTableView registerNib:[UINib nibWithNibName:@"YThemeTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:themeCellIdentifier];
     [self.dateTableView registerNib:[UINib nibWithNibName:@"YObjectTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:objectCellIdentifier];
@@ -313,6 +295,23 @@ static NSString *const findeCellIdentifier = @"findeCell";
     self.pickerView.dataSource = self;
     [self.backView addSubview:self.pickerView];
     
+    for (NSString *hourStr in [[YTimePiker sharedYTimePiker] hourArray]) {
+        if ([hourStr isEqualToString:[self.date substringWithRange:NSMakeRange(11, 2)]]) {
+            self.hourIndex = [[[YTimePiker sharedYTimePiker] hourArray] indexOfObject:hourStr];
+            self.hourTmpStr = hourStr;
+        }
+    }
+    for (NSString *minuteStr in [[YTimePiker sharedYTimePiker] minuteArray]) {
+        if ([minuteStr isEqualToString:[self.date substringWithRange:NSMakeRange(14, 2)]]) {
+            self.minuteIndex = [[[YTimePiker sharedYTimePiker] minuteArray] indexOfObject:minuteStr];
+            self.minuteTmpStr = minuteStr;
+        }
+    }
+    self.dateTmpStr = [self.dateArr objectAtIndex:4];
+    [self.pickerView selectRow:4 inComponent:0 animated:YES];
+    [self.pickerView selectRow:self.hourIndex inComponent:1 animated:YES];
+    [self.pickerView selectRow:self.minuteIndex inComponent:2 animated:YES];
+    
     // 选择按钮
     self.selectBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     self.selectBtn.frame = CGRectMake(0,0, 80, 50);
@@ -338,9 +337,9 @@ static NSString *const findeCellIdentifier = @"findeCell";
     if (component == 0) {
         return self.dateArr.count;
     }else if (component == 1){
-        return self.hourArr.count;
+        return [[YTimePiker sharedYTimePiker] hourArray].count;
     }else{
-        return self.minuteArr.count;
+        return [[YTimePiker sharedYTimePiker] minuteArray].count;
     }
 }
 
@@ -349,11 +348,22 @@ static NSString *const findeCellIdentifier = @"findeCell";
     if (component == 0) {
         self.dateTmpStr = [self.dateArr objectAtIndex:row];
     }else if (component == 1){
-        self.hourTmpStr = [NSString stringWithFormat:@"%@ ",[self.hourArr objectAtIndex:row]];
+        if ([NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row]].integerValue < [self.date substringWithRange:NSMakeRange(11, 2)].integerValue) {
+            [UIView animateWithDuration:1 animations:^{
+                [pickerView selectRow:self.hourIndex inComponent:1 animated:YES];
+            }];
+        }else{
+            self.hourTmpStr = [NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row]];
+        }
     }
     if (component == 2) {
-        self.minuteTmpStr = [self.minuteArr objectAtIndex:row];
-        self.message = [NSString stringWithFormat:@"%@%@ : %@",self.dateTmpStr,self.hourTmpStr,self.minuteTmpStr];
+        if ([NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row]].integerValue < [self.date substringWithRange:NSMakeRange(14, 2)].integerValue) {
+            [UIView animateWithDuration:1 animations:^{
+                [pickerView selectRow:self.minuteIndex inComponent:2 animated:YES];
+            }];
+        }else{
+            self.minuteTmpStr = [NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row]];
+        }
     }
 }
 - (void)selectedTime:(NSString *)message{
@@ -390,10 +400,10 @@ static NSString *const findeCellIdentifier = @"findeCell";
         label.text = [self.dateArr objectAtIndex:row];
     }else if (component == 1){
         label.frame = CGRectMake(0, 0, 30, 30);
-        label.text = [self.hourArr objectAtIndex:row];
+        label.text = [[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row];
     }else if (component == 2){
         label.frame = CGRectMake(0, 0, 30, 30);
-        label.text = [self.minuteArr objectAtIndex:row];
+        label.text = [[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row];
     }
     return label;
 }
