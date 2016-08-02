@@ -13,6 +13,7 @@
 #import "YSendImgTableViewCell.h"
 #import "YContent.h"
 #import "YFaceView.h"
+#import "YBigImgViewController.h"
 @interface YChatViewController ()<
     UITextViewDelegate,
     UITableViewDataSource,
@@ -397,6 +398,20 @@ static NSString *const receiveImgCell = @"reveiveImgCell";
         }
     }
     return nil;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    EMMessage *message = self.msgArray[indexPath.row];
+    // 获取消息体的内容
+    EMImageMessageBody *imgBody = (EMImageMessageBody *)message.body;
+    if (message.body.type == 2) {
+        NSString *path = imgBody.localPath;
+        [UIImage imageWithContentsOfFile:path];
+        YBigImgViewController *bigImgVC = [YBigImgViewController new];
+        bigImgVC.path = path;
+        [self presentViewController:bigImgVC animated:YES completion:nil];
+    }
+    
 }
 
 #pragma mark--滑到tableView最后--
