@@ -17,6 +17,10 @@ singleton_implementaton(YTimePiker);
     NSMutableArray *array = [NSMutableArray array];
     NSArray *monthArr = @[@"01",@"02",@"03",@"04",@"05",@"06",@"07",@"08",@"09",@"10",@"11",@"12"];
     NSArray *week = @[@"周一",@"周二",@"周三",@"周四",@"周五",@"周六",@"周日"];
+    NSString *currentYear = nil;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY"];
+    currentYear = [formatter stringFromDate:[NSDate date]];
     for (int i = 0; i < 12; i++) {// 控制月份
         if (i == 0 || i == 2 || i == 4 || i == 6 || i == 7 || i == 9 || i == 11) {
             dayCount = 31;
@@ -26,8 +30,13 @@ singleton_implementaton(YTimePiker);
             dayCount = 30;
         }
         for (int day = 1; day <= dayCount; day++) {// 控制日期
-                NSString *dateStr = [NSString stringWithFormat:@"2016-%@-%d",monthArr[i],day];
+            if (day < 10) {
+                NSString *dateStr = [NSString stringWithFormat:@"%@-%@-0%d",currentYear,monthArr[i],day];
                 [dateArray addObject:dateStr];
+            }else{
+                NSString *dateStr = [NSString stringWithFormat:@"%@-%@-%d",currentYear,monthArr[i],day];
+                [dateArray addObject:dateStr];
+            }
         }
     }
     for (int i = 0; i < dateArray.count; i++) {
@@ -36,10 +45,10 @@ singleton_implementaton(YTimePiker);
             [array addObject:str];
         }else{
             NSString *str = nil;
-            if (i % 7 - 3 >= 0) {
+            if (i % 7 <= 6 && i % 7 >= 3) {
                str = [dateArray[i] stringByAppendingString:week[i % 7 - 3]];
-            }else{
-                str = [dateArray[i] stringByAppendingString:week[i % 7]];
+            }else if(i % 7 >= 0 && i % 7 <= 2){
+                str = [dateArray[i] stringByAppendingString:week[i % 7 + 4]];
             }
                 [array addObject:str];
             }

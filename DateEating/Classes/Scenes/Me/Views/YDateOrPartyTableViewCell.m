@@ -26,6 +26,14 @@
     self.headImgView.image = model.img;
     
 }
+
+- (IBAction)deleteAction:(id)sender {
+    if (_delegate && [_delegate respondsToSelector:@selector(deletePassDateOrParty:)]) {
+        [_delegate deletePassDateOrParty:self];
+    }
+}
+
+
 - (void)awakeFromNib {
     // Initialization code
 }

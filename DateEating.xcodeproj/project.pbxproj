@@ -35,6 +35,7 @@
 		CE69132A1D33C95D001FE50B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE6913281D33C95D001FE50B /* LaunchScreen.storyboard */; };
 		CE6913351D33C95D001FE50B /* DateEatingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6913341D33C95D001FE50B /* DateEatingTests.m */; };
 		CE6913401D33C95D001FE50B /* DateEatingUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE69133F1D33C95D001FE50B /* DateEatingUITests.m */; };
+		CE6E753C1D508ECF002C49C4 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = CE6E753B1D508ECF002C49C4 /* delete.png */; };
 		CE97AB7C1D38CCB10051D2D7 /* YTimePiker.m in Sources */ = {isa = PBXBuildFile; fileRef = CE97AB7B1D38CCB10051D2D7 /* YTimePiker.m */; };
 		CEB8267A1D41AE2A00BB2E31 /* mine_about.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB826791D41AE2A00BB2E31 /* mine_about.png */; };
 		CEB826D41D41B56700BB2E31 /* YEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8267E1D41B56700BB2E31 /* YEditViewController.m */; };
@@ -252,6 +253,7 @@
 		D61D1B491D38C3E500C36F84 /* guarantee_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D61D1B451D38C3E500C36F84 /* guarantee_bg@3x.png */; };
 		D61D1B4A1D38C3E500C36F84 /* guarantee_red_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D61D1B461D38C3E500C36F84 /* guarantee_red_bg@2x.png */; };
 		D61D1B4B1D38C3E500C36F84 /* guarantee_red_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D61D1B471D38C3E500C36F84 /* guarantee_red_bg@3x.png */; };
+		D621A30C1D504CB500309046 /* 已收藏.png in Resources */ = {isa = PBXBuildFile; fileRef = D621A30B1D504CB500309046 /* 已收藏.png */; };
 		D6670FDF1D4C9F4A001AC938 /* LanuchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = D6670FDE1D4C9F4A001AC938 /* LanuchImage.png */; };
 		D66E597A1D33DBA1003DED51 /* YEssenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D66E59791D33DBA1003DED51 /* YEssenceViewController.m */; };
 		D66E59801D33DBF1003DED51 /* YDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D66E597F1D33DBF1003DED51 /* YDateViewController.m */; };
@@ -632,6 +634,7 @@
 		CE69133B1D33C95D001FE50B /* DateEatingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DateEatingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE69133F1D33C95D001FE50B /* DateEatingUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DateEatingUITests.m; sourceTree = "<group>"; };
 		CE6913411D33C95D001FE50B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE6E753B1D508ECF002C49C4 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
 		CE97AB7A1D38CCB10051D2D7 /* YTimePiker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTimePiker.h; sourceTree = "<group>"; };
 		CE97AB7B1D38CCB10051D2D7 /* YTimePiker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTimePiker.m; sourceTree = "<group>"; };
 		CEB826791D41AE2A00BB2E31 /* mine_about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mine_about.png; sourceTree = "<group>"; };
@@ -934,6 +937,7 @@
 		D61D1B451D38C3E500C36F84 /* guarantee_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guarantee_bg@3x.png"; sourceTree = "<group>"; };
 		D61D1B461D38C3E500C36F84 /* guarantee_red_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guarantee_red_bg@2x.png"; sourceTree = "<group>"; };
 		D61D1B471D38C3E500C36F84 /* guarantee_red_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guarantee_red_bg@3x.png"; sourceTree = "<group>"; };
+		D621A30B1D504CB500309046 /* 已收藏.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "已收藏.png"; sourceTree = "<group>"; };
 		D6670FDE1D4C9F4A001AC938 /* LanuchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LanuchImage.png; sourceTree = "<group>"; };
 		D66E59781D33DBA1003DED51 /* YEssenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YEssenceViewController.h; sourceTree = "<group>"; };
 		D66E59791D33DBA1003DED51 /* YEssenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YEssenceViewController.m; sourceTree = "<group>"; };
@@ -1403,6 +1407,7 @@
 				CE6913511D33CFDB001FE50B /* Macros */,
 				CE6913521D33CFDB001FE50B /* Opensources */,
 				CE6913531D33CFDB001FE50B /* Resources */,
+				CE6E753B1D508ECF002C49C4 /* delete.png */,
 				CE6913541D33CFDB001FE50B /* Scenes */,
 			);
 			path = Classes;
@@ -1633,6 +1638,7 @@
 				D6F0F3971D3B483400D1EF81 /* MealDetailsViewController.m */,
 				D6F0F3981D3B483400D1EF81 /* PlayDetailsViewController.h */,
 				D6F0F3991D3B483400D1EF81 /* PlayDetailsViewController.m */,
+				D621A30B1D504CB500309046 /* 已收藏.png */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2606,7 +2612,7 @@
 				TargetAttributes = {
 					CE6913161D33C95D001FE50B = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = ZFBE9NJZM6;
+						DevelopmentTeam = 37F42L54A4;
 					};
 					CE69132F1D33C95D001FE50B = {
 						CreatedOnToolsVersion = 7.1;
@@ -2760,6 +2766,7 @@
 				CE289D111D3CBC4F00FE8CB1 /* YAttentionListViewCell.xib in Resources */,
 				D66E5B011D33DE84003DED51 /* tabBar_friendTrends_click_icon@3x.png in Resources */,
 				D6F579FF1D462D38004C501A /* EmojisList.plist in Resources */,
+				D621A30C1D504CB500309046 /* 已收藏.png in Resources */,
 				D6B2A0FF1D3A56B4002BB383 /* locationCell@2x.png in Resources */,
 				CEB826E51D41B56700BB2E31 /* 时间.png in Resources */,
 				CEE5756F1D3A7ACA008B2906 /* locationCell@2x.png in Resources */,
@@ -3046,6 +3053,7 @@
 				D66E5ADC1D33DE84003DED51 /* publish-audio@2x.png in Resources */,
 				D6F0F37B1D3B464400D1EF81 /* placeholder_image.png in Resources */,
 				CEE081921D3658B90052A1D4 /* mine_save.png in Resources */,
+				CE6E753C1D508ECF002C49C4 /* delete.png in Resources */,
 				CEBF8FBA1D45B24900406A61 /* YConcreteTableViewCell.xib in Resources */,
 				D6F20DA61D3E272E0082E398 /* NaviList_@2x.png in Resources */,
 				D66E5AA51D33DE84003DED51 /* friendsTrend_login.png in Resources */,
@@ -3411,18 +3419,21 @@
 			baseConfigurationReference = 54D591035C569F9FB750CE83 /* Pods-DateEating.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Yang Zhang (3SKZE5ZR6E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DateEating/Classes/Macros/PrefixHeader.pch";
 				INFOPLIST_FILE = DateEating/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Linda.DateEating;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "295fc56f-16ce-40ae-a9b9-356548ae2c34";
-				TARGETED_DEVICE_FAMILY = 1;
+
+				PROVISIONING_PROFILE = "";
+
 			};
 			name = Debug;
 		};
@@ -3431,18 +3442,20 @@
 			baseConfigurationReference = DDA8A0284974FF03CB93EF6B /* Pods-DateEating.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Yang Zhang (3SKZE5ZR6E)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/DateEating/Classes/Macros/PrefixHeader.pch";
 				INFOPLIST_FILE = DateEating/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Linda.DateEating;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "295fc56f-16ce-40ae-a9b9-356548ae2c34";
-				TARGETED_DEVICE_FAMILY = 1;
+
+				PROVISIONING_PROFILE = "";
+
 			};
 			name = Release;
 		};

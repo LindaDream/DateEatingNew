@@ -34,9 +34,9 @@
 @property (nonatomic, assign)BOOL isOnce;
 @property (nonatomic, assign)BOOL isBuild;
 
-// 是否收藏
-@property (assign,nonatomic) BOOL isCollection;
+
 @property (strong,nonatomic) NSString *objId;
+@property (strong,nonatomic) UIBarButtonItem *collectionBtn;
 
 @end
 
@@ -51,6 +51,20 @@
     } else {
     }
 }
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    AVQuery *query = [AVQuery queryWithClassName:@"MyMealCollection"];
+    [query whereKey:@"ID" equalTo:self.ID];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (objects.count == 0) {
+            self.isCollection = @"未收藏";
+        }else{
+            self.isCollection = @"已收藏";
+        }
+        [self setNavigationStyle];
+    }];
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -61,11 +75,7 @@
     self.modelArray = [NSMutableArray array];
     [self addSubView];
     [self setUpData];
-
-    [self setNavigationStyle];
-    self.isCollection = YES;
     self.isOnce = NO;
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkStateChange) name:kReachabilityChangedNotification object:nil];
     
 }
 
@@ -357,7 +367,6 @@
     self.BGScrollView.contentSize = CGSizeMake(0, self.hight + 80);
     
     self.BGView.hidden = YES;
-    //[self.loadingView stopAnimating];
     self.isBuild = YES;
 }
 
@@ -371,12 +380,15 @@
     // 分享
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(actionShareButton:)];
     
-    
     // 收藏
-    UIBarButtonItem *shouCangButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favorite"] style:UIBarButtonItemStylePlain target:self action:@selector(actionCollection:)];
-    
-    shouCangButton.imageInsets = UIEdgeInsetsMake(0, 0, 0, -30);
-    self.navigationItem.rightBarButtonItems = @[shareButton, shouCangButton];
+    _collectionBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favorite"] style:(UIBarButtonItemStylePlain) target:self action:@selector(actionCollection:)];
+    if ([_isCollection isEqualToString:@"未收藏"]) {
+        [_collectionBtn setImage:[UIImage imageNamed:@"favorite"]];
+    }else if([_isCollection isEqualToString:@"已收藏"]){
+        [_collectionBtn setImage:[UIImage imageNamed:@"已收藏"]];
+    }
+    _collectionBtn.imageInsets = UIEdgeInsetsMake(0, 0, 0, -20);
+    self.navigationItem.rightBarButtonItems = @[shareButton, _collectionBtn];
 }
 
 
@@ -384,43 +396,43 @@
 {
     
     AVObject *object = [AVObject objectWithClassName:@"MyPlayCollection"];
-    if (self.isCollection) {
-        
-        // 保存当前用户名
-        [object setObject:[AVUser currentUser].username forKey:@"userName"];
-        
-        // 保存ID
-        [object setObject:self.ID forKey:@"ID"];
-        
-        // 保存title
-        [object setObject:self.model.title forKey:@"title"];
-        
-        AVQuery *query = [AVQuery queryWithClassName:@"MyPlayCollection"];
-        [query whereKey:@"ID" equalTo:self.ID];
-        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-            if (objects.count == 0) {
-                [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    if (succeeded) {
-                        [self showAlertViewWithMessage:(@"收藏成功")];
-                        [[NSUserDefaults standardUserDefaults] setObject:object.objectId forKey:self.ID];
-                    }
+    AVQuery *query = [AVQuery queryWithClassName:@"MyPlayCollection"];
+    [query whereKey:@"ID" equalTo:self.ID];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (objects.count == 0) {
+            // 保存当前用户名
+            [object setObject:[AVUser currentUser].username forKey:@"userName"];
+            // 保存ID
+            [object setObject:self.ID forKey:@"ID"];
+            // 保存title
+            [object setObject:self.model.title forKey:@"title"];
+            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    [self showAlertViewWithMessage:(@"收藏成功")];
+                    [[NSUserDefaults standardUserDefaults] setObject:object.objectId forKey:self.ID];
+                    self.isCollection = @"已收藏";
+                    [_collectionBtn setImage:[UIImage imageNamed:@"已收藏"]];
+                }
+                
+            }];
+        }else{
+            // 删除收藏的数据
+            // 执行 CQL 语句实现删除一个 MyAttention 对象
+            self.objId = [[NSUserDefaults standardUserDefaults] objectForKey:self.ID];
+            if (self.objId) {
+                [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"delete from MyPlayCollection where objectId='%@'",self.objId] callback:^(AVCloudQueryResult *result, NSError *error) {
+                    [self showAlertViewWithMessage:(@"取消收藏成功")];
+                    [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.ID];
+                    self.isCollection = @"未收藏";
+                    [_collectionBtn setImage:[UIImage imageNamed:@"favorite"]];
                 }];
             }else{
-                [self showAlertViewWithMessage:(@"您已收藏,不可重复收藏,如果想取消收藏，请再次点击")];
+                [self showAlertViewWithMessage:@"取消收藏失败"];
             }
-        }];
-        self.isCollection = NO;
-    }else{
-
-        // 删除收藏的数据
-        // 执行 CQL 语句实现删除一个 MyAttention 对象
-        self.objId = [[NSUserDefaults standardUserDefaults] objectForKey:self.ID];
-        [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"delete from MyPlayCollection where objectId='%@'",self.objId] callback:^(AVCloudQueryResult *result, NSError *error) {
-            [self showAlertViewWithMessage:(@"取消收藏成功")];
-        }];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.ID];
-        self.isCollection = YES;
-    }
+            
+            
+        }
+    }];
 }
 
 - (BOOL)isHave
@@ -452,58 +464,6 @@
 - (void)actionUserLogin:(NSNotification *)notification
 {
 
-    
-//    Reachability *conn = [Reachability reachabilityForInternetConnection];
-//    if ([conn currentReachabilityStatus] != NotReachable) {
-//        AVUser *currentUser = [AVUser currentUser];
-//        if (currentUser != nil) {
-//            if (self.isWhat == YES) {
-//                if ([self isHave]) {
-//                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"您已经收藏过了" preferredStyle:UIAlertControllerStyleAlert];
-//                    [self presentViewController:alertController animated:YES completion:nil];
-//                    [self performSelector:@selector(dismiss:) withObject:alertController afterDelay:0.5];
-//                } else {
-//                    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:self.model.ID, @"ID", self.model.title, @"title", nil];
-//                    [currentUser addObject:dic forKey:@"play"];
-//                    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//                        [currentUser saveInBackground];
-//                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"收藏成功" preferredStyle:UIAlertControllerStyleAlert];
-//                        [self presentViewController:alertController animated:YES completion:nil];
-//                        [self performSelector:@selector(dismiss:) withObject:alertController afterDelay:0.5];
-//                    }];
-//                }
-//            } else {
-//                if ([self isHave]) {
-//                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"您已经收藏过了" preferredStyle:UIAlertControllerStyleAlert];
-//                    [self presentViewController:alertController animated:YES completion:nil];
-//                    [self performSelector:@selector(dismiss:) withObject:alertController afterDelay:0.5];
-//                } else {
-//                    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:self.model.ID, @"ID", self.model.title, @"title", nil];
-//                    [currentUser addObject:dic forKey:@"life"];
-//                    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//                        [currentUser saveInBackground];
-//                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"收藏成功" preferredStyle:UIAlertControllerStyleAlert];
-//                        [self presentViewController:alertController animated:YES completion:nil];
-//                        [self performSelector:@selector(dismiss:) withObject:alertController afterDelay:0.5];
-//                    }];
-//                }
-//            }
-//            
-//            
-//        } else {
-//            UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"LoginAndRegister" bundle:nil];
-//            UIViewController *loginVC = [storyBoard instantiateInitialViewController];
-//            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionUserLogin:) name:@"USERISLOGIN" object:nil];
-//            [self presentViewController:loginVC animated:YES completion:nil];
-//        }
-//        
-//    } else {
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"收藏失败 请您检查是否为网络原因" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *say = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-//        [alertController addAction:say];
-//        [self presentViewController:alertController animated:YES completion:nil];
-//    }
-//
 }
 
 - (void)dismiss:(UIAlertController *)alert
@@ -522,19 +482,6 @@
     
 }
 
-//- (void)networkStateChange
-//{
-//    Reachability *conn = [Reachability reachabilityForInternetConnection];
-//    if ([conn currentReachabilityStatus] != NotReachable) {
-//        if (self.isBuild == YES) {
-//            
-//        } else {
-//            [self setUpData];
-//        }
-//    } else {
-//        
-//    }
-//}
 
 
 - (void)actionLeftButton

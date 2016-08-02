@@ -52,7 +52,14 @@
 @property(strong,nonatomic)NSString *findStr;
 // 聚会花费
 @property(strong,nonatomic)NSString *concrete;
-
+// 获取当前时间
+@property(strong,nonatomic)NSString *date;
+@property(assign,nonatomic)NSInteger dateIndex;
+@property(assign,nonatomic)NSInteger hourIndex;
+@property(assign,nonatomic)NSInteger minuteIndex;
+@property(strong,nonatomic)NSMutableArray *dateArr;
+@property(strong,nonatomic)NSMutableArray *hourArr;
+@property(strong,nonatomic)NSMutableArray *minuteArr;
 @end
 // 设置重用标识符
 static NSString *const themeCellIdentifier = @"themeCell";
@@ -89,6 +96,7 @@ static NSString *const systemCellIdentifier = @"systemCell";
             [object setObject:@"Our" forKey:@"Our"];
             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
+                    [[NSUserDefaults standardUserDefaults] setObject:object.objectId forKey:[NSString stringWithFormat:@"%@Party%@",[AVUser currentUser].username,object.createdAt]];
                     NSLog(@"保存成功");
                 }
             }];
@@ -120,6 +128,46 @@ static NSString *const systemCellIdentifier = @"systemCell";
     self.title = @"发布聚会";
     self.isSelected = YES;
     self.dateStr = @"".mutableCopy;
+    self.dateArr = [NSMutableArray new];
+    self.hourArr = [NSMutableArray new];
+    self.minuteArr = [NSMutableArray new];
+    // 获取当前时间
+    self.date = nil;
+    NSDateFormatter *fomatter = [NSDateFormatter new];
+    [fomatter setDateFormat:@"YYYY-MM-dd hh:mm"];
+    self.date = [fomatter stringFromDate:[NSDate date]];
+    
+    // 设置选中当天日期
+    self.dateIndex = 0;
+    self.hourIndex = 0;
+    self.minuteIndex = 0;
+    for (NSString *dateStr in [[YTimePiker sharedYTimePiker] dateArray]) {
+        if ([[dateStr substringToIndex:10] isEqualToString:[self.date substringToIndex:10]]) {
+            self.dateIndex = [[[YTimePiker sharedYTimePiker] dateArray] indexOfObject:dateStr];
+            self.dateTmpStr = dateStr;
+            for (NSInteger index = self.dateIndex; index < [[YTimePiker sharedYTimePiker] dateArray].count; index++) {
+                [self.dateArr addObject:[[[YTimePiker sharedYTimePiker] dateArray] objectAtIndex:index]];
+            }
+        }
+    }
+    for (NSString *hourStr in [[YTimePiker sharedYTimePiker] hourArray]) {
+        if ([hourStr isEqualToString:[self.date substringWithRange:NSMakeRange(11, 2)]]) {
+            self.hourIndex = [[[YTimePiker sharedYTimePiker] hourArray] indexOfObject:hourStr];
+            self.hourTmpStr = hourStr;
+            for (NSInteger index = self.hourIndex; index < [[YTimePiker sharedYTimePiker] hourArray].count; index++) {
+                [self.hourArr addObject:[[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:index]];
+            }
+        }
+    }
+    for (NSString *minuteStr in [[YTimePiker sharedYTimePiker] minuteArray]) {
+        if ([minuteStr isEqualToString:[self.date substringWithRange:NSMakeRange(14, 2)]]) {
+            self.minuteIndex = [[[YTimePiker sharedYTimePiker] minuteArray] indexOfObject:minuteStr];
+            self.minuteTmpStr = minuteStr;
+            for (NSInteger index = self.minuteIndex; index < [[YTimePiker sharedYTimePiker] minuteArray].count; index++) {
+                [self.minuteArr addObject:[[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:index]];
+            }
+        }
+    }
     // 注册cell
     [self.partyTableView registerNib:[UINib nibWithNibName:@"YThemeTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:themeCellIdentifier];
     [self.partyTableView registerNib:[UINib nibWithNibName:@"YPartyCountTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:countCellIdentifier];
@@ -282,42 +330,13 @@ static NSString *const systemCellIdentifier = @"systemCell";
     [self.view addSubview:self.backView];
     
     // pickerView
-    self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0,0,250,300)];
+    self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0,0,250,200)];
     self.pickerView.center = CGPointMake(self.view.width / 2, self.view.height / 2);
     self.pickerView.layer.masksToBounds = YES;
     self.pickerView.layer.cornerRadius = 10;
     self.pickerView.backgroundColor = [UIColor whiteColor];
     self.pickerView.delegate = self;
     self.pickerView.dataSource = self;
-    // 设置选中当天日期
-    NSString *date = nil;
-    NSInteger dateIndex = 0;
-    NSInteger hourIndex = 0;
-    NSInteger minuteIndex = 0;
-    NSDateFormatter *fomatter = [NSDateFormatter new];
-    [fomatter setDateFormat:@"YYYY-MM-dd hh:mm"];
-    date = [fomatter stringFromDate:[NSDate date]];
-    for (NSString *dateStr in [[YTimePiker sharedYTimePiker] dateArray]) {
-        if ([[dateStr substringToIndex:10] isEqualToString:[date substringToIndex:10]]) {
-            dateIndex = [[[YTimePiker sharedYTimePiker] dateArray] indexOfObject:dateStr];
-            self.dateTmpStr = dateStr;
-        }
-    }
-    for (NSString *hourStr in [[YTimePiker sharedYTimePiker] hourArray]) {
-        if ([hourStr isEqualToString:[date substringWithRange:NSMakeRange(11, 2)]]) {
-            hourIndex = [[[YTimePiker sharedYTimePiker] hourArray] indexOfObject:hourStr];
-            self.hourTmpStr = hourStr;
-        }
-    }
-    for (NSString *minuteStr in [[YTimePiker sharedYTimePiker] minuteArray]) {
-        if ([minuteStr isEqualToString:[date substringWithRange:NSMakeRange(14, 2)]]) {
-            minuteIndex = [[[YTimePiker sharedYTimePiker] minuteArray] indexOfObject:minuteStr];
-            self.minuteTmpStr = minuteStr;
-        }
-    }
-    [self.pickerView selectRow:dateIndex inComponent:0 animated:YES];
-    [self.pickerView selectRow:hourIndex inComponent:1 animated:YES];
-    [self.pickerView selectRow:minuteIndex inComponent:2 animated:YES];
     [self.backView addSubview:self.pickerView];
     
     // 选择按钮
@@ -329,9 +348,10 @@ static NSString *const systemCellIdentifier = @"systemCell";
     self.selectBtn.backgroundColor = [UIColor colorWithRed:244/255.0 green:86/255.0 blue:79/255.0 alpha:1];
     [self.selectBtn setTitle:@"选择" forState:(UIControlStateNormal)];
     [self.selectBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-     [self.selectBtn addTarget:self action:@selector(finishSelect) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.selectBtn addTarget:self action:@selector(finishSelect) forControlEvents:(UIControlEventTouchUpInside)];
     [self.backView addSubview:self.selectBtn];
 }
+
 - (void)finishSelect{
     self.message = [NSString stringWithFormat:@"%@%@ : %@",self.dateTmpStr,self.hourTmpStr,self.minuteTmpStr];
     [self selectedTime:self.message];
@@ -344,25 +364,23 @@ static NSString *const systemCellIdentifier = @"systemCell";
 #pragma mark--放方法决定该控件包含多少个列表项--
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
     if (component == 0) {
-        return [[YTimePiker sharedYTimePiker] dateArray].count;
+        return self.dateArr.count;
     }else if (component == 1){
-        return [[YTimePiker sharedYTimePiker] hourArray].count;
+        return self.hourArr.count;
     }else{
-        return [[YTimePiker sharedYTimePiker] minuteArray].count;
+        return self.minuteArr.count;
     }
 }
 #pragma mark--pickerView点击方法--
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     if (component == 0) {
-        //self.dateStr = [self.dateStr stringByAppendingString:[[[YTimePiker sharedYTimePiker] dateArray] objectAtIndex:row]].mutableCopy;
-        self.dateTmpStr = [[[YTimePiker sharedYTimePiker] dateArray] objectAtIndex:row];
+        self.dateTmpStr = [self.dateArr objectAtIndex:row];
     }else if (component == 1){
-       // self.dateStr = [self.dateStr stringByAppendingString:[NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row]]].mutableCopy;
-        self.hourTmpStr = [NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row]];
+        self.hourTmpStr = [NSString stringWithFormat:@"%@ ",[self.hourArr objectAtIndex:row]];
     }
     if (component == 2) {
-        //self.dateStr = [self.dateStr stringByAppendingString:[NSString stringWithFormat:@": %@",[[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row]]].mutableCopy;
-        self.minuteTmpStr = [[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row];
+        self.minuteTmpStr = [self.minuteArr objectAtIndex:row];
+        self.message = [NSString stringWithFormat:@"%@%@ : %@",self.dateTmpStr,self.hourTmpStr,self.minuteTmpStr];
     }
 }
 - (void)selectedTime:(NSString *)message{
@@ -407,17 +425,16 @@ static NSString *const systemCellIdentifier = @"systemCell";
     label.textAlignment = UITextAlignmentCenter;
     if (component == 0) {
         label.frame = CGRectMake(0, 0, 160, 30);
-        label.text = [[[YTimePiker sharedYTimePiker] dateArray] objectAtIndex:row];
+        label.text = [self.dateArr objectAtIndex:row];
     }else if (component == 1){
         label.frame = CGRectMake(0, 0, 30, 30);
-        label.text = [[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row];
+        label.text = [self.hourArr objectAtIndex:row];
     }else if (component == 2){
         label.frame = CGRectMake(0, 0, 30, 30);
-        label.text = [[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row];
+        label.text = [self.minuteArr objectAtIndex:row];
     }
     return label;
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
