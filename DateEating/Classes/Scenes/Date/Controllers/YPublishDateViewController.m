@@ -282,6 +282,8 @@ static NSString *const findeCellIdentifier = @"findeCell";
             self.minuteTmpStr = minuteStr;
         }
     }
+    self.dateTmpStr = [self.dateArr objectAtIndex:4];
+    [self.pickerView selectRow:4 inComponent:0 animated:YES];
     [self.pickerView selectRow:self.hourIndex inComponent:1 animated:YES];
     [self.pickerView selectRow:self.minuteIndex inComponent:2 animated:YES];
     

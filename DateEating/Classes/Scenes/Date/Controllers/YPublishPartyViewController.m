@@ -333,6 +333,8 @@ static NSString *const systemCellIdentifier = @"systemCell";
             self.minuteTmpStr = minuteStr;
         }
     }
+    self.dateTmpStr = [self.dateArr objectAtIndex:4];
+    [self.pickerView selectRow:4 inComponent:0 animated:YES];
     [self.pickerView selectRow:self.hourIndex inComponent:1 animated:YES];
     [self.pickerView selectRow:self.minuteIndex inComponent:2 animated:YES];
     
@@ -392,16 +394,6 @@ static NSString *const systemCellIdentifier = @"systemCell";
     }
 }
 - (void)selectedTime:(NSString *)message{
-//    NSMutableString *str = @"".mutableCopy;
-//    str = [[[str stringByAppendingString:self.dateTmpStr].mutableCopy stringByAppendingString:self.hourTmpStr].mutableCopy stringByAppendingString:[NSString stringWithFormat:@": %@",self.minuteTmpStr].mutableCopy].mutableCopy;
-//    if (![self.dateStr isEqualToString:str]) {
-//        UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:@"请选择正确的时间,例如:2016-01-1周五 00 : 00。请依次选择日期和时间!" preferredStyle:(UIAlertControllerStyleAlert)];
-//        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
-//            self.dateStr = @"".mutableCopy;
-//        }];
-//        [alertView addAction:doneAction];
-//        [self presentViewController:alertView animated:YES completion:nil];
-//    }else{
         UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"您选择的时间是:%@",message] preferredStyle:(UIAlertControllerStyleAlert)];
         UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
             self.timeStr = message;
@@ -415,7 +407,6 @@ static NSString *const systemCellIdentifier = @"systemCell";
         [alertView addAction:cancelAction];
         [alertView addAction:doneAction];
         [self presentViewController:alertView animated:YES completion:nil];
-//    }
 }
 #pragma mark--设置每列的宽度--
 -(CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component{
