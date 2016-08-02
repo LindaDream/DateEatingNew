@@ -12,5 +12,6 @@
 
 @property (nonatomic, strong)NSString *ID;
 @property (nonatomic, assign)BOOL isWhat;
-
+// 是否收藏
+@property (strong,nonatomic) NSString *isCollection;
 @end
