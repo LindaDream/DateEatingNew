@@ -15,6 +15,7 @@
 #import "YTimePiker.h"
 #import "YRestaurantViewController.h"
 #import "YCompleteViewController.h"
+#import "YFriends.h"
 @interface YPublishDateViewController ()<
     UITableViewDataSource,
     UITableViewDelegate,
@@ -95,6 +96,30 @@ static NSString *const findeCellIdentifier = @"findeCell";
             [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     NSLog(@"保存成功");
+                    // 获取小伙伴
+                    NSArray *friendsArr = [YFriends getFriend];
+                    NSLog(@"friendsArr = %@",friendsArr);
+                    if (friendsArr.count != 0) {
+                        // 发送文字
+                        // TODO:构造文字消息
+                        EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithText:[NSString stringWithFormat:@"提示信息：小伙伴，%@要不要约起来,地点%@",self.timeStr,self.addressStr]];
+                        NSString *from = [[EMClient sharedClient] currentUsername];
+                        for (NSString *userName in friendsArr) {
+                            EMConversation *conversation = [[EMClient sharedClient].chatManager getConversation:userName type:EMConversationTypeChat createIfNotExist:YES];
+                            //[[EMClient sharedClient].chatManager getConversation:userName type:EMConversationTypeGroupChat createIfNotExist:YES];
+                            // 生成Message
+                            EMMessage *message = [[EMMessage alloc] initWithConversationID:userName from:from to:userName body:body ext:nil];
+                            message.chatType = EMChatTypeChat;
+                            // TODO:发送消息
+                            [[EMClient sharedClient].chatManager asyncSendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
+                                if (!error) {
+                                    NSLog(@"给%@的约会通知发送成功",userName);
+                                }else{
+                                    NSLog(@"%u",error.code);
+                                }
+                            }];
+                        }
+                    }
                 }
             }];
             [self.navigationController popViewControllerAnimated:YES];
