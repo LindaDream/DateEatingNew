@@ -68,14 +68,15 @@ static NSString *const systemCellIdentifier = @"systemCell";
                 }else{
                     [self.playArray addObject:model];
                 }
-            }dispatch_async(dispatch_get_main_queue(), ^{
-                if ([className isEqualToString:@"MyMealCollection"]) {
-                    [self.mealTableView reloadData];
-                }else{
-                    [self.playTableView reloadData];
-                }
-            });
+            }
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([className isEqualToString:@"MyMealCollection"]) {
+                [self.mealTableView reloadData];
+            }else{
+                [self.playTableView reloadData];
+            }
+        });
     }];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
