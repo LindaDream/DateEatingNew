@@ -114,7 +114,15 @@ static NSString *const dateOrPartyCellIdentifier = @"dateOrPartyCell";
                                 [self.onPartyArr addObject:model];
                                 [self.partyTableView reloadData];
                             }
-                        }else if([[self.date substringToIndex:10] isEqualToString:[model.dateTime substringToIndex:10]] && [self.date substringWithRange:NSMakeRange(11, 2)].integerValue <= [model.dateTime substringWithRange:NSMakeRange(12, 2)].integerValue && [self.date substringWithRange:NSMakeRange(14, 2)].integerValue <= [model.dateTime substringWithRange:NSMakeRange(17, 2)].integerValue){
+                        }else if([[self.date substringToIndex:10] isEqualToString:[model.dateTime substringToIndex:10]] && [self.date substringWithRange:NSMakeRange(11, 2)].integerValue == [model.dateTime substringWithRange:NSMakeRange(12, 2)].integerValue && [self.date substringWithRange:NSMakeRange(14, 2)].integerValue <= [model.dateTime substringWithRange:NSMakeRange(17, 2)].integerValue){
+                            if ([className isEqualToString:@"MyDate"]) {
+                                [self.onDateArr addObject:model];
+                                [self.dateTableView reloadData];
+                            }else{
+                                [self.onPartyArr addObject:model];
+                                [self.partyTableView reloadData];
+                            }
+                        }else if([[self.date substringToIndex:10] isEqualToString:[model.dateTime substringToIndex:10]] && [self.date substringWithRange:NSMakeRange(11, 2)].integerValue < [model.dateTime substringWithRange:NSMakeRange(12, 2)].integerValue){
                             if ([className isEqualToString:@"MyDate"]) {
                                 [self.onDateArr addObject:model];
                                 [self.dateTableView reloadData];
