@@ -254,6 +254,8 @@
 		D61D1B4A1D38C3E500C36F84 /* guarantee_red_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D61D1B461D38C3E500C36F84 /* guarantee_red_bg@2x.png */; };
 		D61D1B4B1D38C3E500C36F84 /* guarantee_red_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D61D1B471D38C3E500C36F84 /* guarantee_red_bg@3x.png */; };
 		D621A30C1D504CB500309046 /* 已收藏.png in Resources */ = {isa = PBXBuildFile; fileRef = D621A30B1D504CB500309046 /* 已收藏.png */; };
+		D621A3101D50B65300309046 /* YBigImgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D621A30E1D50B65300309046 /* YBigImgViewController.m */; };
+		D621A3111D50B65300309046 /* YBigImgViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D621A30F1D50B65300309046 /* YBigImgViewController.xib */; };
 		D6670FDF1D4C9F4A001AC938 /* LanuchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = D6670FDE1D4C9F4A001AC938 /* LanuchImage.png */; };
 		D66E597A1D33DBA1003DED51 /* YEssenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D66E59791D33DBA1003DED51 /* YEssenceViewController.m */; };
 		D66E59801D33DBF1003DED51 /* YDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D66E597F1D33DBF1003DED51 /* YDateViewController.m */; };
@@ -634,7 +636,7 @@
 		CE69133B1D33C95D001FE50B /* DateEatingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DateEatingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE69133F1D33C95D001FE50B /* DateEatingUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DateEatingUITests.m; sourceTree = "<group>"; };
 		CE6913411D33C95D001FE50B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE6E753B1D508ECF002C49C4 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
+		CE6E753B1D508ECF002C49C4 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = delete.png; path = ../delete.png; sourceTree = "<group>"; };
 		CE97AB7A1D38CCB10051D2D7 /* YTimePiker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTimePiker.h; sourceTree = "<group>"; };
 		CE97AB7B1D38CCB10051D2D7 /* YTimePiker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTimePiker.m; sourceTree = "<group>"; };
 		CEB826791D41AE2A00BB2E31 /* mine_about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mine_about.png; sourceTree = "<group>"; };
@@ -938,6 +940,9 @@
 		D61D1B461D38C3E500C36F84 /* guarantee_red_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guarantee_red_bg@2x.png"; sourceTree = "<group>"; };
 		D61D1B471D38C3E500C36F84 /* guarantee_red_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guarantee_red_bg@3x.png"; sourceTree = "<group>"; };
 		D621A30B1D504CB500309046 /* 已收藏.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "已收藏.png"; sourceTree = "<group>"; };
+		D621A30D1D50B65300309046 /* YBigImgViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBigImgViewController.h; sourceTree = "<group>"; };
+		D621A30E1D50B65300309046 /* YBigImgViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBigImgViewController.m; sourceTree = "<group>"; };
+		D621A30F1D50B65300309046 /* YBigImgViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YBigImgViewController.xib; sourceTree = "<group>"; };
 		D6670FDE1D4C9F4A001AC938 /* LanuchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LanuchImage.png; sourceTree = "<group>"; };
 		D66E59781D33DBA1003DED51 /* YEssenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YEssenceViewController.h; sourceTree = "<group>"; };
 		D66E59791D33DBA1003DED51 /* YEssenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YEssenceViewController.m; sourceTree = "<group>"; };
@@ -1407,7 +1412,6 @@
 				CE6913511D33CFDB001FE50B /* Macros */,
 				CE6913521D33CFDB001FE50B /* Opensources */,
 				CE6913531D33CFDB001FE50B /* Resources */,
-				CE6E753B1D508ECF002C49C4 /* delete.png */,
 				CE6913541D33CFDB001FE50B /* Scenes */,
 			);
 			path = Classes;
@@ -1471,6 +1475,7 @@
 		CE6913531D33CFDB001FE50B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CE6E753B1D508ECF002C49C4 /* delete.png */,
 				CE5976461D4740E200524D9A /* genderSelect.png */,
 				CEBF8FE41D45B98600406A61 /* emoji.png */,
 				CE0043AF1D4353B2004398E7 /* message.png */,
@@ -2039,6 +2044,9 @@
 				CEB8270C1D41BB6500BB2E31 /* YChatViewController.h */,
 				CEB8270D1D41BB6500BB2E31 /* YChatViewController.m */,
 				CEB827111D41CC1200BB2E31 /* YChatViewController.xib */,
+				D621A30D1D50B65300309046 /* YBigImgViewController.h */,
+				D621A30E1D50B65300309046 /* YBigImgViewController.m */,
+				D621A30F1D50B65300309046 /* YBigImgViewController.xib */,
 				D61D1AEB1D38717B00C36F84 /* YSeekConditionViewController.h */,
 				D61D1AEC1D38717B00C36F84 /* YSeekConditionViewController.m */,
 				D61D1AED1D38717B00C36F84 /* YSeekConditionViewController.xib */,
@@ -2805,6 +2813,7 @@
 				D66E5ACA1D33DE84003DED51 /* mine-sun-icon@3x.png in Resources */,
 				D6F0F3641D3B464400D1EF81 /* good_wine.png in Resources */,
 				D66E5AF81D33DE84003DED51 /* tabbar-light@2x.png in Resources */,
+				D621A3111D50B65300309046 /* YBigImgViewController.xib in Resources */,
 				D66E5A711D33DE84003DED51 /* imageBackground@3x.png in Resources */,
 				CEBF8FCF1D45B28500406A61 /* YSelectionTableViewCell.xib in Resources */,
 				D61D1B221D3871BC00C36F84 /* DefaultAvatar@2x.png in Resources */,
@@ -3195,6 +3204,7 @@
 				CE05FBED1D3BA19B00362EE1 /* YCityTypeModel.m in Sources */,
 				D6BDCFFE1D3C804D000DC251 /* YHobby.m in Sources */,
 				CEB826D91D41B56700BB2E31 /* YContent.m in Sources */,
+				D621A3101D50B65300309046 /* YBigImgViewController.m in Sources */,
 				CEBF8F8A1D45AADD00406A61 /* YRestaurantTableViewCell.m in Sources */,
 				CEB8277A1D422B6700BB2E31 /* YFriendsViewController.m in Sources */,
 				CEBF8F6D1D459C0900406A61 /* TransformManager.m in Sources */,

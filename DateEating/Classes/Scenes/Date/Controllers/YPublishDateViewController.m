@@ -15,6 +15,7 @@
 #import "YTimePiker.h"
 #import "YRestaurantViewController.h"
 #import "YCompleteViewController.h"
+#import "YFriends.h"
 @interface YPublishDateViewController ()<
     UITableViewDataSource,
     UITableViewDelegate,
@@ -97,6 +98,30 @@ static NSString *const findeCellIdentifier = @"findeCell";
                     [[NSUserDefaults standardUserDefaults] setObject:object.objectId forKey:[NSString stringWithFormat:@"%@Date%@",[AVUser currentUser].username,object.createdAt]];
                     NSLog(@"%@",object.objectId);
                     NSLog(@"保存成功");
+                    // 获取小伙伴
+//                    NSArray *friendsArr = [YFriends getFriend];
+//                    NSLog(@"friendsArr = %@",friendsArr);
+//                    if (friendsArr.count != 0) {
+//                        // 发送文字
+//                        // TODO:构造文字消息
+//                        EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithText:[NSString stringWithFormat:@"提示信息：小伙伴，%@要不要约起来,地点%@",self.timeStr,self.addressStr]];
+//                        NSString *from = [[EMClient sharedClient] currentUsername];
+//                        for (NSString *userName in friendsArr) {
+//                            EMConversation *conversation = [[EMClient sharedClient].chatManager getConversation:userName type:EMConversationTypeChat createIfNotExist:YES];
+//                            //[[EMClient sharedClient].chatManager getConversation:userName type:EMConversationTypeGroupChat createIfNotExist:YES];
+//                            // 生成Message
+//                            EMMessage *message = [[EMMessage alloc] initWithConversationID:userName from:from to:userName body:body ext:nil];
+//                            message.chatType = EMChatTypeChat;
+//                            // TODO:发送消息
+//                            [[EMClient sharedClient].chatManager asyncSendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
+//                                if (!error) {
+//                                    NSLog(@"给%@的约会通知发送成功",userName);
+//                                }else{
+//                                    NSLog(@"%u",error.code);
+//                                }
+//                            }];
+//                        }
+//                    }
                 }
             }];
             [self.navigationController popViewControllerAnimated:YES];
@@ -323,7 +348,7 @@ static NSString *const findeCellIdentifier = @"findeCell";
     if (component == 0) {
         self.dateTmpStr = [self.dateArr objectAtIndex:row];
     }else if (component == 1){
-        if ([NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row]].integerValue < [self.date substringWithRange:NSMakeRange(11, 2)].integerValue) {
+        if ([[self.dateTmpStr substringToIndex:10] isEqualToString:[self.date substringToIndex:10]] && [NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row]].integerValue < [self.date substringWithRange:NSMakeRange(11, 2)].integerValue) {
             [UIView animateWithDuration:1 animations:^{
                 [pickerView selectRow:self.hourIndex inComponent:1 animated:YES];
             }];
@@ -332,7 +357,7 @@ static NSString *const findeCellIdentifier = @"findeCell";
         }
     }
     if (component == 2) {
-        if ([NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row]].integerValue < [self.date substringWithRange:NSMakeRange(14, 2)].integerValue) {
+        if([[self.dateTmpStr substringToIndex:10] isEqualToString:[self.date substringToIndex:10]] && [self.hourTmpStr isEqualToString:[self.date substringWithRange:NSMakeRange(11, 2)]] && [NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row]].integerValue < [self.date substringWithRange:NSMakeRange(14, 2)].integerValue) {
             [UIView animateWithDuration:1 animations:^{
                 [pickerView selectRow:self.minuteIndex inComponent:2 animated:YES];
             }];
