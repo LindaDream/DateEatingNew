@@ -24,7 +24,11 @@
         _headImg = nil;
         _headImg = headImg;
     }
-    _headImgView.image = _headImg;
+    if (nil != _headImg) {
+        _headImgView.image = _headImg;
+    }else{
+        _headImgView.image = [UIImage imageNamed:@"head_img"];
+    }
 }
 -(UIImageView *)headImgView{
     if (!_headImgView) {
