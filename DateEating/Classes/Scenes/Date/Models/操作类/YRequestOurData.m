@@ -11,12 +11,23 @@
 #import "YContent.h"
 #import "YChatMessageModel.h"
 
+@interface YRequestOurData ()
+@property (assign, nonatomic) NSInteger date123;
+@property (strong, nonatomic) NSDateFormatter *formatter;
+@property (strong, nonatomic) NSDateFormatter *formatter1;
+@end
 
 @implementation YRequestOurData
 
 singleton_implementaton(YRequestOurData)
 
 - (void)getOurDataWithDateType:(NSInteger)type gender:(NSInteger)gender time:(NSInteger)time age:(NSInteger)age constellation:(NSInteger)constellation {
+    
+    self.date123 = [[NSDate date] timeIntervalSince1970]*1000;
+    self.formatter = [NSDateFormatter new];
+    [self.formatter setDateFormat:@"YYYY-MM-dd HH : mm"];
+    self.formatter1 = [NSDateFormatter new];
+    [self.formatter1 setDateFormat:@"YYYY-MM-dd"];
     
     NSString *genderStr = nil;
     if (gender == 1) {
@@ -76,33 +87,45 @@ singleton_implementaton(YRequestOurData)
                 model.eventName = [dict objectForKey:@"theme"];
                 model.eventLocation = [dict objectForKey:@"address"];
                 model.dateTime = [dict objectForKey:@"time"];
+                
+                // 判断时间是够符合标准
+                NSString *str1 = [model.dateTime substringToIndex:10];
+                NSString *str2 = [model.dateTime substringFromIndex:12];
+                
+                NSString *str = [NSString stringWithFormat:@"%@ %@",str1,str2];
+                NSDate *dateTime = [self.formatter dateFromString:str];
+                NSInteger qwer = [dateTime timeIntervalSince1970]*1000;
+                if (qwer < self.date123) {
+                    continue;
+                }
+                
                 // 判断时间是否满足条件
                 if (time != 0) {
-                    NSDate *timeDate = [NSDate date];
-                    NSCalendar  * cal=[NSCalendar currentCalendar];
-                    NSUInteger  unitFlags = NSCalendarUnitDay|NSCalendarUnitMonth|NSCalendarUnitYear;
-                    NSDateComponents * conponent= [cal components:unitFlags fromDate:timeDate];
-                    NSString *nowDate = [NSString stringWithFormat:@"%ld-%ld-%ld",[conponent year],[conponent month],[conponent day]];
-                    NSString *ourDate = [model.dateTime substringToIndex:9];
-                    NSLog(@"%@",ourDate);
-                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-                    NSDate *dateFromString = [dateFormatter dateFromString:nowDate];
-                    NSDate *dateToString = [dateFormatter dateFromString:ourDate];
+                    NSString *ourDate = [model.dateTime substringToIndex:10];
+                    NSDate *dateToString = [self.formatter1 dateFromString:ourDate];
+                    
+                    NSString *string = [self.formatter1 stringFromDate:[NSDate date]];
+                    NSDate *dateFromString = [self.formatter1 dateFromString:string];
+                    
+                    
+                    NSLog(@"%@",dateFromString);
+                    NSLog(@"%@",dateToString);
                     
                     NSInteger timediff = [dateToString timeIntervalSince1970]-[dateFromString timeIntervalSince1970] + 1000;
+                    NSLog(@"%ld",timediff);
                     NSInteger dayCount = timediff/86400;
                     NSLog(@"%ld",dayCount);
                     if (time == 1) {
                         if (dayCount != 0) {
-                            break;
+                            continue;
                         }
                     } else if (time == 2) {
                         if (dayCount != 1) {
-                            break;
+                            continue;
                         }
                     } else if (time == 3) {
                         if (dayCount < 2) {
-                            break;
+                            continue;
                         }
                     }
                 }
@@ -133,7 +156,6 @@ singleton_implementaton(YRequestOurData)
                         AVObject *user11 = objects[0];
                         AVFile *file = [user11 objectForKey:@"avatar"];
                         model.user.userImageUrl = file.url;
-                        NSLog(@"%@",model.user.userImageUrl);
                         
                         NSDictionary *userDic = [objects.firstObject dictionaryForObject];
                         NSString *gender = [userDic objectForKey:@"gender"];
