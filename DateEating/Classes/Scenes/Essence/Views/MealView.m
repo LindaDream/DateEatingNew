@@ -1,8 +1,8 @@
 //
 //  MealView.m
-//  ShiYi
+//  DateEating
 //
-//  Created by lanou3g on 15/11/2.
+//  Created by user on 15/11/2.
 //  Copyright © 2015年 TimeCollectorCompany. All rights reserved.
 //
 

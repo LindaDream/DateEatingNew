@@ -1,8 +1,8 @@
 //
 //  UIBarButtonItem+XMGCategory.m
-//  百思不得姐
+//  DateEating
 //
-//  Created by lanou3g on 16/5/7.
+//  Created by user on 16/5/7.
 //  Copyright © 2016年 春晓. All rights reserved.
 //
 

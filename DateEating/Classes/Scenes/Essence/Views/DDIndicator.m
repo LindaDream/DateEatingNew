@@ -1,6 +1,6 @@
 //
 //  DDIndicator.m
-//  loading
+//  DateEating
 //
 //  Created by Or Ron on 4/6/13.
 //  Copyright (c) 2013 Or Ron. All rights reserved.

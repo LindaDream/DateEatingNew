@@ -1,8 +1,8 @@
 //
 //  XMGTabBar.h
-//  百思不得姐
+//  DateEating
 //
-//  Created by lanou3g on 16/5/6.
+//  Created by user on 16/5/6.
 //  Copyright © 2016年 春晓. All rights reserved.
 //
 

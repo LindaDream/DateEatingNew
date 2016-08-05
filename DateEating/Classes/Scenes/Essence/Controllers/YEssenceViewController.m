@@ -2,7 +2,7 @@
 //  YViewController.m
 //  DateEating
 //
-//  Created by lanou3g on 16/7/13.
+//  Created by user on 16/7/13.
 //  Copyright © 2016年 user. All rights reserved.
 //
 
@@ -71,6 +71,8 @@
 @property (strong,nonatomic) UIButton *cityBtn;
 
 @property (strong,nonatomic) UIButton *toTopBtn;
+
+@property (assign,nonatomic) BOOL cityVCIsOpening;
 @end
 
 
@@ -106,7 +108,7 @@ static NSString *const cityCellId = @"cityCellId";
     self.automaticallyAdjustsScrollViewInsets = NO;
     // 设置view的背景色
     self.view.backgroundColor = YRGBbg;
-    
+    self.cityVCIsOpening = NO;
     [self addNavigationItems];
     
     // 初始化isSelected等
@@ -388,8 +390,10 @@ static NSString *const cityCellId = @"cityCellId";
     
     if (self.managerView.x == 0) {
         self.managerView.x = 130;
+        self.cityVCIsOpening = YES;
     }else{
         self.managerView.x = 0;
+        self.cityVCIsOpening = NO;
     }
 }
 
@@ -474,6 +478,10 @@ static NSString *const cityCellId = @"cityCellId";
             self.isMeal = @"美食";
             self.cityBtn.enabled = YES;
             self.cityBtn.hidden = NO;
+            if (self.cityVCIsOpening) {
+                self.managerView.x = 0;
+                self.cityVCIsOpening = NO;
+            }
             // 先获取屏幕上的所有cell
             NSArray *visibleCells = [self.mealTableView visibleCells];
             NSIndexPath *indexPath = [self.mealTableView indexPathForCell:visibleCells[0]];
@@ -486,6 +494,10 @@ static NSString *const cityCellId = @"cityCellId";
             self.isMeal = @"玩乐";
             self.cityBtn.enabled = NO;
             self.cityBtn.hidden = YES;
+            if (self.cityVCIsOpening) {
+                self.managerView.x = 0;
+                self.cityVCIsOpening = NO;
+            }
             // 先获取屏幕上的所有cell
             NSArray *visibleCells = [self.playTableView visibleCells];
             NSIndexPath *indexPath = [self.playTableView indexPathForCell:visibleCells[0]];
@@ -507,6 +519,10 @@ static NSString *const cityCellId = @"cityCellId";
         self.isMeal = @"美食";
         self.cityBtn.enabled = YES;
         self.cityBtn.hidden = NO;
+        if (self.cityVCIsOpening) {
+            self.managerView.x = 0;
+            self.cityVCIsOpening = NO;
+        }
         // 先获取屏幕上的所有cell
         NSArray *visibleCells = [self.mealTableView visibleCells];
         NSIndexPath *indexPath = [self.mealTableView indexPathForCell:visibleCells[0]];
@@ -519,6 +535,10 @@ static NSString *const cityCellId = @"cityCellId";
         self.isMeal = @"玩乐";
         self.cityBtn.enabled = NO;
         self.cityBtn.hidden = YES;
+        if (self.cityVCIsOpening) {
+            self.managerView.x = 0;
+            self.cityVCIsOpening = NO;
+        }
         // 先获取屏幕上的所有cell
         NSArray *visibleCells = [self.playTableView visibleCells];
         NSIndexPath *indexPath = [self.playTableView indexPathForCell:visibleCells[0]];

@@ -2,7 +2,7 @@
 //  MealDetailsViewController.h
 //  ShiYi
 //
-//  Created by lanou3g on 15/11/1.
+//  Created by user on 15/11/1.
 //  Copyright © 2015年 TimeCollectorCompany. All rights reserved.
 //
 

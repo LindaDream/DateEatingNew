@@ -2,7 +2,7 @@
 //  YNetWorkRequestManager.h
 //  DateEating
 //
-//  Created by lanou3g on 16/7/14.
+//  Created by user on 16/7/14.
 //  Copyright © 2016年 user. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  PlayDetailsViewControllerViewController.m
 //  ShiYi
 //
-//  Created by lanou3g on 15/11/5.
+//  Created by user on 15/11/5.
 //  Copyright © 2015年 TimeCollectorCompany. All rights reserved.
 //
 
@@ -146,12 +146,6 @@
     self.BGView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.BGView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.BGView];
-    
-    //_loadingView = [[DDIndicator alloc] initWithFrame:CGRectMake((kScreenWidth - 40)/ 2, (self.BGView.height - 100)/ 2, 40, 40)];
-    //[self.BGView addSubview:_loadingView];
-//    [self.loadingView startAnimating];
-
-    
 }
 
 - (NSString *)removePTagString:(NSString *)string
@@ -300,7 +294,7 @@
         newImage.origin.x = (kWidth - image.size.width * scale) / 2;
         newImage.size = CGSizeMake(image.size.width * scale, image.size.height * scale);
         self.contentView.image.frame = newImage;
-        [self.contentView.image sd_setImageWithURL:[NSURL URLWithString:self.imageArray[0]] placeholderImage:nil];
+        [self.contentView.image sd_setImageWithURL:[NSURL URLWithString:self.imageArray[0]] placeholderImage:[UIImage imageNamed:@"zhanwei.jpg"]];
     }
     
     

@@ -2,7 +2,7 @@
 //  YEditViewController.h
 //  DateEating
 //
-//  Created by lanou3g on 16/7/19.
+//  Created by user on 16/7/19.
 //  Copyright © 2016年 user. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 @class YEditViewController;
 
 typedef void(^passUrlArr)(AVObject *obj);
-typedef void(^passVC)(YEditViewController *eVC);
+typedef void(^passVC)(YEditViewController *eVC,BOOL isSending);
 
 @protocol YEditViewControllerDelegate <NSObject>
 

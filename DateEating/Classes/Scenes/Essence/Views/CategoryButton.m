@@ -1,8 +1,8 @@
 //
 //  CategoryButton.m
-//  ShiYi
+//  DateEating
 //
-//  Created by lanou3g on 15/11/9.
+//  Created by user on 15/11/9.
 //  Copyright © 2015年 TimeCollectorCompany. All rights reserved.
 //
 

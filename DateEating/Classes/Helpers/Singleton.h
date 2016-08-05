@@ -2,7 +2,7 @@
 //  Singleton.h
 //  DouBanProject
 //
-//  Created by lanou3g on 16/5/9.
+//  Created by user on 16/5/9.
 //  Copyright © 2016年 春晓. All rights reserved.
 //
 

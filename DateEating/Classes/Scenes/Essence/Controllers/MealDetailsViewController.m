@@ -2,7 +2,7 @@
 //  MealDetailsViewController.m
 //  ShiYi
 //
-//  Created by lanou3g on 15/11/1.
+//  Created by user on 15/11/1.
 //  Copyright © 2015年 TimeCollectorCompany. All rights reserved.
 //
 
@@ -10,7 +10,6 @@
 #import "YMealDetailsModel.h"
 #import "MealView.h"
 #import "YMealModel.h"
-//#import "UserInfoViewController.h"
 #import "ContentView.h"
 #import "OtherEventView.h"
 #import "DDIndicator.h"
@@ -504,7 +503,7 @@
         newImage.origin.x = (kWidth - image.size.width * scale) / 2;
         newImage.size = CGSizeMake(image.size.width * scale, image.size.height * scale);
         self.contentView.image.frame = newImage;
-        [self.contentView.image sd_setImageWithURL:[NSURL URLWithString:self.imageArray[0]]];
+        [self.contentView.image sd_setImageWithURL:[NSURL URLWithString:self.imageArray[0]] placeholderImage:[UIImage imageNamed:@"zhanwei.jpg"]];
     }
     self.contentView.contentTwoView.text = [@"    " stringByAppendingString:self.wordTwo];
     CGRect newcontentTwoView = self.contentView.contentTwoView.frame;
@@ -541,7 +540,7 @@
             UILabel *labelOne = (UILabel *)[self.otherView viewWithTag:2700 + i];
             UILabel *labelTwo = (UILabel *)[self.otherView viewWithTag:2800 + i];
             UIButton *button = (UIButton *)[self.otherView viewWithTag:2500 + i];
-            [image sd_setImageWithURL:[NSURL URLWithString:model.picUrl] placeholderImage:nil];
+            [image sd_setImageWithURL:[NSURL URLWithString:model.picUrl] placeholderImage:[UIImage imageNamed:@"zhanwei.jpg"]];
             labelOne.text = model.title;
             labelTwo.text = model.priceStr;
             [button addTarget:self action:@selector(actionTurnToOther:) forControlEvents:UIControlEventTouchUpInside];
@@ -554,7 +553,7 @@
             UILabel *labelOne = (UILabel *)[self.otherView viewWithTag:2700 + i];
             UILabel *labelTwo = (UILabel *)[self.otherView viewWithTag:2800 + i];
             UIButton *button = (UIButton *)[self.otherView viewWithTag:2500 + i];
-            [image sd_setImageWithURL:[NSURL URLWithString:model.picUrl] placeholderImage:nil];
+            [image sd_setImageWithURL:[NSURL URLWithString:model.picUrl] placeholderImage:[UIImage imageNamed:@"zhanwei.jpg"]];
             labelOne.text = model.title;
             labelTwo.text = model.priceStr;
             [button addTarget:self action:@selector(actionTurnToOther:) forControlEvents:UIControlEventTouchUpInside];
@@ -568,7 +567,7 @@
             UILabel *labelOne = (UILabel *)[self.otherView viewWithTag:2700 + i];
             UILabel *labelTwo = (UILabel *)[self.otherView viewWithTag:2800 + i];
             UIButton *button = (UIButton *)[self.otherView viewWithTag:2500 + i];
-            [image sd_setImageWithURL:[NSURL URLWithString:model.picUrl] placeholderImage:nil];
+            [image sd_setImageWithURL:[NSURL URLWithString:model.picUrl] placeholderImage:[UIImage imageNamed:@"zhanwei.jpg"]];
             labelOne.text = model.title;
             labelTwo.text = model.priceStr;
             [button addTarget:self action:@selector(actionTurnToOther:) forControlEvents:UIControlEventTouchUpInside];

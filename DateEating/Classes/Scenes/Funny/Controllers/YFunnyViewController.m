@@ -1,8 +1,8 @@
 //
 //  XMGFriendTrendsViewController.m
-//  百思不得姐
+//  DateEating
 //
-//  Created by lanou3g on 16/5/6.
+//  Created by user on 16/5/6.
 //  Copyright © 2016年 春晓. All rights reserved.
 //
 
@@ -22,6 +22,8 @@
 @property (strong,nonatomic) NSMutableArray *arr;
 
 @property (strong,nonatomic) UIButton *toTopBtn;
+
+@property (assign,nonatomic) BOOL isSending;
 @end
 
 static NSString *const funnyCellId = @"funnyCellId";
@@ -33,7 +35,7 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
     [super viewDidLoad];
     // 接收夜间模式转换通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(change:) name:@"NotificationNight" object:nil];
-
+    self.isSending = NO;
     // 设置导航栏标题
     self.navigationItem.title = @"趣事";
     // 设置view的背景色
@@ -104,9 +106,12 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
 
     if (self.editVC == nil) {
         YEditViewController *editVC = [YEditViewController new];
-        editVC.passVCBlock = ^(YEditViewController *eVC){
-            self.editVC = eVC;
-            eVC.delegate = self;
+        editVC.passVCBlock = ^(YEditViewController *eVC,BOOL isSending){
+            self.isSending = isSending;
+            if (self.isSending == YES) {
+                self.editVC = eVC;
+                eVC.delegate = self;
+            }
         };
         [self.navigationController pushViewController:editVC animated:YES];
     }else{
@@ -122,12 +127,6 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
     [self getAllFunny];
 }
 
-
-- (void)friendsClick{
-
-    YLogFunc;
-    
-}
 
 - (void)getAllFunny{
     [YFunnyModel parsesFunnyWithsuccessRequest:^(id dict) {

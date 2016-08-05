@@ -1,9 +1,9 @@
 //
 //  CarouselFinfure.m
-//  LOCarouselFingure
+//  DateEating
 //
-//  Created by lanou3g on 16/3/14.
-//  Copyright © 2016年 lanou3g. All rights reserved.
+//  Created by user on 16/3/14.
+//  Copyright © 2016年 user. All rights reserved.
 //
 
 #import "CarouselFinfure.h"

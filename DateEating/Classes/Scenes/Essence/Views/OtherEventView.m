@@ -1,8 +1,8 @@
 //
 //  OtherEventView.m
-//  ShiYi
+//  DateEating
 //
-//  Created by lanou3g on 15/11/5.
+//  Created by user on 15/11/5.
 //  Copyright © 2015年 TimeCollectorCompany. All rights reserved.
 //
 

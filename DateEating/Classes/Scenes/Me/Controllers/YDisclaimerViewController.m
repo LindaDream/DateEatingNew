@@ -2,7 +2,7 @@
 //  YDisclaimerViewController.m
 //  DateEating
 //
-//  Created by lanou3g on 16/7/29.
+//  Created by user on 16/7/29.
 //  Copyright © 2016年 user. All rights reserved.
 //
 

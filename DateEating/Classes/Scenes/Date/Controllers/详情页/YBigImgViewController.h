@@ -2,7 +2,7 @@
 //  YViewController.h
 //  DateEating
 //
-//  Created by lanou3g on 16/8/2.
+//  Created by user on 16/8/2.
 //  Copyright © 2016年 user. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  YEditViewController.m
 //  DateEating
 //
-//  Created by lanou3g on 16/7/19.
+//  Created by user on 16/7/19.
 //  Copyright © 2016年 user. All rights reserved.
 //
 
@@ -31,6 +31,8 @@
 @property (strong, nonatomic) UIImagePickerController *pickerController;
 
 @property (strong,nonatomic) NSString *isSuccess;
+
+@property (assign,nonatomic) BOOL isSending;
 @end
 
 static NSString *const imageCellId = @"imageCellId";
@@ -44,6 +46,7 @@ static NSString *const imageCellId = @"imageCellId";
     [self findBackImage];
     // 右上角添加发布按钮
     [self setRightBarButtonItem];
+    self.isSending = NO;
     // 注册cell
     [self.imgCollectionView registerNib:[UINib nibWithNibName:@"YImageCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:imageCellId];
     
@@ -122,18 +125,35 @@ static NSString *const imageCellId = @"imageCellId";
     
     self.navigationItem.rightBarButtonItems = @[publish,changeBackImage];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"<返回" style:(UIBarButtonItemStylePlain) target:self action:@selector(bactAction)];
+    
+    UIButton *bankButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [bankButton setTitle:@"返回" forState:(UIControlStateNormal)];
+    [bankButton setImage:[UIImage imageNamed:@"navigationButtonReturnClick"] forState:(UIControlStateNormal)];
+    [bankButton setImage:[UIImage imageNamed:@"navigationButtonReturn"] forState:(UIControlStateHighlighted)];
+    bankButton.size = CGSizeMake(70, 30);
+    bankButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [bankButton setTitleColor:[UIColor colorWithRed:243/255.0 green:32/255.0 blue:37/255.0 alpha:1] forState:(UIControlStateNormal)];
+    bankButton.contentEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+    
+    [bankButton addTarget:self action:@selector(bactAction) forControlEvents:(UIControlEventTouchUpInside)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bankButton];
     
 }
 
 - (void)bactAction{
 
-    self.passVCBlock(self);
+    self.passVCBlock(self,self.isSending);
     // 隐藏菊花
     [SVProgressHUD dismiss];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+- (void)setEnable:(BOOL)flag{
+    self.navigationItem.rightBarButtonItems[0].enabled = flag;
+    self.navigationItem.rightBarButtonItems[1].enabled = flag;
+    self.editTextView.editable = flag;
+    self.imgCollectionView.userInteractionEnabled = flag;
+}
 
 #pragma mark--发表趣事--
 - (void)publishAction{
@@ -141,11 +161,10 @@ static NSString *const imageCellId = @"imageCellId";
     if (self.editTextView.text.length == 0) {
         [self showAlertViewWithMessage:@"请编辑动态后再发送"];
     }else{
+        self.isSending = YES;
         // 显示菊花
         [SVProgressHUD showWithMaskType:(SVProgressHUDMaskTypeClear)];
-//        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-//        appDelegate.window.userInteractionEnabled = NO;
-//        self.navigationItem.leftBarButtonItem.enabled = YES;
+        [self setEnable:NO];
         // 获取当前系统时间
         NSString* date;
         NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
@@ -193,9 +212,7 @@ static NSString *const imageCellId = @"imageCellId";
         dispatch_async(dispatch_get_main_queue(), ^{
             // 隐藏菊花
             [SVProgressHUD dismiss];
-            
-//            AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-//            appDelegate.window.userInteractionEnabled = YES;
+            [self setEnable:YES];
             if (succeeded) {
                 
                 [self showAlertViewWithMessage:@"发布趣事成功"];
@@ -208,6 +225,7 @@ static NSString *const imageCellId = @"imageCellId";
                 self.isSuccess = @"发布趣事失败，请稍后再发";
                 NSLog(@"%ld",error.code);
             }
+            self.isSending = NO;
             if (self.delegate != nil && [self.delegate respondsToSelector:@selector(sendFinalWithState:)]) {
                 [self.delegate sendFinalWithState:self.isSuccess];
             }
