@@ -230,7 +230,7 @@ static NSString *const contentCellId = @"contentCellId";
         self.scrollView.hidden = NO;
         
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.width, self.scrollView.height)];
-        [imgView sd_setImageWithURL:[NSURL URLWithString:_funny.imgArr[0]]];
+        [imgView sd_setImageWithURL:[NSURL URLWithString:_funny.imgArr[0]] placeholderImage:[UIImage imageNamed:@"zhanwei.jpg"]];
         [self.scrollView addSubview:imgView];
         
     }else{
@@ -240,8 +240,8 @@ static NSString *const contentCellId = @"contentCellId";
         NSArray *imageURLString = _funny.imgArr; // 解析数据时得到的轮播图数组
         
         // 创建代标题的轮播图
-        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.scrollView.width, self.scrollView.height) imageURLStringsGroup:nil];
-        
+        //_cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.scrollView.width, self.scrollView.height) imageURLStringsGroup:nil];
+        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.scrollView.width, self.scrollView.height) delegate:nil placeholderImage:[UIImage imageNamed:@"zhanwei.jpg"]];
         // 设置代理
         _cycleScrollView.delegate = self;
         // 设置小圆点的位置
@@ -267,7 +267,7 @@ static NSString *const contentCellId = @"contentCellId";
     [YContent getContentAvatarWithUserName:self.publishName.text SuccessRequest:^(id dict) {
         if (dict != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:dict]];
+                [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:dict]placeholderImage:[UIImage imageNamed:@"head_img"]];
             });
         }
     } failurRequest:^(NSError *error) {
