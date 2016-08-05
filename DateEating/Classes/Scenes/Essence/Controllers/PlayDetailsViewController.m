@@ -328,7 +328,7 @@
             UILabel *labelOne = (UILabel *)[self.otherView viewWithTag:2700 + i];
             UILabel *labelTwo = (UILabel *)[self.otherView viewWithTag:2800 + i];
             UIButton *button = (UIButton *)[self.otherView viewWithTag:2500 + i];
-            [image sd_setImageWithURL:[NSURL URLWithString:model.picUrl] placeholderImage:nil];
+            [image sd_setImageWithURL:[NSURL URLWithString:model.picUrl] placeholderImage:[UIImage imageNamed:@"zhanwei.jpg"]];
             labelOne.text = model.title;
             labelTwo.text = model.neededCredits;
             [button addTarget:self action:@selector(actionLook:) forControlEvents:UIControlEventTouchUpInside];
@@ -343,7 +343,7 @@
             UILabel *labelOne = (UILabel *)[self.otherView viewWithTag:2700 + i];
             UILabel *labelTwo = (UILabel *)[self.otherView viewWithTag:2800 + i];
             UIButton *button = (UIButton *)[self.otherView viewWithTag:2500 + i];
-            [image sd_setImageWithURL:[NSURL URLWithString:model.picUrl] placeholderImage:nil];
+            [image sd_setImageWithURL:[NSURL URLWithString:model.picUrl] placeholderImage:[UIImage imageNamed:@"zhanwei.jpg"]];
             labelOne.text = model.title;
             labelTwo.text = model.neededCredits;
             [button addTarget:self action:@selector(actionLook:) forControlEvents:UIControlEventTouchUpInside];
@@ -357,7 +357,7 @@
             UILabel *labelOne = (UILabel *)[self.otherView viewWithTag:2700 + i];
             UILabel *labelTwo = (UILabel *)[self.otherView viewWithTag:2800 + i];
             UIButton *button = (UIButton *)[self.otherView viewWithTag:2500 + i];
-            [image sd_setImageWithURL:[NSURL URLWithString:model.picUrl] placeholderImage:nil];
+            [image sd_setImageWithURL:[NSURL URLWithString:model.picUrl] placeholderImage:[UIImage imageNamed:@"zhanwei.jpg"]];
             labelOne.text = model.title;
             labelTwo.text = model.neededCredits;
             [button addTarget:self action:@selector(actionLook:) forControlEvents:UIControlEventTouchUpInside];

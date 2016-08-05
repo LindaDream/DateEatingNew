@@ -38,7 +38,7 @@
             [YContent getContentAvatarWithHxuserName:friends.friendName SuccessRequest:^(id dict) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (dict != nil) {
-                        [self.headImgView sd_setImageWithURL:[NSURL URLWithString:dict]];
+                        [self.headImgView sd_setImageWithURL:[NSURL URLWithString:dict]placeholderImage:[UIImage imageNamed:@"head_img"]];
                     }
                 });
             } failurRequest:^(NSError *error) {
@@ -53,7 +53,7 @@
                 if (objects.count != 0) {
                     AVObject *obj = objects.firstObject;
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.headImgView sd_setImageWithURL:[NSURL URLWithString:[obj objectForKey:@"avatarUrl"]]];
+                        [self.headImgView sd_setImageWithURL:[NSURL URLWithString:[obj objectForKey:@"avatarUrl"]]placeholderImage:[UIImage imageNamed:@"head_img"]];
                     });
                 }else if(error != nil){
                     NSLog(@"======%ld",error.code);

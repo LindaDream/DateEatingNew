@@ -150,8 +150,8 @@
     NSArray *imageURLString = self.model.headPics; // 解析数据时得到的轮播图数组
     
     // 创建代标题的轮播图
-    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kWidth, 200) imageURLStringsGroup:nil];
-    
+    //_cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kWidth, 200) imageURLStringsGroup:nil];
+    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kWidth, 200) delegate:nil placeholderImage:[UIImage imageNamed:@"zhanwei.jpg"]];
     // 设置代理
     _cycleScrollView.delegate = self;
     // 设置小圆点的位置

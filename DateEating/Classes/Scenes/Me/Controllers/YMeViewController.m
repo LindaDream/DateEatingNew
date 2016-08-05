@@ -64,7 +64,11 @@ static NSString *const listCellIdentifier = @"listCell";
         AVFile *file = [[AVUser currentUser] objectForKey:@"avatar"];
         [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.headImgView.image = [UIImage imageWithData:data];
+                if (nil != data) {
+                    self.headImgView.image = [UIImage imageWithData:data];
+                }else{
+                    self.headImgView.image = [UIImage imageNamed:@"head_img"];
+                }
             });
         } progressBlock:^(NSInteger percentDone) {
             

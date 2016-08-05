@@ -134,7 +134,7 @@ static NSString *const systemCellIdentifier = @"systemCell";
     // 获取当前时间
     self.date = nil;
     NSDateFormatter *fomatter = [NSDateFormatter new];
-    [fomatter setDateFormat:@"YYYY-MM-dd hh:mm"];
+    [fomatter setDateFormat:@"YYYY-MM-dd HH:mm"];
     self.date = [fomatter stringFromDate:[NSDate date]];
     
     // 设置选中当天日期
@@ -375,7 +375,7 @@ static NSString *const systemCellIdentifier = @"systemCell";
     if (component == 0) {
         self.dateTmpStr = [self.dateArr objectAtIndex:row];
     }else if (component == 1){
-        if ([NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row]].integerValue < [self.date substringWithRange:NSMakeRange(11, 2)].integerValue) {
+        if ([[self.dateTmpStr substringToIndex:10] isEqualToString:[self.date substringToIndex:10]] && [NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] hourArray] objectAtIndex:row]].integerValue < [self.date substringWithRange:NSMakeRange(11, 2)].integerValue) {
             [UIView animateWithDuration:1 animations:^{
                 [pickerView selectRow:self.hourIndex inComponent:1 animated:YES];
             }];
@@ -384,7 +384,7 @@ static NSString *const systemCellIdentifier = @"systemCell";
         }
     }
     if (component == 2) {
-        if ([NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row]].integerValue < [self.date substringWithRange:NSMakeRange(14, 2)].integerValue) {
+        if([[self.dateTmpStr substringToIndex:10] isEqualToString:[self.date substringToIndex:10]] && [self.hourTmpStr isEqualToString:[self.date substringWithRange:NSMakeRange(11, 2)]] && [NSString stringWithFormat:@"%@ ",[[[YTimePiker sharedYTimePiker] minuteArray] objectAtIndex:row]].integerValue < [self.date substringWithRange:NSMakeRange(14, 2)].integerValue) {
             [UIView animateWithDuration:1 animations:^{
                 [pickerView selectRow:self.minuteIndex inComponent:2 animated:YES];
             }];

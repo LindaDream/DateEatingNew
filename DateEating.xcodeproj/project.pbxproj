@@ -130,6 +130,7 @@
 		CEB8277B1D422B6700BB2E31 /* YFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEB827791D422B6700BB2E31 /* YFriendsViewController.xib */; };
 		CEB8277F1D422B7200BB2E31 /* YFriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8277D1D422B7200BB2E31 /* YFriendsTableViewCell.m */; };
 		CEB827801D422B7200BB2E31 /* YFriendsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEB8277E1D422B7200BB2E31 /* YFriendsTableViewCell.xib */; };
+		CEBB8A471D54255A00492C97 /* zhanwei.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CEBB8A461D54255A00492C97 /* zhanwei.jpg */; };
 		CEBF8F6D1D459C0900406A61 /* TransformManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBF8F6C1D459C0900406A61 /* TransformManager.m */; };
 		CEBF8F711D459CA600406A61 /* editBack.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CEBF8F6E1D459CA600406A61 /* editBack.jpg */; };
 		CEBF8F721D459CA600406A61 /* skin-1.png in Resources */ = {isa = PBXBuildFile; fileRef = CEBF8F6F1D459CA600406A61 /* skin-1.png */; };
@@ -776,6 +777,7 @@
 		CEB8277C1D422B7200BB2E31 /* YFriendsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YFriendsTableViewCell.h; sourceTree = "<group>"; };
 		CEB8277D1D422B7200BB2E31 /* YFriendsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YFriendsTableViewCell.m; sourceTree = "<group>"; };
 		CEB8277E1D422B7200BB2E31 /* YFriendsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YFriendsTableViewCell.xib; sourceTree = "<group>"; };
+		CEBB8A461D54255A00492C97 /* zhanwei.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = zhanwei.jpg; sourceTree = "<group>"; };
 		CEBF8F6B1D459C0900406A61 /* TransformManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformManager.h; sourceTree = "<group>"; };
 		CEBF8F6C1D459C0900406A61 /* TransformManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransformManager.m; sourceTree = "<group>"; };
 		CEBF8F6E1D459CA600406A61 /* editBack.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = editBack.jpg; sourceTree = "<group>"; };
@@ -1480,6 +1482,7 @@
 		CE6913531D33CFDB001FE50B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CEBB8A461D54255A00492C97 /* zhanwei.jpg */,
 				CE6E753B1D508ECF002C49C4 /* delete.png */,
 				CE5976461D4740E200524D9A /* genderSelect.png */,
 				CEBF8FE41D45B98600406A61 /* emoji.png */,
@@ -2673,6 +2676,7 @@
 				D61D1B351D3871BC00C36F84 /* NaviUnFiltered@2x.png in Resources */,
 				D66E5A721D33DE84003DED51 /* mainCellBackground.png in Resources */,
 				D6F0F3781D3B464400D1EF81 /* mine_yijianfankui.png in Resources */,
+				CEBB8A471D54255A00492C97 /* zhanwei.jpg in Resources */,
 				D6F0F37E1D3B464400D1EF81 /* register_email.png in Resources */,
 				D66E5AE01D33DE84003DED51 /* publish-offline@3x.png in Resources */,
 				D66E5AB41D33DE84003DED51 /* MainTagSubIconClick.png in Resources */,

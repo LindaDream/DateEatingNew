@@ -33,7 +33,7 @@
 - (void)setMeal:(YMealModel *)meal{
 
     _meal = meal;
-    [self.backImageView sd_setImageWithURL:[NSURL URLWithString:meal.picUrl]];
+    [self.backImageView sd_setImageWithURL:[NSURL URLWithString:meal.picUrl] placeholderImage:[UIImage imageNamed:@"zhanwei.jpg"]];
     self.titleLabel.text = _meal.title;
     self.addressOrDurationLabel.text = _meal.address;
     self.priceStrLabel.text = _meal.priceStr;
@@ -43,11 +43,11 @@
 - (void)setPlay:(YPlayModel *)play{
 
     _play = play;
-    [self.backImageView sd_setImageWithURL:[NSURL URLWithString:_play.picUrl]];
+    [self.backImageView sd_setImageWithURL:[NSURL URLWithString:_play.picUrl]placeholderImage:[UIImage imageNamed:@"zhanwei.jpg"]];
     self.titleLabel.text = _play.title;
     self.addressOrDurationLabel.text = _play.duration;
     self.priceStrLabel.text = _play.neededCredits;
-    [self.categoryIconImageView sd_setImageWithURL:[NSURL URLWithString:_play.categoryIconUrl]];
+    [self.categoryIconImageView sd_setImageWithURL:[NSURL URLWithString:_play.categoryIconUrl]placeholderImage:[UIImage imageNamed:@"zhanwei.jpg"]];
 }
 
 

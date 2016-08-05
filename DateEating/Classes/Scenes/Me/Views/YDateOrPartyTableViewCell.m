@@ -23,8 +23,11 @@
         self.feeTypeLabel.text = @"AA";
     }
     self.descriptionLabel.text = model.eventDescription;
-    self.headImgView.image = model.img;
-    
+    if (model.img == nil) {
+        self.headImgView.image = [UIImage imageNamed:@"head_img"];
+    }else{
+        self.headImgView.image = model.img;
+    }
 }
 
 - (IBAction)deleteAction:(id)sender {

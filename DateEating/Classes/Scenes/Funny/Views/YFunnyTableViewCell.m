@@ -56,7 +56,8 @@
     NSArray *imageURLString = funny.imgArr; // 解析数据时得到的轮播图数组
     [_cycleScrollView removeFromSuperview];
     // 创建代标题的轮播图
-    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kWidth - 4, self.scrollView.height) imageURLStringsGroup:nil];
+    //_cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kWidth - 4, self.scrollView.height) imageURLStringsGroup:nil];
+    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kWidth - 4, self.scrollView.height) delegate:nil placeholderImage:[UIImage imageNamed:@"zhanwei.jpg"]];
     // 设置代理
     _cycleScrollView.delegate = self;
     // 设置小圆点的位置
@@ -82,7 +83,7 @@
     [YContent getContentAvatarWithUserName:funny.publishName SuccessRequest:^(id dict) {
         if (dict != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.headImageView sd_setImageWithURL:[NSURL URLWithString:dict]];
+                [self.headImageView sd_setImageWithURL:[NSURL URLWithString:dict] placeholderImage:[UIImage imageNamed:@"head_img"]];
             });
         }
     } failurRequest:^(NSError *error) {

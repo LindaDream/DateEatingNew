@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -16,6 +16,7 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K1p-t9-RCv">
                         <rect key="frame" x="58" y="16" width="49" height="21"/>
+                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="9VK-Hm-Whe"/>
                         </constraints>
@@ -25,12 +26,14 @@
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JCT-Md-Ph8">
                         <rect key="frame" x="14" y="49" width="386" height="60"/>
+                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="时间.png" translatesAutoresizingMaskIntoConstraints="NO" id="Occ-fP-V6n">
                         <rect key="frame" x="230" y="19" width="16" height="16"/>
+                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="IHP-Wd-VHk"/>
                             <constraint firstAttribute="width" constant="16" id="exz-UD-TUe"/>
@@ -38,6 +41,7 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXa-Li-zbj">
                         <rect key="frame" x="254" y="17" width="152" height="21"/>
+                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="6R1-Sm-fJI"/>
                             <constraint firstAttribute="width" constant="152" id="mhi-Y1-AgG"/>
@@ -48,6 +52,7 @@
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="用户名.png" translatesAutoresizingMaskIntoConstraints="NO" id="2vv-Rh-mJe">
                         <rect key="frame" x="14" y="11" width="30" height="30"/>
+                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="Km2-uh-sMS"/>
                             <constraint firstAttribute="height" constant="30" id="RtZ-jI-Rg7"/>
@@ -61,12 +66,14 @@
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wo1-xp-AcR">
                         <rect key="frame" x="0.0" y="109" width="414" height="1"/>
+                        <animations/>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="ojO-4Y-WZY"/>
                         </constraints>
                     </view>
                 </subviews>
+                <animations/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="JCT-Md-Ph8" secondAttribute="bottom" id="A5q-0E-QNC"/>
                     <constraint firstAttribute="bottom" secondItem="wo1-xp-AcR" secondAttribute="bottom" id="Lkd-c4-Ct4"/>
@@ -93,6 +100,7 @@
                     </mask>
                 </variation>
             </tableViewCellContentView>
+            <animations/>
             <connections>
                 <outlet property="contentLabel" destination="JCT-Md-Ph8" id="QXO-Ah-idf"/>
                 <outlet property="headImageView" destination="2vv-Rh-mJe" id="ssd-eJ-APX"/>
