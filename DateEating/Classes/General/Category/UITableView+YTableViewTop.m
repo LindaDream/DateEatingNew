@@ -12,7 +12,6 @@
 
 - (void)backToTop{
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    NSLog(@"%@",indexPath);
     [self scrollToRowAtIndexPath:indexPath atScrollPosition:(UITableViewScrollPositionTop) animated:YES];
 }
 

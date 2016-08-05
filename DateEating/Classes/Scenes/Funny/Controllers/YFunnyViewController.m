@@ -21,6 +21,7 @@
 
 @property (strong,nonatomic) NSMutableArray *arr;
 
+@property (strong,nonatomic) UIButton *toTopBtn;
 @end
 
 static NSString *const funnyCellId = @"funnyCellId";
@@ -32,7 +33,7 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
     [super viewDidLoad];
     // 接收夜间模式转换通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(change:) name:@"NotificationNight" object:nil];
-    
+
     // 设置导航栏标题
     self.navigationItem.title = @"趣事";
     // 设置view的背景色
@@ -44,8 +45,18 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
     self.arr = [NSMutableArray array];
     self.funnyTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    self.toTopBtn = [self addToTopBtn];
+    [self.view insertSubview:self.toTopBtn atIndex:0];
+    [self.view addSubview:self.toTopBtn];
+    self.toTopBtn.hidden = YES;
+    [self.toTopBtn addTarget:self action:@selector(backToTop) forControlEvents:(UIControlEventTouchUpInside)];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
 }
 
+- (void)backToTop{
+    [self.funnyTableView backToTop];
+}
 - (void)viewWillAppear:(BOOL)animated{
 
     [super viewWillAppear:animated];
@@ -137,12 +148,20 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
 }
 
 
+#pragma mark -- scrollde 代理方法
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
     if (scrollView == self.funnyTableView) {
-        
+        // 先获取屏幕上的所有cell
+        NSArray *visibleCells = [self.funnyTableView visibleCells];
+        NSIndexPath *indexPath = [self.funnyTableView indexPathForCell:visibleCells[0]];
+        if (indexPath.row != 0) {
+            self.toTopBtn.hidden = NO;
+        }else{
+            self.toTopBtn.hidden = YES;
+        }
     }
-
+    
 }
 
 

@@ -56,7 +56,7 @@
 @property (strong, nonatomic) NSMutableArray *layoutArray;
 
 @property(strong,nonatomic)NSMutableDictionary *cityDict;
-
+@property (strong,nonatomic) UIButton *toTopBtn;
 
 @end
 
@@ -81,6 +81,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.toTopBtn = [self addToTopBtn];
+    [self.view insertSubview:self.toTopBtn atIndex:0];
+    [self.view addSubview:self.toTopBtn];
+    self.toTopBtn.hidden = YES;
+    [self.toTopBtn addTarget:self action:@selector(backToTop) forControlEvents:(UIControlEventTouchUpInside)];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     self.userLocation = [[BMKUserLocation alloc]init];
     // 获取设备所在位置的坐标
     //初始化BMKLocationService
@@ -113,6 +121,8 @@
     [self requestHotDataWithDic:[_handle city] start:0];
     [self requestNearByDataWithUrl:0];
     
+    
+    
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:YES];
@@ -125,6 +135,37 @@
     if (self.userLocation.location.coordinate.latitude > 1) {
         [self reloadAllData];
     }
+}
+- (void)backToTop{
+    if (self.titleViewSegment.selectedSegmentIndex == 0) {
+        [self.hotTableView backToTop];
+    }else{
+        [self.nearbyTableView backToTop];
+    }
+}
+#pragma mark -- scrollde 代理方法
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    if (scrollView == self.hotTableView) {
+        // 先获取屏幕上的所有cell
+        NSArray *visibleCells = [self.hotTableView visibleCells];
+        NSIndexPath *indexPath = [self.hotTableView indexPathForCell:visibleCells[0]];
+        if (indexPath.section != 0) {
+            self.toTopBtn.hidden = NO;
+        }else{
+            self.toTopBtn.hidden = YES;
+        }
+    }else if (scrollView == self.nearbyTableView){
+        // 先获取屏幕上的所有cell
+        NSArray *visibleCells = [self.nearbyTableView visibleCells];
+        NSIndexPath *indexPath = [self.nearbyTableView indexPathForCell:visibleCells[0]];
+        if (indexPath.section != 0) {
+            self.toTopBtn.hidden = NO;
+        }else{
+            self.toTopBtn.hidden = YES;
+        }
+    }
+    
 }
 
 #pragma mark--夜间模式通知方法--
@@ -324,9 +365,25 @@
     if (segment.selectedSegmentIndex == 0) {
         self.button.hidden = NO;
         self.scrollView.contentOffset = CGPointMake(0, 0);
+        // 先获取屏幕上的所有cell
+        NSArray *visibleCells = [self.hotTableView visibleCells];
+        NSIndexPath *indexPath = [self.hotTableView indexPathForCell:visibleCells[0]];
+        if (indexPath.section != 0) {
+            self.toTopBtn.hidden = NO;
+        }else{
+            self.toTopBtn.hidden = YES;
+        }
     } else {
         self.button.hidden = YES;
         self.scrollView.contentOffset = CGPointMake(self.view.width, 0);
+        // 先获取屏幕上的所有cell
+        NSArray *visibleCells = [self.nearbyTableView visibleCells];
+        NSIndexPath *indexPath = [self.nearbyTableView indexPathForCell:visibleCells[0]];
+        if (indexPath.section != 0) {
+            self.toTopBtn.hidden = NO;
+        }else{
+            self.toTopBtn.hidden = YES;
+        }
     }
 }
 
@@ -336,9 +393,25 @@
         if (scrollView.contentOffset.x >= self.view.width) {
             self.button.hidden = YES;
             self.titleViewSegment.selectedSegmentIndex = 1;
+            // 先获取屏幕上的所有cell
+            NSArray *visibleCells = [self.nearbyTableView visibleCells];
+            NSIndexPath *indexPath = [self.nearbyTableView indexPathForCell:visibleCells[0]];
+            if (indexPath.section != 0) {
+                self.toTopBtn.hidden = NO;
+            }else{
+                self.toTopBtn.hidden = YES;
+            }
         } else {
             self.button.hidden = NO;
             self.titleViewSegment.selectedSegmentIndex = 0;
+            // 先获取屏幕上的所有cell
+            NSArray *visibleCells = [self.hotTableView visibleCells];
+            NSIndexPath *indexPath = [self.hotTableView indexPathForCell:visibleCells[0]];
+            if (indexPath.section != 0) {
+                self.toTopBtn.hidden = NO;
+            }else{
+                self.toTopBtn.hidden = YES;
+            }
         }
     }
 }

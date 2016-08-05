@@ -134,7 +134,7 @@
 
 - (UIButton *)addToTopBtn{
     UIButton *toTopBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    [toTopBtn setImage:[UIImage imageNamed:@"回到顶部.jpg"] forState:(UIControlStateNormal)];
+    [toTopBtn setImage:[UIImage imageNamed:@"回到顶部"] forState:(UIControlStateNormal)];
     toTopBtn.frame = CGRectMake(kWidth - 45, kHeight - 100, 40, 40);
     toTopBtn.backgroundColor = [UIColor whiteColor];
     toTopBtn.layer.masksToBounds = YES;

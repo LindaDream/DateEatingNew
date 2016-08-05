@@ -216,6 +216,7 @@
 		CEF341F31D348443007C3640 /* login_background_i5@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CEF341F21D348443007C3640 /* login_background_i5@2x.jpg */; };
 		CEF341F51D348DFC007C3640 /* Yes.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF341F41D348DFC007C3640 /* Yes.png */; };
 		D60CD5111D4C8F9E009706DC /* guide_slide_2.png in Resources */ = {isa = PBXBuildFile; fileRef = D60CD5101D4C8F9E009706DC /* guide_slide_2.png */; };
+		D616E3E71D54464C00A86CF2 /* 回到顶部.png in Resources */ = {isa = PBXBuildFile; fileRef = D616E3E61D54464C00A86CF2 /* 回到顶部.png */; };
 		D61D1AEF1D38717B00C36F84 /* YDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D61D1AE91D38717B00C36F84 /* YDetailViewController.m */; };
 		D61D1AF01D38717B00C36F84 /* YDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D61D1AEA1D38717B00C36F84 /* YDetailViewController.xib */; };
 		D61D1AF11D38717B00C36F84 /* YSeekConditionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D61D1AEC1D38717B00C36F84 /* YSeekConditionViewController.m */; };
@@ -476,7 +477,6 @@
 		D6BDD00A1D3C8700000DC251 /* YVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BDD0091D3C8700000DC251 /* YVideo.m */; };
 		D6BDD0221D3CD87C000DC251 /* user_header_bg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D6BDD0211D3CD87C000DC251 /* user_header_bg@2x.jpg */; };
 		D6E4E5EA1D4750620040E1D5 /* YRequestOurData.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E4E5E91D4750620040E1D5 /* YRequestOurData.m */; };
-		D6F067851D52150100EE2981 /* 回到顶部.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D6F067841D52150100EE2981 /* 回到顶部.jpg */; };
 		D6F067881D5215F300EE2981 /* UITableView+YTableViewTop.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F067871D5215F300EE2981 /* UITableView+YTableViewTop.m */; };
 		D6F0F3581D3B464400D1EF81 /* art.png in Resources */ = {isa = PBXBuildFile; fileRef = D6F0F31A1D3B464400D1EF81 /* art.png */; };
 		D6F0F3591D3B464400D1EF81 /* bantouming.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D6F0F31B1D3B464400D1EF81 /* bantouming.jpg */; };
@@ -898,6 +898,7 @@
 		CEF341F21D348443007C3640 /* login_background_i5@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "login_background_i5@2x.jpg"; path = "../login_background_i5@2x.jpg"; sourceTree = "<group>"; };
 		CEF341F41D348DFC007C3640 /* Yes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Yes.png; sourceTree = "<group>"; };
 		D60CD5101D4C8F9E009706DC /* guide_slide_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guide_slide_2.png; sourceTree = "<group>"; };
+		D616E3E61D54464C00A86CF2 /* 回到顶部.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "回到顶部.png"; path = "../../Scenes/Essence/Controllers/回到顶部.png"; sourceTree = "<group>"; };
 		D61D1AE81D38717B00C36F84 /* YDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDetailViewController.h; sourceTree = "<group>"; };
 		D61D1AE91D38717B00C36F84 /* YDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDetailViewController.m; sourceTree = "<group>"; };
 		D61D1AEA1D38717B00C36F84 /* YDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YDetailViewController.xib; sourceTree = "<group>"; };
@@ -1190,7 +1191,6 @@
 		D6BDD0211D3CD87C000DC251 /* user_header_bg@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "user_header_bg@2x.jpg"; sourceTree = "<group>"; };
 		D6E4E5E81D4750620040E1D5 /* YRequestOurData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRequestOurData.h; sourceTree = "<group>"; };
 		D6E4E5E91D4750620040E1D5 /* YRequestOurData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRequestOurData.m; sourceTree = "<group>"; };
-		D6F067841D52150100EE2981 /* 回到顶部.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "回到顶部.jpg"; sourceTree = "<group>"; };
 		D6F067861D5215F300EE2981 /* UITableView+YTableViewTop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+YTableViewTop.h"; sourceTree = "<group>"; };
 		D6F067871D5215F300EE2981 /* UITableView+YTableViewTop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+YTableViewTop.m"; sourceTree = "<group>"; };
 		D6F0F31A1D3B464400D1EF81 /* art.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = art.png; sourceTree = "<group>"; };
@@ -2151,7 +2151,7 @@
 				D66E598E1D33DD20003DED51 /* UIView+XMGCategory.m */,
 				D67A34681D3A82EE00D5BA9D /* UIButton+YCategory.h */,
 				D67A34691D3A82EE00D5BA9D /* UIButton+YCategory.m */,
-				D6F067841D52150100EE2981 /* 回到顶部.jpg */,
+				D616E3E61D54464C00A86CF2 /* 回到顶部.png */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2853,6 +2853,7 @@
 				D61D1B2A1D3871BC00C36F84 /* favorite_@2x.png in Resources */,
 				D66E5A8E1D33DE84003DED51 /* playButtonPlay@2x.png in Resources */,
 				CEB826FB1D41B56700BB2E31 /* remove_btn_pic.png in Resources */,
+				D616E3E71D54464C00A86CF2 /* 回到顶部.png in Resources */,
 				CEBF8FA61D45B00D00406A61 /* YHeaderTableViewCell.xib in Resources */,
 				CEB826D81D41B56700BB2E31 /* YFunnyViewController.xib in Resources */,
 				D6F0F3911D3B464400D1EF81 /* strategy_img.png in Resources */,
@@ -2864,7 +2865,6 @@
 				D6F0F3751D3B464400D1EF81 /* mine_wish_strategy.png in Resources */,
 				CED28D731D37942B00A468CF /* event_multi@3x.png in Resources */,
 				CEB827281D42079D00BB2E31 /* ReceiverVoiceNodeBack@2x.png in Resources */,
-				D6F067851D52150100EE2981 /* 回到顶部.jpg in Resources */,
 				D66E5AE31D33DE84003DED51 /* publish-picture@3x.png in Resources */,
 				D66E5AF41D33DE84003DED51 /* pushguidetop.png in Resources */,
 				CEB827121D41CC1200BB2E31 /* YChatViewController.xib in Resources */,
