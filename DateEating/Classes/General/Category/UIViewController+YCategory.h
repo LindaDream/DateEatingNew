@@ -13,6 +13,9 @@
 @interface UIViewController (YCategory)<BMKLocationServiceDelegate>
 @property(assign,nonatomic)CLLocationDegrees userLat;
 @property(assign,nonatomic)CLLocationDegrees userLog;
+
+- (UIButton *)addToTopBtn;
+
 // 转变为夜间模式
 - (void)changeToNight;
 // 转变为白天模式

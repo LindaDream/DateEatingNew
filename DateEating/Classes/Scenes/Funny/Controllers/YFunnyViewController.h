@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class YEditViewController;
 @interface YFunnyViewController : UIViewController
-
+@property (strong,nonatomic) YEditViewController *editVC;
 @end

@@ -69,6 +69,8 @@
 
 // 城市按钮
 @property (strong,nonatomic) UIButton *cityBtn;
+
+@property (strong,nonatomic) UIButton *toTopBtn;
 @end
 
 
@@ -96,8 +98,11 @@ static NSString *const cityCellId = @"cityCellId";
     self.msgArray = [NSMutableArray new];
     // 接收夜间模式转换通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(change:) name:@"NotificationNight" object:nil];
-    
-    
+    self.toTopBtn = [self addToTopBtn];
+    [self.view insertSubview:self.toTopBtn atIndex:0];
+    [self.view addSubview:self.toTopBtn];
+    self.toTopBtn.hidden = YES;
+    [self.toTopBtn addTarget:self action:@selector(backToTop) forControlEvents:(UIControlEventTouchUpInside)];
     self.automaticallyAdjustsScrollViewInsets = NO;
     // 设置view的背景色
     self.view.backgroundColor = YRGBbg;
@@ -160,6 +165,17 @@ static NSString *const cityCellId = @"cityCellId";
     }];
     
 }
+
+- (void)backToTop{
+    if ([self.isMeal isEqualToString:@"美食"]) {
+        [self.mealTableView backToTop];
+    }else{
+        [self.playTableView backToTop];
+    }
+}
+
+
+
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DateButtonClicked" object:nil];
@@ -433,17 +449,51 @@ static NSString *const cityCellId = @"cityCellId";
 
 #pragma mark -- scrollde 代理方法
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
-    if (self.scroll == scrollView) {
+
+    if (scrollView == self.mealTableView) {
+        // 先获取屏幕上的所有cell
+        NSArray *visibleCells = [self.mealTableView visibleCells];
+        NSIndexPath *indexPath = [self.mealTableView indexPathForCell:visibleCells[0]];
+        if (indexPath.row != 0) {
+            self.toTopBtn.hidden = NO;
+        }else{
+            self.toTopBtn.hidden = YES;
+        }
+    }else if (scrollView == self.playTableView){
+        // 先获取屏幕上的所有cell
+        NSArray *visibleCells = [self.playTableView visibleCells];
+        NSIndexPath *indexPath = [self.playTableView indexPathForCell:visibleCells[0]];
+        if (indexPath.row != 0) {
+            self.toTopBtn.hidden = NO;
+        }else{
+            self.toTopBtn.hidden = YES;
+        }
+    }else if (self.scroll == scrollView) {
         self.segment.selectedSegmentIndex = scrollView.contentOffset.x / kWidth;
         if (self.segment.selectedSegmentIndex == 0) {
             self.isMeal = @"美食";
             self.cityBtn.enabled = YES;
             self.cityBtn.hidden = NO;
+            // 先获取屏幕上的所有cell
+            NSArray *visibleCells = [self.mealTableView visibleCells];
+            NSIndexPath *indexPath = [self.mealTableView indexPathForCell:visibleCells[0]];
+            if (indexPath.row != 0) {
+                self.toTopBtn.hidden = NO;
+            }else{
+                self.toTopBtn.hidden = YES;
+            }
         }else{
             self.isMeal = @"玩乐";
             self.cityBtn.enabled = NO;
             self.cityBtn.hidden = YES;
+            // 先获取屏幕上的所有cell
+            NSArray *visibleCells = [self.playTableView visibleCells];
+            NSIndexPath *indexPath = [self.playTableView indexPathForCell:visibleCells[0]];
+            if (indexPath.row != 0) {
+                self.toTopBtn.hidden = NO;
+            }else{
+                self.toTopBtn.hidden = YES;
+            }
         }
         
     }
@@ -457,12 +507,28 @@ static NSString *const cityCellId = @"cityCellId";
         self.isMeal = @"美食";
         self.cityBtn.enabled = YES;
         self.cityBtn.hidden = NO;
+        // 先获取屏幕上的所有cell
+        NSArray *visibleCells = [self.mealTableView visibleCells];
+        NSIndexPath *indexPath = [self.mealTableView indexPathForCell:visibleCells[0]];
+        if (indexPath.row != 0) {
+            self.toTopBtn.hidden = NO;
+        }else{
+            self.toTopBtn.hidden = YES;
+        }
     }else{
         self.isMeal = @"玩乐";
         self.cityBtn.enabled = NO;
         self.cityBtn.hidden = YES;
+        // 先获取屏幕上的所有cell
+        NSArray *visibleCells = [self.playTableView visibleCells];
+        NSIndexPath *indexPath = [self.playTableView indexPathForCell:visibleCells[0]];
+        NSLog(@"%ld",indexPath.row);
+        if (indexPath.row != 0) {
+            self.toTopBtn.hidden = NO;
+        }else{
+            self.toTopBtn.hidden = YES;
+        }
     }
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -484,7 +550,6 @@ static NSString *const cityCellId = @"cityCellId";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     if (tableView == self.mealTableView) {
         
         YMealOrPlayTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:mealCellId forIndexPath:indexPath];

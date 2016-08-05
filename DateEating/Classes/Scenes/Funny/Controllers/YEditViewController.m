@@ -29,6 +29,8 @@
 
 // 定义pickerController属性
 @property (strong, nonatomic) UIImagePickerController *pickerController;
+
+@property (strong,nonatomic) NSString *isSuccess;
 @end
 
 static NSString *const imageCellId = @"imageCellId";
@@ -47,6 +49,14 @@ static NSString *const imageCellId = @"imageCellId";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(editStopAction:) name:UITextViewTextDidChangeNotification object:self.editTextView];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(beginEdit) name:UITextViewTextDidBeginEditingNotification object:self.editTextView];
+    
+}
+
+- (void)beginEdit{
+    if ([self.editTextView becomeFirstResponder]) {
+        self.editTextView.text = @"";
+    }
 }
 
 
@@ -112,7 +122,19 @@ static NSString *const imageCellId = @"imageCellId";
     
     self.navigationItem.rightBarButtonItems = @[publish,changeBackImage];
     
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"<返回" style:(UIBarButtonItemStylePlain) target:self action:@selector(bactAction)];
+    
 }
+
+- (void)bactAction{
+
+    self.passVCBlock(self);
+    // 隐藏菊花
+    [SVProgressHUD dismiss];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+
 #pragma mark--发表趣事--
 - (void)publishAction{
     
@@ -121,8 +143,9 @@ static NSString *const imageCellId = @"imageCellId";
     }else{
         // 显示菊花
         [SVProgressHUD showWithMaskType:(SVProgressHUDMaskTypeClear)];
-        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-        appDelegate.window.userInteractionEnabled = NO;
+//        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+//        appDelegate.window.userInteractionEnabled = NO;
+//        self.navigationItem.leftBarButtonItem.enabled = YES;
         // 获取当前系统时间
         NSString* date;
         NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
@@ -171,17 +194,22 @@ static NSString *const imageCellId = @"imageCellId";
             // 隐藏菊花
             [SVProgressHUD dismiss];
             
-            AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-            appDelegate.window.userInteractionEnabled = YES;
+//            AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+//            appDelegate.window.userInteractionEnabled = YES;
             if (succeeded) {
                 
                 [self showAlertViewWithMessage:@"发布趣事成功"];
+                self.isSuccess = @"发布趣事成功";
                 self.editTextView.text = @"分享快乐，留住感动";
                 [self.photoArray removeAllObjects];
                 [self.imgCollectionView reloadData];
             }else{
                 [self showAlertViewWithMessage:@"发布趣事失败，请稍后再发"];
+                self.isSuccess = @"发布趣事失败，请稍后再发";
                 NSLog(@"%ld",error.code);
+            }
+            if (self.delegate != nil && [self.delegate respondsToSelector:@selector(sendFinalWithState:)]) {
+                [self.delegate sendFinalWithState:self.isSuccess];
             }
         });
     }];

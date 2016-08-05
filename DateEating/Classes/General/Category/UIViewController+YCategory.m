@@ -11,6 +11,9 @@
 #import "YPublishPartyViewController.h"
 #import "YTabBar.h"
 #import "AppDelegate.h"
+
+
+
 @implementation UIViewController (YCategory)
 
 -(void)changeToNight{
@@ -128,5 +131,17 @@
     self.userLat = userLocation.location.coordinate.latitude;
     self.userLog = userLocation.location.coordinate.longitude;
 }
+
+- (UIButton *)addToTopBtn{
+    UIButton *toTopBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [toTopBtn setImage:[UIImage imageNamed:@"回到顶部.jpg"] forState:(UIControlStateNormal)];
+    toTopBtn.frame = CGRectMake(kWidth - 45, kHeight - 100, 40, 40);
+    toTopBtn.backgroundColor = [UIColor whiteColor];
+    toTopBtn.layer.masksToBounds = YES;
+    toTopBtn.layer.cornerRadius = 20;
+    return toTopBtn;
+}
+
+
 
 @end

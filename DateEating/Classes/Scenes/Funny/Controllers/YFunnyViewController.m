@@ -15,7 +15,7 @@
 
 #define kContentLabelWith 386
 
-@interface YFunnyViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface YFunnyViewController ()<UITableViewDataSource,UITableViewDelegate,YEditViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *funnyTableView;
 
@@ -91,9 +91,24 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
 // 编辑
 - (void)editedAction{
 
-    YEditViewController *editVC = [YEditViewController new];
-    [self.navigationController pushViewController:editVC animated:YES];
+    if (self.editVC == nil) {
+        YEditViewController *editVC = [YEditViewController new];
+        editVC.passVCBlock = ^(YEditViewController *eVC){
+            self.editVC = eVC;
+            eVC.delegate = self;
+        };
+        [self.navigationController pushViewController:editVC animated:YES];
+    }else{
+        [self showAlertViewWithMessage:@"消息正在发送中，请稍后进入编辑界面"];
+    }
     
+    
+}
+
+- (void)sendFinalWithState:(NSString *)isSuccess{
+    self.editVC = nil;
+    [self showAlertViewWithMessage:isSuccess];
+    [self getAllFunny];
 }
 
 
@@ -175,7 +190,19 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
 }
 
 
-
+// 弹框
+- (void)showAlertViewWithMessage:(NSString *)message
+{
+    UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    // 1秒后回收
+    [self performSelector:@selector(dismissAlertView:) withObject:alertView afterDelay:1.5];
+    [self presentViewController:alertView animated:YES completion:nil];
+}
+- (void)dismissAlertView:(UIAlertController *)alertView
+{
+    [alertView dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 
