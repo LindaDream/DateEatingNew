@@ -148,8 +148,8 @@
     NSArray *imageURLString = self.model.headPics; // 解析数据时得到的轮播图数组
     
     // 创建代标题的轮播图
-    //_cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kWidth, 200) imageURLStringsGroup:nil];
     _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kWidth, 200) delegate:nil placeholderImage:[UIImage imageNamed:@"zhanwei.jpg"]];
+    [self.BGScrollView addSubview:_cycleScrollView];
     // 设置代理
     _cycleScrollView.delegate = self;
     // 设置小圆点的位置
@@ -157,14 +157,14 @@
     // 设置小圆点动画效果
     _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
     // 小圆点颜色
-    _cycleScrollView.pageDotColor = [UIColor whiteColor];
-    _cycleScrollView.currentPageDotColor = [UIColor greenColor];
+    //_cycleScrollView.pageDotColor = [UIColor whiteColor];
+    //_cycleScrollView.currentPageDotColor = [UIColor greenColor];
     // 把图片数组赋值给每个图片
     _cycleScrollView.imageURLStringsGroup = imageURLString;
     
     // 几秒钟换图片
     _cycleScrollView.autoScrollTimeInterval = 3;
-    [self.BGScrollView addSubview:_cycleScrollView];
+    
 }
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
