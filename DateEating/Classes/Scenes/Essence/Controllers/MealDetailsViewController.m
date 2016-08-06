@@ -12,11 +12,11 @@
 #import "YMealModel.h"
 #import "ContentView.h"
 #import "OtherEventView.h"
-#import "DDIndicator.h"
 #import <UMSocialData.h>
 #import <UMSocialSnsService.h>
 #import <UMSocialControllerService.h>
 #import "UMSocial.h"
+#import <SVProgressHUD.h>
 
 @interface MealDetailsViewController ()<SDCycleScrollViewDelegate, UIScrollViewDelegate, UIWebViewDelegate, UMSocialUIDelegate>
 
@@ -36,7 +36,6 @@
 @property (nonatomic, strong)OtherEventView *otherView;
 @property (nonatomic, assign)CGFloat hight;
 @property (nonatomic, strong)UILabel *muenLabel;
-@property (nonatomic, strong)DDIndicator *loadingView;
 @property (nonatomic, strong)UIView *BGView;
 @property (nonatomic, assign)BOOL isOnce;
 @property (nonatomic, assign)BOOL isBuild;
@@ -106,7 +105,7 @@
             if (data != nil) {
                 NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
                 self.BGView.hidden = NO;
-                [self.loadingView startAnimating];
+                [SVProgressHUD showWithMaskType:(SVProgressHUDMaskTypeClear)];
                 self.model = [[YMealDetailsModel alloc] init];
                 [self.model setValuesForKeysWithDictionary:[dic valueForKey:@"data"]];
                 self.model.recommendAutomatic = [NSMutableArray arrayWithArray:[dic valueForKey:@"recommendAutomatic"]];
@@ -128,7 +127,7 @@
             } else {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     self.myTask = nil;
-                    [self.loadingView stopAnimating];
+                    [SVProgressHUD dismiss];
                     self.BGView.hidden = YES;
                     
                     self.isBuild = NO;
@@ -200,10 +199,7 @@
     self.BGView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];
     self.BGView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.BGView];
-    
-    _loadingView = [[DDIndicator alloc] initWithFrame:CGRectMake((kWidth - 40)/ 2, (self.BGView.height - 100)/ 2, 40, 40)];
-    [self.BGView addSubview:_loadingView];
-    
+    [SVProgressHUD showWithMaskType:(SVProgressHUDMaskTypeClear)];
 }
 
 - (void)changeModel
@@ -576,7 +572,8 @@
     
     self.BGScrollView.contentSize = CGSizeMake(0, self.hight + 130);
     self.BGView.hidden = YES;
-    [self.loadingView stopAnimating];
+    [SVProgressHUD dismiss];
+    //[self.loadingView stopAnimating];
     self.isBuild = YES;
 }
 

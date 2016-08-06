@@ -14,6 +14,7 @@
 #import "YPlayModel.h"
 #import <UMSocialControllerService.h>
 #import "UMSocial.h"
+#import <SVProgressHUD.h>
 
 @interface PlayDetailsViewController ()<UMSocialUIDelegate>
 
@@ -53,7 +54,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    AVQuery *query = [AVQuery queryWithClassName:@"MyMealCollection"];
+    AVQuery *query = [AVQuery queryWithClassName:@"MyPlayCollection"];
     [query whereKey:@"ID" equalTo:self.ID];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (objects.count == 0) {
@@ -146,6 +147,7 @@
     self.BGView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.BGView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.BGView];
+    [SVProgressHUD showWithMaskType:(SVProgressHUDMaskTypeClear)];
 }
 
 - (NSString *)removePTagString:(NSString *)string
@@ -359,7 +361,7 @@
     }
     
     self.BGScrollView.contentSize = CGSizeMake(0, self.hight + 80);
-    
+    [SVProgressHUD dismiss];
     self.BGView.hidden = YES;
     self.isBuild = YES;
 }

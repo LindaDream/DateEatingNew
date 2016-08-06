@@ -548,7 +548,6 @@
 		D6F0F3D31D3B49BE00D1EF81 /* CarouselFinfure.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F0F3C11D3B49BE00D1EF81 /* CarouselFinfure.m */; };
 		D6F0F3D41D3B49BE00D1EF81 /* CategoryButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F0F3C31D3B49BE00D1EF81 /* CategoryButton.m */; };
 		D6F0F3D51D3B49BE00D1EF81 /* ContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F0F3C51D3B49BE00D1EF81 /* ContentView.m */; };
-		D6F0F3D61D3B49BE00D1EF81 /* DDIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F0F3C71D3B49BE00D1EF81 /* DDIndicator.m */; };
 		D6F0F3D71D3B49BE00D1EF81 /* EventView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F0F3C91D3B49BE00D1EF81 /* EventView.m */; };
 		D6F0F3D81D3B49BE00D1EF81 /* MealView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F0F3CB1D3B49BE00D1EF81 /* MealView.m */; };
 		D6F0F3D91D3B49BE00D1EF81 /* OtherEventView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F0F3CD1D3B49BE00D1EF81 /* OtherEventView.m */; };
@@ -1271,8 +1270,6 @@
 		D6F0F3C31D3B49BE00D1EF81 /* CategoryButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryButton.m; sourceTree = "<group>"; };
 		D6F0F3C41D3B49BE00D1EF81 /* ContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentView.h; sourceTree = "<group>"; };
 		D6F0F3C51D3B49BE00D1EF81 /* ContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentView.m; sourceTree = "<group>"; };
-		D6F0F3C61D3B49BE00D1EF81 /* DDIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDIndicator.h; sourceTree = "<group>"; };
-		D6F0F3C71D3B49BE00D1EF81 /* DDIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDIndicator.m; sourceTree = "<group>"; };
 		D6F0F3C81D3B49BE00D1EF81 /* EventView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventView.h; sourceTree = "<group>"; };
 		D6F0F3C91D3B49BE00D1EF81 /* EventView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventView.m; sourceTree = "<group>"; };
 		D6F0F3CA1D3B49BE00D1EF81 /* MealView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MealView.h; sourceTree = "<group>"; };
@@ -2534,8 +2531,6 @@
 				D6F0F3C31D3B49BE00D1EF81 /* CategoryButton.m */,
 				D6F0F3C41D3B49BE00D1EF81 /* ContentView.h */,
 				D6F0F3C51D3B49BE00D1EF81 /* ContentView.m */,
-				D6F0F3C61D3B49BE00D1EF81 /* DDIndicator.h */,
-				D6F0F3C71D3B49BE00D1EF81 /* DDIndicator.m */,
 				D6F0F3C81D3B49BE00D1EF81 /* EventView.h */,
 				D6F0F3C91D3B49BE00D1EF81 /* EventView.m */,
 				D6F0F3CA1D3B49BE00D1EF81 /* MealView.h */,
@@ -3199,7 +3194,6 @@
 				CEB826ED1D41B56700BB2E31 /* ZZCameraPickerViewController.m in Sources */,
 				CEBF8FE21D45B47600406A61 /* YDetailHeaderTableViewCell.m in Sources */,
 				CEB827051D41B56700BB2E31 /* ZZPageControl.m in Sources */,
-				D6F0F3D61D3B49BE00D1EF81 /* DDIndicator.m in Sources */,
 				CEB8270F1D41BB6500BB2E31 /* YChatViewController.m in Sources */,
 				CE97AB7C1D38CCB10051D2D7 /* YTimePiker.m in Sources */,
 				D6BDC4601D4B8A5500BA8103 /* YDisclaimerViewController.m in Sources */,
