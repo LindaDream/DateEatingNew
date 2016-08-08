@@ -289,6 +289,8 @@ static NSString *const listCellIdentifier = @"listCell";
     // 执行 CQL 语句实现更新一个 user 对象
     NSData *data = UIImageJPEGRepresentation(self.headImgView.image, 1);
     AVFile *file = [AVFile fileWithName:@"avatarNew.png" data:data];
+    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    }];
     [[AVUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         [[AVUser currentUser] setObject:file forKey:@"avatar"];
         [[AVUser currentUser] saveInBackground];

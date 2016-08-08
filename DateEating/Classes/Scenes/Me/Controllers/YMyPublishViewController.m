@@ -10,6 +10,7 @@
 #import "YDateOrPartyTableViewCell.h"
 #import "YDateContentModel.h"
 #import "YDetailViewController.h"
+#import <SVProgressHUD.h>
 @interface YMyPublishViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,deletePassDateOrParty>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *dateOrPartySegment;
 @property (weak, nonatomic) IBOutlet UITableView *dateTableView;
@@ -29,6 +30,19 @@ static NSString *const dateOrPartyCellIdentifier = @"dateOrPartyCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"约会、聚会";
+    
+    UIButton *bankButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [bankButton setTitle:@"返回" forState:(UIControlStateNormal)];
+    [bankButton setImage:[UIImage imageNamed:@"navigationButtonReturnClick"] forState:(UIControlStateNormal)];
+    [bankButton setImage:[UIImage imageNamed:@"navigationButtonReturn"] forState:(UIControlStateHighlighted)];
+    bankButton.size = CGSizeMake(70, 30);
+    bankButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;// 使按钮内部的所有内容左对齐
+    [bankButton setTitleColor:[UIColor colorWithRed:243/255.0 green:32/255.0 blue:37/255.0 alpha:1] forState:(UIControlStateNormal)];
+    bankButton.contentEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+    
+    [bankButton addTarget:self action:@selector(back) forControlEvents:(UIControlEventTouchUpInside)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bankButton];
+    
     // 获取当前时间
     self.date = nil;
     NSDateFormatter *fomatter = [NSDateFormatter new];
@@ -48,22 +62,33 @@ static NSString *const dateOrPartyCellIdentifier = @"dateOrPartyCell";
     self.backScrollView.delegate = self;
     [self.dateTableView registerNib:[UINib nibWithNibName:@"YDateOrPartyTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:dateOrPartyCellIdentifier];
     [self.partyTableView registerNib:[UINib nibWithNibName:@"YDateOrPartyTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:dateOrPartyCellIdentifier];
-        [self getData:@"MyDate"];
-        [self getData:@"MyParty"];
+    [self getData:@"MyDate"];
+    [self getData:@"MyParty"];
+    if (self.onDateArr.count == 0 && self.passDateArr.count == 0 && self.onPartyArr.count == 0 && self.passPartyArr.count == 0) {
+        [SVProgressHUD showWithMaskType:(SVProgressHUDMaskTypeClear)];
+    }
+}
+
+- (void)back{
+    [SVProgressHUD dismiss];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark--设置分段控制器--
 - (void)changeView:(UISegmentedControl *)seg{
     if (seg.selectedSegmentIndex == 1) {
         self.backScrollView.contentOffset = CGPointMake(kWidth, 0);
+        //[SVProgressHUD showWithMaskType:(SVProgressHUDMaskTypeClear)];
     }else{
         self.backScrollView.contentOffset = CGPointMake(0, 0);
+        //[SVProgressHUD showWithMaskType:(SVProgressHUDMaskTypeClear)];
     }
 }
 #pragma mark--scrollView代理实现--
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (scrollView == self.backScrollView) {
         self.dateOrPartySegment.selectedSegmentIndex = scrollView.contentOffset.x / self.view.width;
+        //[SVProgressHUD showWithMaskType:(SVProgressHUDMaskTypeClear)];
     }
 }
 #pragma mark--数据请求--
@@ -100,50 +125,78 @@ static NSString *const dateOrPartyCellIdentifier = @"dateOrPartyCell";
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if ([self.date substringWithRange:NSMakeRange(5, 2)].integerValue < [model.dateTime substringWithRange:NSMakeRange(5, 2)].integerValue) {
                             if ([className isEqualToString:@"MyDate"]) {
-                                    [self.onDateArr addObject:model];
-                                    [self.dateTableView reloadData];
+                                [self.onDateArr addObject:model];
+                                //[self.dateTableView reloadData];
                             }else{
-                                    [self.onPartyArr addObject:model];
-                                    [self.partyTableView reloadData];
+                                [self.onPartyArr addObject:model];
+                                //[self.partyTableView reloadData];
                             }
                         }else if ([self.date substringWithRange:NSMakeRange(5, 2)].integerValue == [model.dateTime substringWithRange:NSMakeRange(5, 2)].integerValue && [self.date substringWithRange:NSMakeRange(8, 2)].integerValue < [model.dateTime substringWithRange:NSMakeRange(8, 2)].integerValue){
                             if ([className isEqualToString:@"MyDate"]) {
                                 [self.onDateArr addObject:model];
-                                [self.dateTableView reloadData];
+                               // [self.dateTableView reloadData];
                             }else{
                                 [self.onPartyArr addObject:model];
-                                [self.partyTableView reloadData];
+                               // [self.partyTableView reloadData];
                             }
                         }else if([[self.date substringToIndex:10] isEqualToString:[model.dateTime substringToIndex:10]] && [self.date substringWithRange:NSMakeRange(11, 2)].integerValue == [model.dateTime substringWithRange:NSMakeRange(12, 2)].integerValue && [self.date substringWithRange:NSMakeRange(14, 2)].integerValue <= [model.dateTime substringWithRange:NSMakeRange(17, 2)].integerValue){
                             if ([className isEqualToString:@"MyDate"]) {
                                 [self.onDateArr addObject:model];
-                                [self.dateTableView reloadData];
+                                //[self.dateTableView reloadData];
                             }else{
                                 [self.onPartyArr addObject:model];
-                                [self.partyTableView reloadData];
+                                //[self.partyTableView reloadData];
                             }
                         }else if([[self.date substringToIndex:10] isEqualToString:[model.dateTime substringToIndex:10]] && [self.date substringWithRange:NSMakeRange(11, 2)].integerValue < [model.dateTime substringWithRange:NSMakeRange(12, 2)].integerValue){
                             if ([className isEqualToString:@"MyDate"]) {
                                 [self.onDateArr addObject:model];
-                                [self.dateTableView reloadData];
+                                //[self.dateTableView reloadData];
                             }else{
                                 [self.onPartyArr addObject:model];
-                                [self.partyTableView reloadData];
+                               // [self.partyTableView reloadData];
                             }
                         }else{
                             if ([className isEqualToString:@"MyDate"]) {
                                 [self.passDateArr addObject:model];
-                                [self.dateTableView reloadData];
+                               // [self.dateTableView reloadData];
                             }else{
                                 [self.passPartyArr addObject:model];
-                                [self.partyTableView reloadData];
+                               // [self.partyTableView reloadData];
                             }
+                        }
+                        if (self.onDateArr.count == 0 && self.passDateArr.count == 0) {
+                            [SVProgressHUD dismiss];
+                            [self showAlertViewWithMessage:@"抱歉，没有相关约会信息!"];
+                        }else{
+                            [self.dateTableView reloadData];
+                            [SVProgressHUD dismiss];
+                        }
+                        if (self.onPartyArr.count == 0 && self.passPartyArr.count == 0) {
+                            [SVProgressHUD dismiss];
+                            [self showAlertViewWithMessage:@"抱歉，没有相关聚会信息!"];
+                        }else{
+                            [self.partyTableView reloadData];
+                            [SVProgressHUD dismiss];
                         }
                 });
             }
         }
     }];
 }
+
+- (void)showAlertViewWithMessage:(NSString *)message
+{
+    UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    // 1秒后回收
+    [self performSelector:@selector(dismissAlertView:) withObject:alertView afterDelay:1.5];
+    [self presentViewController:alertView animated:YES completion:nil];
+}
+- (void)dismissAlertView:(UIAlertController *)alertView
+{
+    [alertView dismissViewControllerAnimated:YES completion:nil];
+}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
 }
