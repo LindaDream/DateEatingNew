@@ -62,6 +62,7 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
 - (void)viewWillAppear:(BOOL)animated{
 
     [super viewWillAppear:animated];
+    self.funnyTableView.userInteractionEnabled = YES;
     // 接收加号按钮点击通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dateView:) name:@"DateButtonClicked" object:nil];
     [self getAllFunny];
@@ -86,8 +87,10 @@ static NSString *const funnyNoImgCellId = @"funnyNoImgCellId";
     NSDictionary *userInfo = [notification userInfo];
     NSNumber *num = [userInfo objectForKey:@"isClicked"];
     if (num.boolValue) {
+        self.funnyTableView.userInteractionEnabled = NO;
         [self addDateBtnAndPartyBtn];
     }else{
+        self.funnyTableView.userInteractionEnabled = YES;
         [self removeDateBtnAndPartyBtn];
     }
 }

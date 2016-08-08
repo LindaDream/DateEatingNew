@@ -55,6 +55,7 @@ static NSString *const listCellIdentifier = @"listCell";
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    self.meTableView.userInteractionEnabled = YES;
     // 接收加号按钮点击通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dateView:) name:@"DateButtonClicked" object:nil];
     if ([AVUser currentUser]) {

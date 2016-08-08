@@ -85,6 +85,7 @@ static NSString *const cityCellId = @"cityCellId";
 @implementation YEssenceViewController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    self.managerView.userInteractionEnabled = YES;
     // 接收加号按钮点击通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dateView:) name:@"DateButtonClicked" object:nil];
     // 注册消息回调

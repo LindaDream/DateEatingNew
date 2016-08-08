@@ -66,6 +66,7 @@
     [self.button removeFromSuperview];
 }
 - (void)viewWillAppear:(BOOL)animated {
+    self.scrollView.userInteractionEnabled = YES;
     // 接收加号按钮点击通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dateView:) name:@"DateButtonClicked" object:nil];
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(15, 7, 50, 30)];

@@ -10,6 +10,7 @@
 #import "YAttentionViewCell.h"
 #import "YRestaurantListModel.h"
 #import "YRestaurantDetailViewController.h"
+#import <SVProgressHUD.h>
 @interface YAttentionListViewController ()
 @property(strong,nonatomic)NSMutableArray *dataArray;
 @property(strong,nonatomic)NSMutableArray *imgArray;
@@ -23,8 +24,25 @@ static NSString *const attentionCellIdentifier = @"attentionCell";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"我的关注";
+    UIButton *bankButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [bankButton setTitle:@"返回" forState:(UIControlStateNormal)];
+    [bankButton setImage:[UIImage imageNamed:@"navigationButtonReturnClick"] forState:(UIControlStateNormal)];
+    [bankButton setImage:[UIImage imageNamed:@"navigationButtonReturn"] forState:(UIControlStateHighlighted)];
+    bankButton.size = CGSizeMake(70, 30);
+    bankButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;// 使按钮内部的所有内容左对齐
+    [bankButton setTitleColor:[UIColor colorWithRed:243/255.0 green:32/255.0 blue:37/255.0 alpha:1] forState:(UIControlStateNormal)];
+    bankButton.contentEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+    
+    [bankButton addTarget:self action:@selector(back) forControlEvents:(UIControlEventTouchUpInside)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bankButton];
     [self.tableView registerNib:[UINib nibWithNibName:@"YAttentionViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:attentionCellIdentifier];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [SVProgressHUD showWithMaskType:(SVProgressHUDMaskTypeClear)];
+}
+- (void)back{
+    [SVProgressHUD dismiss];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark--查找数据--
 - (void)getData{
@@ -33,23 +51,41 @@ static NSString *const attentionCellIdentifier = @"attentionCell";
     AVQuery *query = [AVQuery queryWithClassName:@"MyAttention"];
     [query whereKey:@"userName" equalTo:[AVUser currentUser].username];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        for (AVObject *obj in objects) {
-            NSDictionary *dict = [NSDictionary new];
-            dict = [obj dictionaryForObject];
-            YRestaurantListModel *model = [YRestaurantListModel new];
-            model.name = [dict objectForKey:@"name"];
-            model.avgPrice = [dict objectForKey:@"avgPrice"];
-            model.regionsStr = [dict objectForKey:@"address"];
-            model.categoriesStr = [dict objectForKey:@"type"];
-            model.caterUserCount = [[dict objectForKey:@"count"] integerValue];
-            model.businessId = [dict objectForKey:@"businessId"];
-            model.sPhotoUrl = [dict objectForKey:@"headImg"];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.dataArray addObject:model];
-                [self.tableView reloadData];
-            });
+        if (objects.count != 0) {
+            for (AVObject *obj in objects) {
+                NSDictionary *dict = [NSDictionary new];
+                dict = [obj dictionaryForObject];
+                YRestaurantListModel *model = [YRestaurantListModel new];
+                model.name = [dict objectForKey:@"name"];
+                model.avgPrice = [dict objectForKey:@"avgPrice"];
+                model.regionsStr = [dict objectForKey:@"address"];
+                model.categoriesStr = [dict objectForKey:@"type"];
+                model.caterUserCount = [[dict objectForKey:@"count"] integerValue];
+                model.businessId = [dict objectForKey:@"businessId"];
+                model.sPhotoUrl = [dict objectForKey:@"headImg"];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.dataArray addObject:model];
+                    [self.tableView reloadData];
+                    [SVProgressHUD dismiss];
+                });
+            }
+        }else{
+            [SVProgressHUD dismiss];
+            [self showAlertViewWithMessage:@"您还没有关注餐厅，快去关注吧!"];
         }
     }];
+}
+- (void)showAlertViewWithMessage:(NSString *)message
+{
+    UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    // 1秒后回收
+    [self performSelector:@selector(dismissAlertView:) withObject:alertView afterDelay:1.5];
+    [self presentViewController:alertView animated:YES completion:nil];
+}
+- (void)dismissAlertView:(UIAlertController *)alertView
+{
+    [alertView dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -102,14 +138,23 @@ static NSString *const attentionCellIdentifier = @"attentionCell";
         // 删除关注的数据
         // 执行 CQL 语句实现删除一个 MyAttention 对象
         NSString *object = [[NSUserDefaults standardUserDefaults] objectForKey:model.name];
-        [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"delete from MyAttention where objectId='%@'",object] callback:^(AVCloudQueryResult *result, NSError *error) {
-            NSLog(@"删除成功");
-        }];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:model.name];
-        [self.dataArray removeObject:model];
-        // 删除UI
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView reloadData];
+        if (object != nil) {
+            [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"delete from MyAttention where objectId='%@'",object] callback:^(AVCloudQueryResult *result, NSError *error) {
+                if (nil != error) {
+                    NSLog(@"删除成功");
+                }else{
+                    NSLog(@"result = %@",result.results);
+                    NSLog(@"error = %ld",error.code);
+                }
+            }];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:model.name];
+            // 删除UI
+            [self.dataArray removeObject:model];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView reloadData];
+        }else{
+            [self showAlertViewWithMessage:@"服务器错误，请稍后重试"];
+        }
     }
 }
 

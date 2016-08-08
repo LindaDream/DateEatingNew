@@ -46,7 +46,7 @@ static NSString *const dateOrPartyCellIdentifier = @"dateOrPartyCell";
     // 获取当前时间
     self.date = nil;
     NSDateFormatter *fomatter = [NSDateFormatter new];
-    [fomatter setDateFormat:@"YYYY-MM-dd hh:mm"];
+    [fomatter setDateFormat:@"YYYY-MM-dd HH:mm"];
     self.date = [fomatter stringFromDate:[NSDate date]];
     
     self.dateTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -126,61 +126,62 @@ static NSString *const dateOrPartyCellIdentifier = @"dateOrPartyCell";
                         if ([self.date substringWithRange:NSMakeRange(5, 2)].integerValue < [model.dateTime substringWithRange:NSMakeRange(5, 2)].integerValue) {
                             if ([className isEqualToString:@"MyDate"]) {
                                 [self.onDateArr addObject:model];
-                                //[self.dateTableView reloadData];
+                                [self.dateTableView reloadData];
                             }else{
                                 [self.onPartyArr addObject:model];
-                                //[self.partyTableView reloadData];
+                                [self.partyTableView reloadData];
                             }
                         }else if ([self.date substringWithRange:NSMakeRange(5, 2)].integerValue == [model.dateTime substringWithRange:NSMakeRange(5, 2)].integerValue && [self.date substringWithRange:NSMakeRange(8, 2)].integerValue < [model.dateTime substringWithRange:NSMakeRange(8, 2)].integerValue){
                             if ([className isEqualToString:@"MyDate"]) {
                                 [self.onDateArr addObject:model];
-                               // [self.dateTableView reloadData];
+                                [self.dateTableView reloadData];
                             }else{
                                 [self.onPartyArr addObject:model];
-                               // [self.partyTableView reloadData];
-                            }
-                        }else if([[self.date substringToIndex:10] isEqualToString:[model.dateTime substringToIndex:10]] && [self.date substringWithRange:NSMakeRange(11, 2)].integerValue == [model.dateTime substringWithRange:NSMakeRange(12, 2)].integerValue && [self.date substringWithRange:NSMakeRange(14, 2)].integerValue <= [model.dateTime substringWithRange:NSMakeRange(17, 2)].integerValue){
-                            if ([className isEqualToString:@"MyDate"]) {
-                                [self.onDateArr addObject:model];
-                                //[self.dateTableView reloadData];
-                            }else{
-                                [self.onPartyArr addObject:model];
-                                //[self.partyTableView reloadData];
+                                [self.partyTableView reloadData];
                             }
                         }else if([[self.date substringToIndex:10] isEqualToString:[model.dateTime substringToIndex:10]] && [self.date substringWithRange:NSMakeRange(11, 2)].integerValue < [model.dateTime substringWithRange:NSMakeRange(12, 2)].integerValue){
                             if ([className isEqualToString:@"MyDate"]) {
                                 [self.onDateArr addObject:model];
-                                //[self.dateTableView reloadData];
+                                [self.dateTableView reloadData];
                             }else{
                                 [self.onPartyArr addObject:model];
-                               // [self.partyTableView reloadData];
+                                [self.partyTableView reloadData];
+                            }
+                        }else if([[self.date substringToIndex:10] isEqualToString:[model.dateTime substringToIndex:10]] && [self.date substringWithRange:NSMakeRange(11, 2)].integerValue == [model.dateTime substringWithRange:NSMakeRange(12, 2)].integerValue && [self.date substringWithRange:NSMakeRange(14, 2)].integerValue < [model.dateTime substringWithRange:NSMakeRange(17, 2)].integerValue){
+                            if ([className isEqualToString:@"MyDate"]) {
+                                [self.onDateArr addObject:model];
+                                [self.dateTableView reloadData];
+                            }else{
+                                [self.onPartyArr addObject:model];
+                                [self.partyTableView reloadData];
                             }
                         }else{
                             if ([className isEqualToString:@"MyDate"]) {
                                 [self.passDateArr addObject:model];
-                               // [self.dateTableView reloadData];
+                                [self.dateTableView reloadData];
                             }else{
                                 [self.passPartyArr addObject:model];
-                               // [self.partyTableView reloadData];
+                                [self.partyTableView reloadData];
                             }
                         }
                         if (self.onDateArr.count == 0 && self.passDateArr.count == 0) {
                             [SVProgressHUD dismiss];
                             [self showAlertViewWithMessage:@"抱歉，没有相关约会信息!"];
                         }else{
-                            [self.dateTableView reloadData];
                             [SVProgressHUD dismiss];
                         }
                         if (self.onPartyArr.count == 0 && self.passPartyArr.count == 0) {
                             [SVProgressHUD dismiss];
                             [self showAlertViewWithMessage:@"抱歉，没有相关聚会信息!"];
                         }else{
-                            [self.partyTableView reloadData];
                             [SVProgressHUD dismiss];
                         }
                 });
             }
-        }
+            }else{
+                [SVProgressHUD dismiss];
+                [self showAlertViewWithMessage:@"抱歉，您还没有发起任何约会和聚会!"];
+            }
     }];
 }
 
@@ -269,16 +270,18 @@ static NSString *const dateOrPartyCellIdentifier = @"dateOrPartyCell";
         // 执行 CQL 语句实现删除一个 MyAttention 对象
         NSString *object = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@Date%@",[AVUser currentUser].username,model.creatAt]];
         [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"delete from MyDate where objectId='%@'",object] callback:^(AVCloudQueryResult *result, NSError *error) {
-            if (nil== error) {
-                [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@Date%@",[AVUser currentUser].username,model.creatAt]];
+            if (nil == error) {
                 NSLog(@"删除成功");
             }else{
+                NSLog(@"删除失败");
                 NSLog(@"error = %ld",error.code);
             }
         }];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@Date%@",[AVUser currentUser].username,model.creatAt]];
         [self.passDateArr removeObject:model];
-        // 删除UI
+            // 删除UI
         [self.dateTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.dateTableView reloadData];
     }else{
         NSIndexPath *indexPath = [self.partyTableView indexPathForCell:cell];
         YDateContentModel *model = self.passPartyArr[indexPath.row];
@@ -286,12 +289,18 @@ static NSString *const dateOrPartyCellIdentifier = @"dateOrPartyCell";
         // 执行 CQL 语句实现删除一个 MyAttention 对象
         NSString *object = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@Party%@",[AVUser currentUser].username,model.creatAt]];
         [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"delete from MyParty where objectId='%@'",object] callback:^(AVCloudQueryResult *result, NSError *error) {
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@Party%@",[AVUser currentUser].username,model.creatAt]];
-            NSLog(@"删除成功");
+            if (nil == error) {
+                NSLog(@"删除成功");
+            }else{
+                NSLog(@"删除失败");
+                NSLog(@"error = %ld",error.code);
+            }
         }];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@Party%@",[AVUser currentUser].username,model.creatAt]];
         [self.passPartyArr removeObject:model];
-        // 删除UI
+            // 删除UI
         [self.partyTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.partyTableView reloadData];
     }
 }
 
