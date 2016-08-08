@@ -82,8 +82,20 @@
     [self addSubView];
     [self setUpData];
     self.isOnce = NO;
+    UIButton *backBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    backBtn.frame = CGRectMake(10, 10, 50, 40);
+    [backBtn setTitle:@"<返回" forState:(UIControlStateNormal)];
+    [backBtn setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
+    [backBtn addTarget:self action:@selector(tagClick) forControlEvents:(UIControlEventTouchUpInside)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     
 }
+
+- (void)tagClick{
+    [SVProgressHUD dismiss];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
