@@ -63,16 +63,16 @@ static NSString *const attentionCellIdentifier = @"attentionCell";
                 model.caterUserCount = [[dict objectForKey:@"count"] integerValue];
                 model.businessId = [dict objectForKey:@"businessId"];
                 model.sPhotoUrl = [dict objectForKey:@"headImg"];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.dataArray addObject:model];
-                    [self.tableView reloadData];
-                    [SVProgressHUD dismiss];
-                });
+                [self.dataArray addObject:model];
             }
         }else{
             [SVProgressHUD dismiss];
             [self showAlertViewWithMessage:@"您还没有关注餐厅，快去关注吧!"];
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            [SVProgressHUD dismiss];
+        });
     }];
 }
 - (void)showAlertViewWithMessage:(NSString *)message

@@ -295,13 +295,13 @@ static NSString *const restaurantCellIdentifier = @"restaurantCell";
         NSLog(@"%@",self.nameStr);
         [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"delete from MyAttention where objectId='%@'",self.object] callback:^(AVCloudQueryResult *result, NSError *error) {
             if (result.results != nil) {
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.nameStr];
+                self.isAttented = YES;
                 NSLog(@"删除成功");
             }else{
                 NSLog(@"error = %ld",error.code);
             }
         }];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.nameStr];
-        self.isAttented = YES;
     }
 }
 - (void)didReceiveMemoryWarning {
