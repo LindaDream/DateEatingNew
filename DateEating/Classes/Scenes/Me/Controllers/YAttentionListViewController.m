@@ -140,18 +140,20 @@ static NSString *const attentionCellIdentifier = @"attentionCell";
         NSString *object = [[NSUserDefaults standardUserDefaults] objectForKey:model.name];
         if (object != nil) {
             [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"delete from MyAttention where objectId='%@'",object] callback:^(AVCloudQueryResult *result, NSError *error) {
-                if (nil != error) {
+                if (nil != result.results) {
+                    [[NSUserDefaults standardUserDefaults] removeObjectForKey:model.name];
+                    // 删除UI
+                    [self.dataArray removeObject:model];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                        [self.tableView reloadData];
+                    });
                     NSLog(@"删除成功");
                 }else{
                     NSLog(@"result = %@",result.results);
                     NSLog(@"error = %ld",error.code);
                 }
             }];
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:model.name];
-            // 删除UI
-            [self.dataArray removeObject:model];
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [self.tableView reloadData];
         }else{
             [self showAlertViewWithMessage:@"服务器错误，请稍后重试"];
         }

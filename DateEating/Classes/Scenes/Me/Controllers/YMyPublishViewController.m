@@ -270,18 +270,20 @@ static NSString *const dateOrPartyCellIdentifier = @"dateOrPartyCell";
         // 执行 CQL 语句实现删除一个 MyAttention 对象
         NSString *object = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@Date%@",[AVUser currentUser].username,model.creatAt]];
         [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"delete from MyDate where objectId='%@'",object] callback:^(AVCloudQueryResult *result, NSError *error) {
-            if (nil == error) {
+            if (result.results != nil) {
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@Date%@",[AVUser currentUser].username,model.creatAt]];
+                [self.passDateArr removeObject:model];
+                // 删除UI
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.dateTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    [self.dateTableView reloadData];
+                });
                 NSLog(@"删除成功");
             }else{
                 NSLog(@"删除失败");
                 NSLog(@"error = %ld",error.code);
             }
         }];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@Date%@",[AVUser currentUser].username,model.creatAt]];
-        [self.passDateArr removeObject:model];
-            // 删除UI
-        [self.dateTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self.dateTableView reloadData];
     }else{
         NSIndexPath *indexPath = [self.partyTableView indexPathForCell:cell];
         YDateContentModel *model = self.passPartyArr[indexPath.row];
@@ -289,18 +291,20 @@ static NSString *const dateOrPartyCellIdentifier = @"dateOrPartyCell";
         // 执行 CQL 语句实现删除一个 MyAttention 对象
         NSString *object = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@Party%@",[AVUser currentUser].username,model.creatAt]];
         [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"delete from MyParty where objectId='%@'",object] callback:^(AVCloudQueryResult *result, NSError *error) {
-            if (nil == error) {
+            if (result.results != nil) {
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@Party%@",[AVUser currentUser].username,model.creatAt]];
+                [self.passPartyArr removeObject:model];
+                // 删除UI
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.partyTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    [self.partyTableView reloadData];
+                });
                 NSLog(@"删除成功");
             }else{
                 NSLog(@"删除失败");
                 NSLog(@"error = %ld",error.code);
             }
         }];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@Party%@",[AVUser currentUser].username,model.creatAt]];
-        [self.passPartyArr removeObject:model];
-            // 删除UI
-        [self.partyTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self.partyTableView reloadData];
     }
 }
 
