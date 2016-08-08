@@ -82,16 +82,22 @@
     [self addSubView];
     [self setUpData];
     self.isOnce = NO;
-    UIButton *backBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    backBtn.frame = CGRectMake(10, 10, 50, 40);
-    [backBtn setTitle:@"<返回" forState:(UIControlStateNormal)];
-    [backBtn setTitleColor:[UIColor redColor] forState:(UIControlStateNormal)];
-    [backBtn addTarget:self action:@selector(tagClick) forControlEvents:(UIControlEventTouchUpInside)];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    
+    UIButton *bankButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [bankButton setTitle:@"返回" forState:(UIControlStateNormal)];
+    [bankButton setImage:[UIImage imageNamed:@"navigationButtonReturnClick"] forState:(UIControlStateNormal)];
+    [bankButton setImage:[UIImage imageNamed:@"navigationButtonReturn"] forState:(UIControlStateHighlighted)];
+    bankButton.size = CGSizeMake(70, 30);
+    bankButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;// 使按钮内部的所有内容左对齐
+    [bankButton setTitleColor:[UIColor colorWithRed:243/255.0 green:32/255.0 blue:37/255.0 alpha:1] forState:(UIControlStateNormal)];
+    bankButton.contentEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+    
+    [bankButton addTarget:self action:@selector(back) forControlEvents:(UIControlEventTouchUpInside)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bankButton];
     
 }
 
-- (void)tagClick{
+- (void)back{
     [SVProgressHUD dismiss];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -341,7 +347,7 @@
 
 - (void)actionCollection:(UIBarButtonItem *)button
 {
-    
+    _collectionBtn.enabled = NO;
     AVObject *object = [AVObject objectWithClassName:@"MyMealCollection"];
     
     AVQuery *query = [AVQuery queryWithClassName:@"MyMealCollection"];
@@ -363,6 +369,7 @@
                         [[NSUserDefaults standardUserDefaults] setObject:object.objectId forKey:self.ID];
                         self.isCollection = @"已收藏";
                         [_collectionBtn setImage:[UIImage imageNamed:@"已收藏"]];
+                        _collectionBtn.enabled = YES;
                     }
                     
                 }];
@@ -370,13 +377,24 @@
                 // 删除收藏的数据
                 // 执行 CQL 语句实现删除一个 MyAttention 对象
                 self.objId = [[NSUserDefaults standardUserDefaults] objectForKey:self.ID];
-                [AVQuery doCloudQueryInBackgroundWithCQL:[NSString stringWithFormat:@"delete from MyMealCollection where objectId='%@'",self.objId] callback:^(AVCloudQueryResult *result, NSError *error) {
-                    [self showAlertViewWithMessage:(@"取消收藏成功")];
-                    [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.ID];
-                    self.isCollection = @"未收藏";
-                    [_collectionBtn setImage:[UIImage imageNamed:@"favorite"]];
-                }];
-                
+                if (self.objId != nil) {
+                    NSString *CQL = [NSString stringWithFormat:@"delete from MyMealCollection where objectId='%@'",self.objId];
+                    [AVQuery doCloudQueryInBackgroundWithCQL:CQL callback:^(AVCloudQueryResult *result, NSError *error) {
+                        if (result.results != nil) {
+                            [self showAlertViewWithMessage:(@"取消收藏成功")];
+                            [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.ID];
+                            self.isCollection = @"未收藏";
+                            [_collectionBtn setImage:[UIImage imageNamed:@"favorite"]];
+                            _collectionBtn.enabled = YES;
+                        }else{
+                            [self showAlertViewWithMessage:@"取消收藏失败"];
+                            _collectionBtn.enabled = YES;
+                        }
+                    }];
+                }else{
+                    [self showAlertViewWithMessage:@"取消收藏失败"];
+                    _collectionBtn.enabled = YES;
+                }
             }
         }];
 }
