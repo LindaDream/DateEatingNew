@@ -15,6 +15,8 @@
 
 - (void)userImageDidTap:(NSInteger)userId;
 
+- (void)showReport;
+
 @end
 
 @interface YChatTableViewCell : UITableViewCell

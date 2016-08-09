@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "YContent.h"
 
+@protocol YContentTableViewCellDelegate <NSObject>
+
+- (void)showReport;
+
+@end
+
 @interface YContentTableViewCell : UITableViewCell
 
 @property (strong,nonatomic) YContent *content;
@@ -21,7 +27,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
-
+@property (weak,nonatomic) id<YContentTableViewCellDelegate> delegate;
 
 + (CGFloat)cellHeight:(YContent *)content;
 

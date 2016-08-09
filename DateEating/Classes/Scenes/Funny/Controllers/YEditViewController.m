@@ -181,7 +181,6 @@ static NSString *const imageCellId = @"imageCellId";
         [funnyObject setObject:funny.publishName forKey:@"publishName"];
         [funnyObject setObject:funny.publishContent forKey:@"publishContent"];
         [funnyObject setObject:funny.publishTime forKey:@"publishTime"];
-        
         if (self.photoArray.count > 0) {
             for (int i = 0; i < self.photoArray.count; i++) {
                 NSData *data = UIImageJPEGRepresentation(self.photoArray[i], 1.0);

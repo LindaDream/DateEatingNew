@@ -15,6 +15,11 @@
 - (void)awakeFromNib {
     
 }
+- (IBAction)reportAction:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(showReport)]) {
+        [self.delegate showReport];
+    }
+}
 
 - (void)setContent:(YContent *)content{
 

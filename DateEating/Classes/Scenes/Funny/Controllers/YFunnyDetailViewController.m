@@ -16,7 +16,7 @@
 
 #define kContentLabelWith kWidth - 28
 
-@interface YFunnyDetailViewController ()<SDCycleScrollViewDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate,UIScrollViewDelegate,YFaceViewDelegate>
+@interface YFunnyDetailViewController ()<SDCycleScrollViewDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate,UIScrollViewDelegate,YFaceViewDelegate,YContentTableViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *publishName;
 
@@ -24,6 +24,7 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
+@property (weak, nonatomic) IBOutlet UIButton *reportBtn;
 
 @property (weak, nonatomic) IBOutlet UITableView *contentTableView;
 
@@ -76,24 +77,24 @@ static NSString *const contentCellId = @"contentCellId";
     
     // 注册cell
     [self.contentTableView registerNib:[UINib nibWithNibName:@"YContentTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:contentCellId];
-    
-    // 注册输入框通知中心
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(upWithKeyBoard) name:UITextFieldTextDidBeginEditingNotification object:self.contentTextField];
+
     // 注册键盘出现通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardShow:) name:UIKeyboardWillShowNotification object:nil];
-    // 注册键盘隐藏通知
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardHide:) name:UIKeyboardWillHideNotification object:nil];
-    
-    
-    
 }
 
 #pragma mark--点击输入框代理方法--
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
-
-    
-    
 }
+
+// 详情页举报按钮
+- (IBAction)reportAction:(id)sender {
+    [self showAlertViewWithMessage:@"举报成功，我们将尽快处理！"];
+}
+// 评论举报按钮
+- (void)showReport{
+    [self showAlertViewWithMessage:@"举报成功，我们将尽快处理！"];
+}
+
 
 #pragma mark--键盘通知方法--
 - (void)keyBoardShow:(NSNotification *)notification{
@@ -154,6 +155,7 @@ static NSString *const contentCellId = @"contentCellId";
     self.contentScorllView.delegate = self;
     self.avatarImageView.frame = CGRectMake(14, 16, 40, 40);
     self.publishName.frame = CGRectMake(77, 25, 300, 21);
+    self.reportBtn.frame = CGRectMake(kWidth - 10 - 30, 25, 30, 30);
     self.contentLabel.frame = CGRectMake(14, 64, kContentLabelWith, h);
     self.contentLabel.numberOfLines = 0;
     
@@ -373,6 +375,7 @@ static NSString *const contentCellId = @"contentCellId";
     YContent *content = self.contentArr[indexPath.row];
     YContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:contentCellId forIndexPath:indexPath];
     cell.content = content;
+    cell.delegate = self;
     return cell;
     
 }

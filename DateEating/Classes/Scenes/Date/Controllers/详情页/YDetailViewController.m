@@ -381,6 +381,10 @@
     }
 }
 
+- (void)showReport{
+    [self showAlertViewWithMessage:@"举报成功，我们将尽快处理！"];
+}
+
 - (void)textFieldTextDidChange {
     if (self.message.text.length == 0 ) {
         [self.sendBtn setBackgroundColor:YRGBColor(180, 180, 180)];

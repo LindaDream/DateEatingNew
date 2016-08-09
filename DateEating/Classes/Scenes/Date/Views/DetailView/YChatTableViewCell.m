@@ -25,6 +25,11 @@
 - (void)awakeFromNib {
     // Initialization code
 }
+- (IBAction)reportAction:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(showReport)]) {
+        [self.delegate showReport];
+    }
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

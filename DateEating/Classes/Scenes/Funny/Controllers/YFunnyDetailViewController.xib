@@ -16,6 +16,7 @@
                 <outlet property="editContentView" destination="g1V-ZL-YMK" id="AtA-jJ-W3f"/>
                 <outlet property="pinglunLabel" destination="Ve3-LM-38Z" id="aDA-o6-Yla"/>
                 <outlet property="publishName" destination="J89-aY-8ws" id="EMg-2p-92N"/>
+                <outlet property="reportBtn" destination="0ww-Qa-5K1" id="fJW-Hb-n7b"/>
                 <outlet property="scrollView" destination="ciQ-1d-jnE" id="42R-kH-kyL"/>
                 <outlet property="sendContentBtn" destination="F27-2d-MyD" id="FDa-5B-Pb1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -78,6 +79,16 @@
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0ww-Qa-5K1">
+                                    <rect key="frame" x="370" y="21" width="30" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="举报">
+                                        <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="reportAction:" destination="-1" eventType="touchUpInside" id="H8b-V4-sDc"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
